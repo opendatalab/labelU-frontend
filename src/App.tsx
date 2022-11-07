@@ -1,12 +1,24 @@
 import React, { useState} from 'react';
 import './App.css';
-// import 'antd/dist/antd.css';
-import { Button, Input  } from 'antd'
+import Login from './pages/login/index';
 import commonController from "./utils/common";
 import { data } from './utils/data';
 import Family from './components/family';
 
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Router
+} from 'react-router-dom'
+
 import Test from './components/test';
+
+const router = createBrowserRouter([
+  {
+    path : '/',
+    element : <Login />
+  }
+])
 
 const App = ()=>{
   const [currentDatas, setCurrentDatas] = useState(data);
@@ -45,19 +57,7 @@ const App = ()=>{
     }
   }
   return (
-    <div>
-      <Test></Test>
-      {/*<div className = 'outerFrame'>*/}
-      {/*  <div className = "searchRow">*/}
-      {/*    <Input placeholder = '请输入称呼'*/}
-      {/*           style = {{flex : '1',width : '400px', height : '40px', marginRight : '20px'}}*/}
-      {/*        onChange = {commonController.debounce(changeInput,1000)}*/}
-      {/*    ></Input>*/}
-      {/*    <Button type = 'primary' size = {'large'} onClick={commonController.debounce(searchDatas,1000)}>查询</Button>*/}
-      {/*  </div>*/}
-      {/*  <Family datas = {currentDatas} deleteBranch={deleteBranch} key = {new Date().getTime()}></Family>*/}
-      {/*</div>*/}
-    </div>
+    <RouterProvider router={router}/>
   );
 }
 
