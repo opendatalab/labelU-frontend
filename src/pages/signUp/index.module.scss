@@ -1,0 +1,5 @@
+@import '../../utils/common/common.scss';
+.outerFrame{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+}

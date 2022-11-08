@@ -1,0 +1,17 @@
+
+.displayFlex{
+  display:flex;
+  display:-moz-flex;
+  display:-webkit-flex;
+  display:-ms-flex;
+}
+.flexDirectionColumn{
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.flexDirectionRow{
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
