@@ -1,0 +1,9 @@
+@import '../../utils/common/common.module';
+.outerFrame{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  justify-content: flex-start;
+  align-items: center;
+  height : calc(100vh - 56px);
+  width : 100%;
+}

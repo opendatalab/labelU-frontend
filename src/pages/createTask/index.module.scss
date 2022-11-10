@@ -1,0 +1,22 @@
+@import "../../utils/common/common.module";
+.outerFrame{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  width: 288px;
+  height: 220px;
+
+  background: #FBFCFF;
+  border: 1px dashed #D0DFFF;
+  border-radius: 8px;
+}
+
+.createTaskIcon{
+  background-image: url('../../assets/png/createTask.png');
+  background-repeat: no-repeat;
+  width : 56px;
+  height : 56px;
+}
+
+.createTask{
+
+}
