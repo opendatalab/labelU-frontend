@@ -12,7 +12,6 @@ const NullTask = ()=>{
                 新建任务
             </div>
         </div>
-
     </div>)
 }
 export  default NullTask;

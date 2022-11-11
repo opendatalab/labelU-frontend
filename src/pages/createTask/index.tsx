@@ -5,10 +5,15 @@ const CreateTask = ()=>{
         alert('createTask')
     }
     return (<div className = {currentStyles.outerFrame}>
-        <div className = {currentStyles.createTaskIcon}></div>
-        <div className = {currentStyles.createTask}
+        <div className = {currentStyles.createTaskButton}>
+            
+        </div>
+        <div className = {currentStyles.cards}
         onClick = {createTask}>
             新建任务
+        </div>
+        <div className = {currentStyles.pagination}>
+            分页
         </div>
     </div>)
 }
