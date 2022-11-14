@@ -31,6 +31,12 @@
   @extend .displayFlex;
   @extend .flexDirectionRow;
   @extend .flexDirectionRowWrap;
+  justify-content: space-around;
+}
+
+.stationSymbol{
+  flex : 0 1 auto;
+  width : 1px;
 }
 
 .pagination{
@@ -40,3 +46,4 @@
   align-items : center;
   width : 100%;
 }
+

@@ -18,6 +18,10 @@ const TaskList = ()=>{
             name : 'ha' + n
         })
     }
+    taskCards.push({
+        id : 'ji',
+        name : 'ha ji'
+    })
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.createTaskButtonRow}>
             <div className = {currentStyles.createTaskButton}>新建任务</div>
@@ -26,12 +30,18 @@ const TaskList = ()=>{
             {taskCards.map((cardInfo : any)=>{
                 return <TaskCard />
             })}
-            <div className = {currentStyles.pagination}>
-                <Pagination
-                    defaultCurrent={1}
-                    total={50}
-                />
-            </div>
+            {/*{*/}
+            {/*    taskCards.length > 0 && <div className = {currentStyles.stationSymbol}>*/}
+
+            {/*    </div>*/}
+            {/*}*/}
+
+        </div>
+        <div className = {currentStyles.pagination}>
+            <Pagination
+                defaultCurrent={1}
+                total={50}
+            />
         </div>
 
     </div>)
