@@ -5,6 +5,9 @@ import Homepage from '../pages/homepage';
 import TaskList from "../pages/taskList";
 import CreateTask from '../pages/createTask';
 import NullTask from '../pages/nullTask';
+import InputInfoConfig from '../pages/inputInfoConfig';
+import InputData from '../pages/inputData';
+import AnnotationConfig from '../pages/annotationConfig';
 import {
     createBrowserRouter
 } from 'react-router-dom';
@@ -27,7 +30,21 @@ export const router = createBrowserRouter([
             },
             {
                 path : 'createTask',
-                element : <CreateTask />
+                element : <CreateTask />,
+                children : [
+                    {
+                        path : 'inputInfoConfig',
+                        element : <InputInfoConfig />,
+                    },
+                    {
+                        path : 'inputData',
+                        element : <InputData />,
+                    },
+                    {
+                        path : 'annotationConfig',
+                        element : <AnnotationConfig />,
+                    },
+                ]
             },
             {
                 path : 'nullTask',
