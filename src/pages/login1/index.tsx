@@ -6,7 +6,8 @@ import LogoTitle from "../../components/logoTitle";
 const LoginPage = ()=>{
   return (<div className={currentStyles.outerFrame}>
     <LogoTitle />
-    <Login turnToSignUp = { Constants.urlTurnToSignUp }/>
+    <Login turnToSignUp = { Constants.urlTurnToSignUp }
+    turnToTaskList = { Constants.urlTurnToTaskList }/>
   </div>)
 }
 export default LoginPage;

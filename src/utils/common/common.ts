@@ -4,12 +4,25 @@ const CommonController = {
   checkLoginAndSignUp (params : any) {
 
   },
-  checkEmail () {
-
+  isEmail (value : string) {
+    let result = false;
+    let index = value.indexOf('@');
+    if(index > -1 && value.lastIndexOf('@') === index) {
+      result = true;
+    }
+    return result;
   },
-  checkPassword () {
-
+  isPassword (value : string) {
+    return value.length >= 6;
   },
+  isInputValueNull (targetValue : any) {
+    let result = true;
+    if (targetValue || !targetValue.trim()) {
+      result = false;
+    }
+    return result;
+  }
+  ,
   checkObjectHasUndefined (obj : any) {
     let result : any = {tag : false};
     for (let key in obj) {

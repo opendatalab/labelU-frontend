@@ -88,6 +88,11 @@ const AnnotationConfig: FC = () => {
     left: <span className="leftTabContent">标注配置</span>,
     right: <ConfigTemplate />
   };
+
+  const tijiao = ()=>{
+
+  }
+
   return (
     <div className="container">
       <div className="configBox">
@@ -135,6 +140,8 @@ const AnnotationConfig: FC = () => {
           )}
         </div>
       </div>
+
+      <div onClick = { tijiao }> 提交</div>
     </div>
   );
 };

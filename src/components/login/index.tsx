@@ -5,12 +5,14 @@ import { IdcardOutlined, LockOutlined } from '@ant-design/icons';
 import {Input} from "antd";
 import { Link } from 'react-router-dom'
 import CommonController from "../../utils/common/common";
-import { login } from '../../services/general';
+import { login as loginService } from '../../services/general';
+import { useNavigate } from 'react-router-dom';
 const Login = (props : any)=>{
-    const { turnToSignUp } = props;
+    const { turnToSignUp, turnToTaskList } = props;
     const [checkMessage, setCheckMessage] = useState<any>({});
     const [ email, setEmail ] = useState<any>(null);
     const [ password, setPassword ] = useState<any>(null);
+    const navigate = useNavigate();
     const changeEmail = (event:any)=>{
         let target = event.target.value;
         if(target !== undefined){
@@ -25,19 +27,26 @@ const Login = (props : any)=>{
             setPassword( target );
         }
     }
-    const loginController = ()=>{
-        let hasUndefined = CommonController.checkObjectHasUndefined({
-            email,
-            password
-        });
-        if (hasUndefined.tag) {
-            CommonController.notificationErrorMessage({msg : '请填写'+ hasUndefined.key}, 5);
-            return;
+    const loginController = async function (){
+        try{
+            let hasUndefined = CommonController.checkObjectHasUndefined({
+                username : email,
+                password
+            });
+            if (hasUndefined.tag) {
+                CommonController.notificationErrorMessage({msg : '请填写'+ hasUndefined.key}, 5);
+                return;
+            }
+            let token = await loginService({
+                username : email,
+                password
+            });
+            localStorage.setItem('token', token);
+            navigate( turnToTaskList );
+        }catch(error){
+
         }
-        login({
-            email,
-            password
-        });
+
 
     }
     return (<div className = { currentStyles.outerFrame } >

@@ -44,6 +44,7 @@ const InputInfoConfig = ()=>{
     const beforeUploadFolder = (value : any)=>{
         console.log(value);
         setCurrentPath(value.webkitRelativePath);
+        return false;
         if (flag) {
             return true;
         }else{

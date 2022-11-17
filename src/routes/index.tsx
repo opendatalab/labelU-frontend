@@ -6,8 +6,6 @@ import WrapperRouteComponent from './config';
 import { useRoutes } from 'react-router-dom';
 import AnnotationPage from '../pages/annotation';
 import AnnotationConfig from '../pages/annotationConfig';
-const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
-
 import Login1 from '../pages/login1/index';
 import SignUp from "../pages/signUp";
 import Homepage from '../pages/homepage';
@@ -16,7 +14,9 @@ import CreateTask from '../pages/createTask';
 import NullTask from '../pages/nullTask';
 import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
-import AnnotationConfig1 from '../pages/annotationConfig1';
+const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
+
+
 
 const routeList: RouteObject[] = [
   // {

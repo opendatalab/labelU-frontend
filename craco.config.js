@@ -12,8 +12,9 @@ module.exports = {
       components: resolve('src/components')
     },
     configure: (webpackConfig, { env, paths }) => {
-      webpackConfig.output.path = path.resolve(__dirname, '../server/public'); //ts和less编译后的文件
-      paths.appBuild = path.resolve(__dirname, '../server/public'); //public中的文件
+      // webpackConfig.output.path = path.resolve(__dirname, '../server/public'); //ts和less编译后的文件
+      webpackConfig.output.path = path.resolve(__dirname, '../labelU/labelu/internal/statics'); //ts和less编译后的文件
+      paths.appBuild = path.resolve(__dirname, '../labelU/labelu/internal/statics'); //public中的文件
       return webpackConfig;
     },
     plugins: [

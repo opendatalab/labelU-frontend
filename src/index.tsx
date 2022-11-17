@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './stores';
 import './styles/index.less';
-import './mock';
+// import './mock';
 import 'antd/dist/antd.css';
 // import 'virtual:svg-icons-register';
 

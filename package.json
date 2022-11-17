@@ -49,12 +49,11 @@
     "react-scripts": "^4.0.1",
     "recharts": "^2.0.0-beta.6",
     "rita-components": "0.1.4",
-    "typescript": "^4.1.2",
+    "typescript": "4.1.2",
     "web-vitals": "^1.0.1",
     "yaml": "^2.1.1"
   },
   "scripts": {
-    "install" : "npm install --registry=https://npm.shlab.tech/",
     "start": "vite",
     "buildv": "vite build",
     "build": "cross-env REACT_APP_ENV=production craco build",
@@ -82,6 +81,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "eslintConfig": {
+    "extends" : [
+      "react-app",
+      "react-app/jest"
+    ],
+    "parser" : "@typescript-eslint/parser"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.0",

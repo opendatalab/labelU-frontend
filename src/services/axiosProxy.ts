@@ -122,6 +122,19 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 // const axiosRequest = new Axios().init();
 // export default axiosRequest;
 
+const authorizationBearerSuccess = (config : any)=>{
+    let token = localStorage.token;
+    if(token){
+        config.headers.Authorization = localStorage.token;
+    }
+    return config;
+}
+
+const authorizationBearerFailed = (error : any)=>{
+
+    return Promise.reject(error);
+}
+
 const axiosProxy : { _instance : any, axiosInstance : AxiosInstance } = {
     _instance : undefined,
     get axiosInstance () {
@@ -129,6 +142,7 @@ const axiosProxy : { _instance : any, axiosInstance : AxiosInstance } = {
             this._instance = axios.create({
                 timeout: 60 * 1000,
             });
+            this._instance.interceptors.request.use(authorizationBearerSuccess, authorizationBearerFailed);
         }
         return this._instance;
     }

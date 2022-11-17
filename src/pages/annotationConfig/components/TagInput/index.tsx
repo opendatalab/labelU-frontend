@@ -73,13 +73,11 @@ const TagInput = (props: IProps) => {
               />
             </Tooltip>
             {!isAllReadOnly && (
-              // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a className="addIcon" onClick={() => addInputInfo(inputIndex)}>
                 <PlusCircleFilled />
               </a>
             )}
             {inputIndex > 0 && !isAllReadOnly && (
-              // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a
                 className="deleteIcon"
                 onClick={() => {
@@ -131,7 +129,6 @@ const TagInput = (props: IProps) => {
                   </Tooltip>
                 </div>
                 {arr.length > 1 && !isAllReadOnly && (
-                  // eslint-disable-next-line jsx-a11y/anchor-is-valid
                   <a
                     style={{
                       color: '#CCCCCC'

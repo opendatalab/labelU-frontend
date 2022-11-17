@@ -35,6 +35,7 @@ const App: React.FC = () => {
     }
   };
 
+
   return (
     <ConfigProvider locale={getAntdLocale()} componentSize="middle">
       <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
