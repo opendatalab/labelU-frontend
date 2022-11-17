@@ -26,11 +26,11 @@ const InputInfoConfig = ()=>{
         //
         // },)
     }
-
+    const [currentPath, setCurrentPath] = useState('./');
     const fileUploadProps = {
         action : '/api/v1/tasks/1/upload',
         // action : '',
-        data : { path : 1},
+        data : { path : currentPath},
         onChange : handleChange,
         multiple : true
     }
@@ -40,8 +40,10 @@ const InputInfoConfig = ()=>{
     }
 
     const [flag, setFlag] = useState(true);
+
     const beforeUploadFolder = (value : any)=>{
         console.log(value);
+        setCurrentPath(value.webkitRelativePath);
         if (flag) {
             return true;
         }else{

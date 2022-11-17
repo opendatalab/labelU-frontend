@@ -54,7 +54,7 @@
     "yaml": "^2.1.1"
   },
   "scripts": {
-    "install" : "npm install ",
+    "install" : "npm install --registry=https://npm.shlab.tech/",
     "start": "vite",
     "buildv": "vite build",
     "build": "cross-env REACT_APP_ENV=production craco build",
@@ -67,7 +67,19 @@
     "react"
   ],
   "homepage": "/",
-  "bugs":
+  "bugs": {
+    "url": "https://github.com/opendatalab/labelU.git",
+    "email": "751569801@qq.com"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
       "last 1 safari version"
     ]
   },
