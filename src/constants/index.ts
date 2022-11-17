@@ -1,4 +1,5 @@
 const Constatns = {
-    urlTurnToSignUp : '/signUp'
+    // urlTurnToSignUp : '/signUp'
+    urlTurnToSignUp : '/taskList/createTask'
 }
 export default Constatns;
