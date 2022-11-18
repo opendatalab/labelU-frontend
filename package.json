@@ -54,6 +54,7 @@
     "yaml": "^2.1.1"
   },
   "scripts": {
+    "install": "npm install --registry=https://npm.shlab.tech/",
     "start": "vite",
     "buildv": "vite build",
     "build": "cross-env REACT_APP_ENV=production craco build",

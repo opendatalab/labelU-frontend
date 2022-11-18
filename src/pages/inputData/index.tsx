@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import currentStyles from './index.module.scss';
 import { Upload, Form } from 'antd';
 import type { UploadProps } from 'antd';
-import { FileAddOutlined } from '@ant-design/icons';
+import { FileAddOutlined, FolderOpenOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
 const InputInfoConfig = ()=>{
     const [fileList, setFileList] = useState<UploadFile[]>([{
@@ -80,6 +80,7 @@ const InputInfoConfig = ()=>{
                             beforeUpload={beforeUploadFolder}
                                 // onChange={uploadFileChange}
                         >
+                            <FolderOpenOutlined />
                             上传文件夹
                         </Upload>
                     </div>
