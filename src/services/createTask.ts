@@ -16,13 +16,20 @@ const submitBasicConfig = async function (data : { name : string, description ?:
 
 const uploadFile = async function (taskId : number, params : any ){
     try {
+        let data = new FormData();
+        data.append('file', params.file);
+        // data.append('path', params.path, {});
         let res = await axiosInstance({
-            url : `/api/v1/tasks/${taskId}/upload`,
+            url : `http://localhost:4000/api/v1/tasks/${taskId}/upload`,
             headers : {
-              "Content-Type" : 'application/x-www-form-urlencoded',
+              // "Content-Type" : 'application/x-www-form-urlencoded',
+              "Content-Type" : 'multipart/form-data',
             },
             method : 'POST',
-            data : params
+            data : {
+                file : data,
+                path : './'
+            }
         });
         return res;
     }catch (e) {

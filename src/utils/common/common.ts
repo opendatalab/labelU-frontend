@@ -47,6 +47,20 @@ const CommonController = {
     if (error['self']) {
       message.error(error.msg, time);
     }
+  },
+  debounce(fn : any, delayTime : number){
+    let timer : any = null
+    return function(name : string) {
+      if(timer || timer == 0){
+        clearTimeout(timer)
+        timer = setTimeout(()=>fn(name),delayTime)
+      }else{
+        timer = setTimeout(()=>fn(name),delayTime)
+      }
+    }
+  },
+  reducer () {
+    // uploadFile().
   }
 }
 export default CommonController;

@@ -39,11 +39,15 @@
   width : calc(100% - 48px);
   margin-left : 24px;
   margin-right : 24px;
+  //height:calc(100vh - 230px);
+  //heigth:100%;
+  overflow-y: scroll;
 }
 
 .left{
-  flex : 1;
-  width : 458px;
+  //flex : 1;
+  //width : 458px;
+  width : 512px;
   @extend .displayFlex;
   @extend .flexDirectionColumn;
   justify-content: flex-start;
@@ -62,7 +66,7 @@
   margin-left : 16px;
   margin-top:16px;
   flex : 1;
-  width : 339px;
+  width : 354px;
   @extend .displayFlex;
   @extend .flexDirectionColumn;
   justify-content: flex-start;
@@ -70,6 +74,7 @@
   background: #FBFCFF;
   border: 1px dashed #D0DFFF;
   border-radius: 8px;
+  height : 354px;
 }
 .survey{
   background-image: url('../../assets/png/uploadSurvey.png');
@@ -82,5 +87,168 @@
   height : 15px;
 }
 .right{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  //flex : 1;
+  width : 918px;
+  //width : 100%;
+  height : calc(100vh - 230px);
+  overflow-y: scroll;
+
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  //border: 1px solid red;
+}
+.rightTitle{
+  width : 918px;
+  width : calc(100% - 24px);
   flex : 1;
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top:24px;
+  margin-left:24px;
+}
+.rightTitleLeft{
+  color: rgba(0, 0, 0, 0.72);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  margin-right: 8px;
+}
+
+.rightTitleRight{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.rightTitleRightHight{
+  color: #16b7ff;
+}
+.rightContent{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  justify-content: flex-start;
+  align-items: center;
+  width : 918px;
+  width : 100%;
+  flex : 1;
+  margin-top:16px;
+  margin-left:24px;
+  width : calc(100% - 24px);
+}
+.columnsName{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+  height: 50px;
+  line-height: 50px;
+  font-weight: 500;
+  font-size: 14px;
+}
+.item{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  line-height: 50px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+  overflow-y:scroll ;
+}
+.columnFileName{
+  width: 349px;
+  flex : 1;
+  margin-left:46px;
+  word-break: break-all;
+}
+.columnStatus{
+
+  width: 349px;
+  flex : 1;
+  margin-left:46px;
+
+}
+.columnOption{
+  width: 28px;
+  flex : 1;
+  color: #1B67FF;
+}
+.columnsContent{
+  height : calc(100vh - 354px);
+  overflow-y: scroll;
+}
+.buttons{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: center;
+  align-items: center;
+}
+.uploadFileButton{
+  width: 112px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  background: #1B67FF;
+  border-radius: 4px;
+  margin-right: 24px;
+  cursor : pointer;
+}
+
+.uploadFolderButton{
+  width: 112px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border: 1px solid #1B67FF;
+  border-radius: 4px;
+  font-color : #1b67ff;
+  cursor : pointer;
+}
+
+.illustration{
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.supportType{
+  margin-top : 24px;
+  width : 323px;
+  word-break: break-all;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  text-align: center;
+
+  /* 中性色/36% */
+
+  color: rgba(0, 0, 0, 0.36);
+}
+
+.advises{
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  /* identical to box height */
+
+  text-align: center;
+
+  /* 中性色/36% */
+  width : 323px;
+  color: rgba(0, 0, 0, 0.36);
+  margin-bottom: 24px;
 }
