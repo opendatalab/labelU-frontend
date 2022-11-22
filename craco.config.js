@@ -26,10 +26,10 @@ module.exports = {
           sourceMap: true,
           warnings: false,
           compress: {
-            toplevel: true,
-            drop_console: true,
+            toplevel: false,
+            drop_console: false,
             drop_debugger: false,
-            pure_funcs: ['console.log']
+            // pure_funcs: ['console.log']
             // pure_funcs:['console.log']
           }
         }

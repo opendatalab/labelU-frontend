@@ -46,9 +46,11 @@ const InputInfoConfig = ()=>{
         // setTimeout(()=>{
         //
         // },)
-        uploadFileService(1, {path : './', file : info.file  }).then((res)=>{
 
-        })
+        // uploadFileService(1, {path : './', file : info.file  }).then((res)=>{
+        //
+        // })
+
         // setAa("./");
     }
     const [currentPath, setCurrentPath] = useState('./');
@@ -92,6 +94,12 @@ const InputInfoConfig = ()=>{
             console.log('delete');
         }
     }];
+    const newCustomRequest = (info : any)=>{
+        console.log(info.file)
+        uploadFileService(1, {path : './', file : info.file  }).then((res)=>{
+
+        })
+    }
     const [folderFilePath, setFolderFilePath] = useState(1);
     const handleUploadFolderChange : UploadProps['onChange']  = (info)=>{
         let newFileList = [...info.fileList];
@@ -126,6 +134,7 @@ const InputInfoConfig = ()=>{
                                 onChange = { handleChange }
                                 multiple =  {true}
                                 showUploadList = {false}
+                                customRequest={ newCustomRequest }
                             >
                                 <FileAddOutlined style={{color : '#FFFFFF'}} />
                                 <div style = {{display : 'inline-block', color : '#FFFFFF'}}>上传文件</div>

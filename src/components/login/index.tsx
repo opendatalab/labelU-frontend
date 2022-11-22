@@ -34,17 +34,30 @@ const Login = (props : any)=>{
                 password
             });
             if (hasUndefined.tag) {
-                CommonController.notificationErrorMessage({msg : '请填写'+ hasUndefined.key}, 5);
+                CommonController.notificationErrorMessage({msg : hasUndefined.key}, 5);
                 return;
             }
-            let token = await loginService({
+            let checkUsername = CommonController.checkEmail(undefined, email);
+            if(!checkUsername){
+                return;
+            }
+            let checkPassword = CommonController.checkPassword(undefined, password);
+            if(!checkPassword){
+                return;
+            }
+            let res = await loginService({
                 username : email,
                 password
             });
+            if (res.status !== 200) {
+                CommonController.notificationErrorMessage(res.data,5);
+                return;
+            }
+            let token = res.data.data.token;
             localStorage.setItem('token', token);
             navigate( turnToTaskList );
         }catch(error){
-
+            CommonController.notificationErrorMessage(error, 1);
         }
 
 
@@ -58,26 +71,32 @@ const Login = (props : any)=>{
             prefix = {
                 <IdcardOutlined/>
             }
-            className = {'email'}/>
+            className = {'email'}
+            onBlur = {CommonController.debounce(CommonController.checkEmail, 500)}
+            // onPressEnter = {CommonController.debounce(CommonController.checkEmail, 1000)}
+            />
             <div className = {commonStyles.loginAndSignUpNotice}>
                 { checkMessage.email }
             </div>
         </div>
 
         <div className = {currentStyles.email_m} >
-            <Input
+            <Input.Password
                 placeholder = '密码'
                 onChange = { changePassword }
                 prefix = {
                     <LockOutlined/>
-                }/>
+                }
+                visibilityToggle = {false}
+                onBlur = {CommonController.debounce(CommonController.checkPassword, 500)}
+            />
             <div className = {commonStyles.loginAndSignUpNotice}>
                 { checkMessage.password }
             </div>
         </div>
 
         <div className = { currentStyles.loginButton }
-        onClick = {loginController}
+        onClick = {CommonController.debounce(loginController, 500)}
         >登录</div>
         <div className = { currentStyles.signUpButton }
         >

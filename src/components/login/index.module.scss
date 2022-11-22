@@ -9,6 +9,8 @@
 }
 
 .title{
+  margin-top:24px;
+  margin-bottom: 24px;
   height : 32px;
   line-height: 32px;
   font-weight: 400;
@@ -31,6 +33,7 @@
 }
 
 .loginButton{
+
   height : 48px;
   width : inherit;
   border-radius: 8px;
@@ -42,6 +45,7 @@
 }
 
 .signUpButton{
+  margin-top:10px;
   color:#1b67FF;
   height : 48px;
   width : inherit;

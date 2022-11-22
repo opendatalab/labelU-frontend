@@ -122,6 +122,28 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 // const axiosRequest = new Axios().init();
 // export default axiosRequest;
 
+
+    const responseSuccessHandler = (response : any) =>  {
+        // const httpCode = response.status;
+        // if ([200, 201, 202, 204].includes(httpCode)) {
+            return response;
+        // } else {
+        //     return this.responseErrorHandler(response);
+        // }
+    }
+
+const responseFailedHandler = (res : any) =>  {
+    // const httpCode = response.status;
+    // if ([200, 201, 202, 204].includes(httpCode)) {
+    // return response.data;
+    const { response } = res;
+    // console.log(response)
+    return Promise.reject(response?.data)
+    // } else {
+    //     return this.responseErrorHandler(response);
+    // }
+}
+
 const authorizationBearerSuccess = (config : any)=>{
     let token = localStorage.token;
     if(token){
@@ -131,7 +153,9 @@ const authorizationBearerSuccess = (config : any)=>{
 }
 
 const authorizationBearerFailed = (error : any)=>{
-
+    // const { response } =
+    // console.log(error)
+    // console.log(1111)
     return Promise.reject(error);
 }
 
@@ -143,6 +167,7 @@ const axiosProxy : { _instance : any, axiosInstance : AxiosInstance } = {
                 timeout: 60 * 1000,
             });
             this._instance.interceptors.request.use(authorizationBearerSuccess, authorizationBearerFailed);
+            this._instance.interceptors.response.use(responseSuccessHandler, responseFailedHandler);
         }
         return this._instance;
     }

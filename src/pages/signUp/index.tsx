@@ -6,7 +6,7 @@ import LogoTitle from "../../components/logoTitle";
 const SignUpPage = ()=>{
     return (<div className={currentStyles.outerFrame}>
         <LogoTitle />
-        <SignUp />
+        <SignUp  turnToLogin = { Constants.urlToLogin }/>
     </div>)
 }
 export default SignUpPage;
