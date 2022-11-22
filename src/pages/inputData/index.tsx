@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import currentStyles from './index.module.scss';
 import { Upload, Form } from 'antd';
 import type { UploadProps } from 'antd';
@@ -7,13 +7,10 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import CommonController from "../../utils/common/common";
 import { uploadFile as uploadFileService } from "../../services/createTask";
 
+let newFileList : any[] = [];
+let newFileListInfo : any[] = [];
 const InputInfoConfig = ()=>{
-    const [fileList, setFileList] = useState<UploadFile[]>([{
-        uid : '-1',
-        name : '1.png',
-        status : 'done',
-        url : 'http://www.baidu.com/1.png'
-    }]);
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [aa, setAa] = useState("./");
     const [fileUploadProps, setFileUploadPros] = useState<any>({
         // action : '/api/v1/tasks/1/upload',
@@ -23,9 +20,11 @@ const InputInfoConfig = ()=>{
         // multiple : true,
         // showUploadList : false
     });
+    const [haveUploadFiles, setHaveUploadFiles] = useState<any[]>([]);
     const handleChange : UploadProps['onChange'] = (info)=>{
-        let newFileList = [...info.fileList];
-        console.log(newFileList);
+        let newFileList1 = [...info.fileList];
+        // console.log(newFileList1);
+        newFileList = newFileList1;
         // newFileList = newFileList.slice(-2);
         // newFileList = newFileList.map(file=>{
         //     if (file.response) {
@@ -71,7 +70,7 @@ const InputInfoConfig = ()=>{
     const [flag, setFlag] = useState(true);
 
     const beforeUploadFolder = (value : any)=>{
-        console.log(value);
+        // console.log(value);
         setCurrentPath(value.webkitRelativePath);
         return false;
         if (flag) {
@@ -94,19 +93,67 @@ const InputInfoConfig = ()=>{
             console.log('delete');
         }
     }];
-    const newCustomRequest = (info : any)=>{
-        console.log(info.file)
-        uploadFileService(1, {path : './', file : info.file  }).then((res)=>{
+    const [uploadCount, setUploadCount] = useState(0);
+    const isCorrectFiles = (files : any)=>{
+        let result = true;
+        for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
+            let file = files[fileIndex].file;
+            let isOverSize = CommonController.isOverSize(file.size);
+            if(isOverSize) {result = false;break;}
+            let isCorrectFileType = CommonController.isCorrectFileType(file.name);
+            if(!isCorrectFileType) {result = false;break;}
+        }
+        return result;
+    }
+    const newCustomRequest = async function (info : any){
+        console.log(newFileList);
+        console.log(info)
+        newFileListInfo.push(info);
+        if (newFileListInfo.length === newFileList.length) {
+            let isCorrectCondition = isCorrectFiles(newFileListInfo);
+            if(!isCorrectCondition){
+                CommonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
+                newFileList = [];
+                return;
+            }
+            // setHaveUploadFiles(haveUploadFiles.concat(newFileListInfo));
+            let currentHaveUploadFiles = [];
+            for (let newFileListInfoIndex = 0; newFileListInfoIndex < newFileListInfo.length; newFileListInfoIndex++) {
 
-        })
+                let currentInfo =  newFileListInfo[newFileListInfoIndex];
+                console.log(currentInfo)
+                let result = await uploadFileService(1, {path : './', file : currentInfo.file  })
+                // console.log(2);
+                console.log(result)
+                if (result?.status === 201) {
+                    currentHaveUploadFiles.push({name : currentInfo.file.name,
+                        size : currentInfo.file.size,
+                        hasUploaded : true,
+                        uploadId : result?.data.data.id});
+                    // setHaveUploadFiles(haveUploadFiles.concat([{name : currentInfo.file.name,
+                    //     size : currentInfo.file.size,
+                    //     hasUploaded : true,
+                    // uploadId : result?.data.data.id}]))
+                }else{
+                    currentHaveUploadFiles.push({name : currentInfo.file.name,
+                        size : currentInfo.file.size});
+                    // setHaveUploadFiles(haveUploadFiles.concat([{name : currentInfo.file.name,
+                    //     size : currentInfo.file.size}]))
+                }
+            setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
+                // console.log(result);
+            }
+            newFileList = [];
+        }
+
+
+        // uploadFileService(1, {path : './', file : info.file  }).then((res)=>{
+        //
+        // })
     }
     const [folderFilePath, setFolderFilePath] = useState(1);
     const handleUploadFolderChange : UploadProps['onChange']  = (info)=>{
         let newFileList = [...info.fileList];
-        // console.log(info);
-        // console.log(newFileList);
-        // setFileList(fileList.concat(newFileList));
-        // console.log(fileList)
         for (let fileIndex = 0; fileIndex < newFileList.length; fileIndex++) {
             // setFolderFilePath(newFileList[0].originFileObj?.webkitRelativePath);
             setFolderFilePath(folderFilePath+1);
@@ -114,6 +161,13 @@ const InputInfoConfig = ()=>{
         }
         // setAa(aa+1);
     }
+
+    const deleteUploadFiles = ()=>{
+        console.log(1)
+    }
+    useEffect(()=>{
+        console.log(haveUploadFiles)
+    },[haveUploadFiles]);
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.title}>
             <div className={currentStyles.icon}></div>
@@ -130,7 +184,7 @@ const InputInfoConfig = ()=>{
                                 action = {'/api/v1/tasks/1/upload'}
                                 data = {{path : aa}}
                                 fileList = {fileList}
-                                maxCount = {1}
+                                // maxCount = {1}
                                 onChange = { handleChange }
                                 multiple =  {true}
                                 showUploadList = {false}
@@ -183,11 +237,13 @@ const InputInfoConfig = ()=>{
                         <div className = {currentStyles.columnOption} style={{color : 'rgba(0, 0, 0, 0.6)'}}>操作</div>
                     </div>
                     <div className={currentStyles.columnsContent}>
-                        {items.map((item : any)=>{
+                        {haveUploadFiles.map((item : any)=>{
+                            console.log(item)
                             return (<div className = {currentStyles.item}>
-                                <div className = {currentStyles.columnFileName}>test1tes1.txttxt</div>
-                                <div className = {currentStyles.columnStatus}>未完成</div>
-                                <div className = {currentStyles.columnOption}>删除</div>
+                                <div className = {currentStyles.columnFileName}>{item.name}</div>
+                                <div className = {currentStyles.columnStatus}>{item.hasUploaded ? '已上传' : '上传失败'}</div>
+                                <div className = {currentStyles.columnOption}
+                                >删除</div>
                             </div>)
                         })}
                     </div>

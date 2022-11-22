@@ -17,7 +17,6 @@ const submitBasicConfig = async function (data : { name : string, description ?:
 const uploadFile = async function (taskId : number, params : any ){
     try {
         let data = new FormData();
-        console.log(data)
         data.append('file', params.file);
         data.append('path', './')
         let res = await axiosInstance({

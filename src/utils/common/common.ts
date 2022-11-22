@@ -103,6 +103,21 @@ const CommonController = {
   },
   reducer () {
     // uploadFile().
+  },
+  isOverSize (size : number) {
+    return size > 200 *  1024 * 1024;
+  },
+  isCorrectFileType (fileName : string) {
+    let result = false;
+    let correctType = ['jpg', 'png', 'bmp', 'gif', 'mp4', 'wav', 'mp3', 'cav', 'txt', 'json', 'pcd', 'bin'];
+    let dotIndex = fileName.lastIndexOf('.');
+    if(dotIndex > -1) {
+      let type = fileName.slice( dotIndex + 1);
+      if (correctType.indexOf(type) > -1) {
+        result = true;
+      }
+    }
+    return result;
   }
 }
 export default CommonController;
