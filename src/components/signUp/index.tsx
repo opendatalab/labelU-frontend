@@ -30,7 +30,7 @@ const SignUp = (props : any)=>{
         let result = true;
         if (password !== repeatPassword) {
             result = false;
-            CommonController.notificationErrorMessage({self : true, msg : '请重复密码'}, 1)
+            CommonController.notificationErrorMessage({msg : '两次输入的密码不一致'}, 1)
         }
         return result;
     }
@@ -56,6 +56,7 @@ const SignUp = (props : any)=>{
             }
             let checkRepeatPassword = password === repeatPassword;
             if(!checkRepeatPassword){
+                CommonController.notificationErrorMessage({msg : '两次输入的密码不一致'}, 1);
                 return;
             }
             let res = await signUp({
