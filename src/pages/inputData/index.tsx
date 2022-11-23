@@ -109,22 +109,25 @@ const InputInfoConfig = ()=>{
         console.log(newFileList);
         console.log(info)
         newFileListInfo.push(info);
+        console.log(newFileListInfo)
         if (newFileListInfo.length === newFileList.length) {
             let isCorrectCondition = isCorrectFiles(newFileListInfo);
             if(!isCorrectCondition){
                 CommonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
                 newFileList = [];
+                newFileListInfo = [];
                 return;
             }
             // setHaveUploadFiles(haveUploadFiles.concat(newFileListInfo));
             let currentHaveUploadFiles = [];
+            console.log(newFileListInfo);
             for (let newFileListInfoIndex = 0; newFileListInfoIndex < newFileListInfo.length; newFileListInfoIndex++) {
 
                 let currentInfo =  newFileListInfo[newFileListInfoIndex];
-                console.log(currentInfo)
-                let result = await uploadFileService(1, {path : './', file : currentInfo.file  })
+                console.log(currentInfo);
+                let result = await uploadFileService(1, {path : './', file : currentInfo.file  });
                 // console.log(2);
-                console.log(result)
+                console.log(result);
                 if (result?.status === 201) {
                     currentHaveUploadFiles.push({name : currentInfo.file.name,
                         size : currentInfo.file.size,
@@ -140,10 +143,11 @@ const InputInfoConfig = ()=>{
                     // setHaveUploadFiles(haveUploadFiles.concat([{name : currentInfo.file.name,
                     //     size : currentInfo.file.size}]))
                 }
-            setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
+                setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
                 // console.log(result);
             }
             newFileList = [];
+            newFileListInfo = [];
         }
 
 
@@ -153,13 +157,18 @@ const InputInfoConfig = ()=>{
     }
     const [folderFilePath, setFolderFilePath] = useState(1);
     const handleUploadFolderChange : UploadProps['onChange']  = (info)=>{
-        let newFileList = [...info.fileList];
-        for (let fileIndex = 0; fileIndex < newFileList.length; fileIndex++) {
-            // setFolderFilePath(newFileList[0].originFileObj?.webkitRelativePath);
-            setFolderFilePath(folderFilePath+1);
-            // newFileList
-        }
+        // let newFileList = [...info.fileList];
+        // for (let fileIndex = 0; fileIndex < newFileList.length; fileIndex++) {
+        //     // setFolderFilePath(newFileList[0].originFileObj?.webkitRelativePath);
+        //     setFolderFilePath(folderFilePath+1);
+        //     // newFileList
+        // }
         // setAa(aa+1);
+
+        let newFileList1 = [...info.fileList];
+        // console.log(newFileList1);
+        newFileList = newFileList1;
+
     }
 
     const deleteUploadFiles = ()=>{
@@ -182,7 +191,7 @@ const InputInfoConfig = ()=>{
                         <div className = { currentStyles.uploadFileButton }>
                             <Upload
                                 action = {'/api/v1/tasks/1/upload'}
-                                data = {{path : aa}}
+                                // data = {{path : aa}}
                                 fileList = {fileList}
                                 // maxCount = {1}
                                 onChange = { handleChange }
@@ -203,13 +212,13 @@ const InputInfoConfig = ()=>{
                                 // onChange={uploadFileChange}
 
                                     action = {'/api/v1/tasks/1/upload'}
-                                    data = {{path : folderFilePath}}
+                                    // data = {{path : folderFilePath}}
                                     fileList = {fileList}
-                                    maxCount = {1}
+                                    // maxCount = {1}
                                     onChange = { handleUploadFolderChange }
-                                    multiple =  {true}
-                                    showUploadList = {false}
-
+                                    multiple =  { true }
+                                    showUploadList = { false }
+                                    customRequest={ newCustomRequest }
                             >
                                 <FolderOpenOutlined style = {{color : '#1b67ff'}}/>
                                 <div style = {{display : 'inline-block', color : '#1b67ff'}}>上传文件夹</div>

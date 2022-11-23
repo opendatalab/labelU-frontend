@@ -61,7 +61,7 @@ const CommonController = {
             result.key = '请填写密码';
             break;
           case 'repeatPassword':
-            result.key = '请重复密码';
+            result.key = '两次输入的密码不一致';
             break;
         }
         break;
@@ -71,7 +71,7 @@ const CommonController = {
   },
   notificationErrorMessage (error : any, time : number) {
     // console.log(error);
-    // console.log(error)
+    console.log(error)
     // console.trace()
     let errCode = error['err_code'];
     if (errCode || errCode === 0) {
@@ -82,9 +82,12 @@ const CommonController = {
         message.error('没有后端匹配的错误信息', time);
       }
     }
-    if (!error['err_code']) {
+    if (error && !error['err_code']) {
       let messageValue = error.msg ? error.msg : error.message
       message.error(messageValue , time);
+    }
+    if(!error){
+      message.error('请求出现问题',1)
     }
   },
   notificationSuccessMessage (info : any, time : number) {

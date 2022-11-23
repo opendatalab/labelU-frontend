@@ -124,12 +124,7 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 
     const responseSuccessHandler = (response : any) =>  {
-        // const httpCode = response.status;
-        // if ([200, 201, 202, 204].includes(httpCode)) {
-            return response;
-        // } else {
-        //     return this.responseErrorHandler(response);
-        // }
+       return response;
     }
 
 const responseFailedHandler = (res : any) =>  {

@@ -8,6 +8,7 @@ import NullTask from '../pages/nullTask';
 import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
 import AnnotationConfig1 from '../pages/annotationConfig1';
+import TaskAnnotation from '../pages/annotation';
 import {
     createBrowserRouter
 } from 'react-router-dom';

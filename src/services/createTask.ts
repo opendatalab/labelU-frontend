@@ -33,7 +33,35 @@ const uploadFile = async function (taskId : number, params : any ){
     }
 }
 
+const updateTaskConfig = async function (taskId : number, taskConfig : any) {
+    try {
+
+        let res = await axiosInstance({
+            url : `/api/v1/tasks/${taskId}`,
+            method : 'PUT',
+            data : taskConfig
+        });
+        return res;
+    }catch (e) {
+        CommonController.notificationErrorMessage(e, 5);
+    }
+}
+
+const getTaskList =async function (){
+    try {
+
+        let res = await axiosInstance({
+            url : `/api/v1/tasks`,
+            method : 'GET',
+        });
+        return res;
+    }catch (e) {
+        CommonController.notificationErrorMessage(e, 5);
+    }
+}
 export {
     submitBasicConfig,
-    uploadFile
+    uploadFile,
+    updateTaskConfig,
+    getTaskList
 };

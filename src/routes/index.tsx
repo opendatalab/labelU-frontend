@@ -14,6 +14,7 @@ import CreateTask from '../pages/createTask';
 import NullTask from '../pages/nullTask';
 import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
+import TaskAnnotation from "../pages/annotation";
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
 
 
@@ -86,6 +87,11 @@ const routeList: RouteObject[] = [
       {
         path : 'nullTask',
         element : <NullTask />
+      },
+      {
+        path : 'taskAnnotation',
+        element : <TaskAnnotation/>
+        // element : <div>this si annotation</div>
       }
     ]
   },
