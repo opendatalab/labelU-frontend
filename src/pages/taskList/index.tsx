@@ -4,13 +4,17 @@ import { Pagination } from 'antd';
 import TaskCard from '../../components/taskCard'
 import { useNavigate } from 'react-router-dom';
 import Constatns from '../../constants';
-import { getTaskList } from '../../services/createTask';
+import {getTaskList, updateTaskConfig} from '../../services/createTask';
 import CommonController from "../../utils/common/common";
+import { useDispatch } from "react-redux";
+import { updateConfigStep, updateHaveConfigedStep } from '../../stores/task.store';
 const TaskList = ()=>{
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const createTask = ()=>{
+        dispatch(updateConfigStep(-1));
+        dispatch(updateHaveConfigedStep(0));
         navigate(Constatns.urlToCreateTask);
-        // alert('createTask')
     };
     // const taskCards : any[] = [
     //     {
@@ -43,7 +47,7 @@ const TaskList = ()=>{
                 CommonController.notificationErrorMessage({message : '拉取文件列表失败, 请刷新页面'},1);
             }
         })
-    },[])
+    },[]);
 
 
     return (<div className = {currentStyles.outerFrame}>
@@ -56,6 +60,7 @@ const TaskList = ()=>{
             {taskCards.length > 0 && taskCards.map((cardInfo : any)=>{
                 return <TaskCard cardInfo = {cardInfo}/>
             })}
+
             {/*{*/}
             {/*    taskCards.length === 0 && */}
             {/*}*/}

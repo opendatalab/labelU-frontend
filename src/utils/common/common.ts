@@ -70,9 +70,6 @@ const CommonController = {
     return result;
   },
   notificationErrorMessage (error : any, time : number) {
-    // console.log(error);
-    console.log(error)
-    // console.trace()
     let errCode = error['err_code'];
     if (errCode || errCode === 0) {
       let errorMessage = ErrorMessages[errCode];
@@ -92,6 +89,9 @@ const CommonController = {
   },
   notificationSuccessMessage (info : any, time : number) {
     message.success(info.message, time);
+  },
+  notificationWarnMessage (info : any, time : number) {
+    message.warn(info.message, time);
   },
   debounce(fn : any, delayTime : number){
     let timer : any = null
@@ -121,6 +121,15 @@ const CommonController = {
       }
     }
     return result;
+  },
+  getUsername (state : any) {
+    return state.user.newUsername;
+  },
+  getConfigStep (state : any) {
+    return state.existTask.configStep;
+  },
+  getHaveConfigedStep (state : any) {
+    return state.existTask.haveConfigedStep;
   }
 }
 export default CommonController;

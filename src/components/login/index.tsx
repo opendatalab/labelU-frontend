@@ -7,12 +7,15 @@ import { Link } from 'react-router-dom'
 import CommonController from "../../utils/common/common";
 import { login as loginService } from '../../services/general';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUsername } from '../../stores/user.store';
 const Login = (props : any)=>{
     const { turnToSignUp, turnToTaskList } = props;
     const [checkMessage, setCheckMessage] = useState<any>({});
     const [ email, setEmail ] = useState<any>(null);
     const [ password, setPassword ] = useState<any>(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const changeEmail = (event:any)=>{
         let target = event.target.value;
         if(target !== undefined){
@@ -55,6 +58,7 @@ const Login = (props : any)=>{
             }
             let token = res.data.data.token;
             localStorage.setItem('token', token);
+            dispatch(setUsername(email));
             navigate( turnToTaskList );
         }catch(error){
             CommonController.notificationErrorMessage(error, 1);

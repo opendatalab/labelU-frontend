@@ -10,7 +10,7 @@ const TaskCard = (props : any)=>{
     }
     const navigate = useNavigate();
     const turnToAnnotation = ()=>{
-        navigate('/taskList/taskAnnotation');
+        navigate('/taskList/task/taskAnnotation');
     }
     return (<div className = {currentStyles.outerFrame}>
         <div>

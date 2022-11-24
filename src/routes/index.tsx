@@ -46,6 +46,11 @@ const routeList: RouteObject[] = [
   //   ]
   // }
 
+
+
+    // 定名词
+    // 定路由
+
   {
     path : '/',
     element : <Login1 />,
@@ -89,10 +94,15 @@ const routeList: RouteObject[] = [
         element : <NullTask />
       },
       {
-        path : 'taskAnnotation',
-        element : <TaskAnnotation/>
-        // element : <div>this si annotation</div>
-      }
+        path : 'task',
+        element : (<div></div>),
+        children : [
+          {
+            path : 'taskAnnotation',
+            element : <TaskAnnotation/>
+          }
+        ]
+      },
     ]
   },
 

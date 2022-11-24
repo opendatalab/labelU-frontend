@@ -23,6 +23,40 @@
 
   }
 
+  .iconHighlight{
+    width : 24px;
+    height : 24px;
+    margin-right : 8px;
+    border-radius : 50%;
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #1B67ff;
+  }
+
+.iconCheck{
+  width : 24px;
+  height : 24px;
+  margin-right : 8px;
+  border-radius : 50%;
+  font-weight: 400;
+  font-size: 14px;
+  color: #1b67ff;
+  background-color: rgba(27, 103, 255,0.1);
+
+}
+
+.iconCheckHighlight{
+  width : 24px;
+  height : 24px;
+  margin-right : 8px;
+  border-radius : 50%;
+  font-weight: 400;
+  font-size: 14px;
+  color: #FFFFFF;
+  background-color: #1B67ff;
+}
+
   .iconActive{
     width : 24px;
     height : 24px;
@@ -39,7 +73,17 @@
     font-size: 14px;
     color: rgba(0, 0, 0, 0.72);
   }
+.titleHighlight{
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height */
 
+
+  /* 中性色/87% */
+
+  color: rgba(0, 0, 0, 0.87);
+}
   .titleActive{
     font-weight: 500;
     font-size: 14px;

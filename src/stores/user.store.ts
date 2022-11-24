@@ -13,7 +13,8 @@ const initialState: UserState = {
   logged: localStorage.getItem('t') ? true : false,
   menuList: [],
   username: localStorage.getItem('username') || '',
-  role: (localStorage.getItem('username') || '') as Role
+  role: (localStorage.getItem('username') || '') as Role,
+  newUsername : ''
 };
 
 const userSlice = createSlice({
@@ -28,11 +29,14 @@ const userSlice = createSlice({
       }
 
       Object.assign(state, action.payload);
+    },
+    setUsername (state : any, action : any) {
+      state.newUsername = action.payload;
     }
   }
 });
 
-export const { setUserItem } = userSlice.actions;
+export const { setUserItem, setUsername } = userSlice.actions;
 
 export default userSlice.reducer;
 

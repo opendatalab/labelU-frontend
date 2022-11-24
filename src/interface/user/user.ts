@@ -29,4 +29,6 @@ export interface UserState {
 
   /** Is first time to view the site ? */
   newUser: boolean;
+
+  newUsername ?: string;
 }
