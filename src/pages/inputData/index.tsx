@@ -7,9 +7,43 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import CommonController from "../../utils/common/common";
 import { uploadFile as uploadFileService } from "../../services/createTask";
 
+import { Tree } from 'antd';
+
 let newFileList : any[] = [];
 let newFileListInfo : any[] = [];
 const InputInfoConfig = ()=>{
+    const { DirectoryTree } = Tree;
+    const treeData = [{
+        title : 'parent 0',
+        key : '0-0',
+        children : [
+            {
+                title : 'leaf 0-0',
+                key : '0-0-0',
+                children : [
+                    {
+                        title : 't1',
+                        key : '0-0-0-1',
+                        children : [{
+                            title : 't2',
+                            key : '0-0-0-2',
+                            children : [{
+                                title : (<div className = {currentStyles.itemInFolder}>
+                                    <div className = {currentStyles.columnFileName}>{121241324}</div>
+                                    <div className = {currentStyles.columnStatus}>已上传</div>
+                                    <div className = {currentStyles.columnOption}
+                                    >删除</div>
+                                </div>),
+                                key : '0-0-0-3',
+                                isLeaf : true
+                            }]
+                        }]
+                    }
+                ]
+            }
+        ]
+    }];
+
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [aa, setAa] = useState("./");
     const [fileUploadProps, setFileUploadPros] = useState<any>({
@@ -246,6 +280,10 @@ const InputInfoConfig = ()=>{
                         <div className = {currentStyles.columnOption} style={{color : 'rgba(0, 0, 0, 0.6)'}}>操作</div>
                     </div>
                     <div className={currentStyles.columnsContent}>
+                        <br/>
+
+
+
                         {haveUploadFiles.map((item : any)=>{
                             console.log(item)
                             return (<div className = {currentStyles.item}>
@@ -255,6 +293,12 @@ const InputInfoConfig = ()=>{
                                 >删除</div>
                             </div>)
                         })}
+                        <div className = {currentStyles.folderItem}>
+                            <DirectoryTree
+                                multiple
+                                treeData = {treeData}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

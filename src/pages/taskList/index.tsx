@@ -16,30 +16,17 @@ const TaskList = ()=>{
         dispatch(updateHaveConfigedStep(0));
         navigate(Constatns.urlToCreateTask);
     };
-    // const taskCards : any[] = [
-    //     {
-    //     id : 1,
-    //     name : 'ha'
-    // }
-    // ];
-    // let n = 10;
-    // while (n >0) {
-    //     n = n - 1;
-    //     taskCards.push({
-    //         id : n,
-    //         name : 'ha' + n
-    //     })
-    // }
-    // taskCards.push({
-    //     id : 'ji',
-    //     name : 'ha ji'
-    // });
     const [taskCards, setTaskCards] = useState<any>([]);
-    useEffect(function (){
-        getTaskList().then((res)=>{
+    const [taskTotal, setTaskTotal] = useState<any>(0);
+    const changeCurrentPage = (page : number)=>{
+        requestTaskList(page - 1);
+    }
+    const requestTaskList = (page : number)=>{
+        getTaskList(page).then((res)=>{
             if(res){
                 if(res.status === 200) {
-                    setTaskCards(res.data.data);
+                    setTaskCards(res.data?.data);
+                    setTaskTotal(res.data?.meta_data?.total);
                 }else{
                     // CommonController.notificationErrorMessage({message : '拉取文件列表状态码不是200'},1);
                 }
@@ -47,6 +34,25 @@ const TaskList = ()=>{
                 CommonController.notificationErrorMessage({message : '拉取文件列表失败, 请刷新页面'},1);
             }
         })
+    }
+    useEffect(function (){
+        // requestTaskList(0);
+
+        setTaskCards([{
+          id : 1,
+          name : 'test1',
+          "created_by" : {
+              id : 2,
+              username : 'test1@qq.com'
+          },
+          "created_at" : "2022-11-25T02:52:24.215Z",
+          "annotated_count" : 1,
+          "total" : 2,
+          "status" : 2,    //不确定的
+          "media_type" : "IMAGE"   // 也有点问题
+        }])
+
+
     },[]);
 
 
@@ -57,24 +63,16 @@ const TaskList = ()=>{
             >新建任务</div>
         </div>
         <div className = {currentStyles.cards}>
-            {taskCards.length > 0 && taskCards.map((cardInfo : any)=>{
+            {taskCards.length > 0 && taskCards.map((cardInfo : any, cardInfoIndex : number)=>{
                 return <TaskCard cardInfo = {cardInfo}/>
             })}
-
-            {/*{*/}
-            {/*    taskCards.length === 0 && */}
-            {/*}*/}
-            {/*{*/}
-            {/*    taskCards.length > 0 && <div className = {currentStyles.stationSymbol}>*/}
-
-            {/*    </div>*/}
-            {/*}*/}
-
         </div>
         <div className = {currentStyles.pagination}>
             <Pagination
-                defaultCurrent={1}
-                total={50}
+                defaultCurrent={ 1 }
+                total={ taskTotal }
+                pageSize = { 16 }
+                onChange = { changeCurrentPage }
             />
         </div>
 

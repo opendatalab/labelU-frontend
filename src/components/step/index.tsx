@@ -8,6 +8,8 @@ import { CheckOutlined } from '@ant-design/icons'
 const Step = (props : any)=>{
     let configStep = useSelector(commonController.getConfigStep);
     let haveConfigedStep = useSelector(commonController.getHaveConfigedStep);
+    // console.log(configStep);
+    // console.log(haveConfigedStep);
     const { title, ordinalNumber, contentUrl } = props;
     const navigate = useNavigate();
     const dispatch = useDispatch();

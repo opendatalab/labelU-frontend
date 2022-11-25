@@ -31,7 +31,8 @@
   @extend .displayFlex;
   @extend .flexDirectionRow;
   @extend .flexDirectionRowWrap;
-  justify-content: space-around;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .stationSymbol{

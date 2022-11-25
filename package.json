@@ -34,6 +34,7 @@
     "js-md5": "^0.7.3",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
+    "moment": "^2.29.4",
     "mqtt": "^4.2.8",
     "race": "^0.0.1",
     "react": "^17.0.2",
@@ -83,11 +84,11 @@
     ]
   },
   "eslintConfig": {
-    "extends" : [
+    "extends": [
       "react-app",
       "react-app/jest"
     ],
-    "parser" : "@typescript-eslint/parser"
+    "parser": "@typescript-eslint/parser"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.16.0",

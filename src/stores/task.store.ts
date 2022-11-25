@@ -12,7 +12,7 @@ const existTaskSlice = createSlice({
             state.configStep = action.payload;
         },
         updateHaveConfigedStep : (state : any, action : any)=>{
-            state.haveConfigedStep = action.haveConfigedStep;
+            state.haveConfigedStep = action.payload;
         }
     }
 });

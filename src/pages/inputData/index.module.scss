@@ -168,6 +168,38 @@
   box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
   overflow-y:scroll ;
 }
+
+.folderItem{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+  width : 800px;
+  //width : 100%;
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+  //overflow-y: scroll;
+  //overflow: auto;
+  //width : 50px;
+}
+.itemInFolder{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  line-height: 50px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+  overflow-y:scroll ;
+  flex : 1;
+}
+
 .columnFileName{
   width: 349px;
   flex : 1;
@@ -188,7 +220,8 @@
 }
 .columnsContent{
   height : calc(100vh - 354px);
-  overflow-y: scroll;
+  //overflow-y: scroll;
+
 }
 .buttons{
   @extend .displayFlex;
@@ -252,3 +285,4 @@
   color: rgba(0, 0, 0, 0.36);
   margin-bottom: 24px;
 }
+

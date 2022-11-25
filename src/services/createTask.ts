@@ -47,12 +47,16 @@ const updateTaskConfig = async function (taskId : number, taskConfig : any) {
     }
 }
 
-const getTaskList =async function (){
+const getTaskList =async function (page : number){
     try {
 
         let res = await axiosInstance({
             url : `/api/v1/tasks`,
             method : 'GET',
+            params : {
+                page,
+                size : 16
+            }
         });
         return res;
     }catch (e) {
