@@ -2,99 +2,27 @@ import React, { useState, useEffect } from 'react';
 import currentStyles from './index.module.scss';
 import { Upload, Form } from 'antd';
 import type { UploadProps } from 'antd';
-import { FileAddOutlined, FolderOpenOutlined } from '@ant-design/icons';
+import { FileAddOutlined, FolderOpenOutlined, PictureOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
-import CommonController from "../../utils/common/common";
+import commonController from "../../utils/common/common";
 import { uploadFile as uploadFileService } from "../../services/createTask";
-
 import { Tree } from 'antd';
 
 let newFileList : any[] = [];
 let newFileListInfo : any[] = [];
+let newFolder : any = {};
 const InputInfoConfig = ()=>{
     const { DirectoryTree } = Tree;
-    const treeData = [{
-        title : 'parent 0',
-        key : '0-0',
-        children : [
-            {
-                title : 'leaf 0-0',
-                key : '0-0-0',
-                children : [
-                    {
-                        title : 't1',
-                        key : '0-0-0-1',
-                        children : [{
-                            title : 't2',
-                            key : '0-0-0-2',
-                            children : [{
-                                title : (<div className = {currentStyles.itemInFolder}>
-                                    <div className = {currentStyles.columnFileName}>{121241324}</div>
-                                    <div className = {currentStyles.columnStatus}>已上传</div>
-                                    <div className = {currentStyles.columnOption}
-                                    >删除</div>
-                                </div>),
-                                key : '0-0-0-3',
-                                isLeaf : true
-                            }]
-                        }]
-                    }
-                ]
-            }
-        ]
-    }];
+
 
     const [fileList, setFileList] = useState<UploadFile[]>([]);
-    const [aa, setAa] = useState("./");
-    const [fileUploadProps, setFileUploadPros] = useState<any>({
-        // action : '/api/v1/tasks/1/upload',
-        // action : '',
-        // data : { path : currentPath},
-        // onChange : CommonController.debounce(handleChange, 1000),
-        // multiple : true,
-        // showUploadList : false
-    });
+
     const [haveUploadFiles, setHaveUploadFiles] = useState<any[]>([]);
     const handleChange : UploadProps['onChange'] = (info)=>{
         let newFileList1 = [...info.fileList];
-        // console.log(newFileList1);
         newFileList = newFileList1;
-        // newFileList = newFileList.slice(-2);
-        // newFileList = newFileList.map(file=>{
-        //     if (file.response) {
-        //         file.url = file.response.url;
-        //     }
-        //     return file;
-        // })
-
-        // setFileList(newFileList);
-        // setFileUploadPros({
-        //         // action : '/api/v1/tasks/1/upload',
-        //         action : '',
-        //         data : { path : a++},
-        //         // onChange : CommonController.debounce(handleChange, 1000),
-        //         // multiple : true,
-        //         // showUploadList : false
-        // })
-        // setTimeout(()=>{
-        //
-        // },)
-
-        // uploadFileService(1, {path : './', file : info.file  }).then((res)=>{
-        //
-        // })
-
-        // setAa("./");
     }
-    const [currentPath, setCurrentPath] = useState('./');
-    // const fileUploadProps = {
-    //     // action : '/api/v1/tasks/1/upload',
-    //     action : '',
-    //     // data : { path : currentPath},
-    //     onChange : CommonController.debounce(handleChange, 1000),
-    //     multiple : true,
-    //     showUploadList : false
-    // }
+
 
 
     const finishUpload = (values : any)=>{
@@ -103,16 +31,6 @@ const InputInfoConfig = ()=>{
 
     const [flag, setFlag] = useState(true);
 
-    const beforeUploadFolder = (value : any)=>{
-        // console.log(value);
-        setCurrentPath(value.webkitRelativePath);
-        return false;
-        if (flag) {
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     const customRequest = (v:any)=>{
         console.log(v)
@@ -127,14 +45,106 @@ const InputInfoConfig = ()=>{
             console.log('delete');
         }
     }];
-    const [uploadCount, setUploadCount] = useState(0);
+    // uploadFolder
+    const deleteFile = (path : any)=>{
+        // console.log(parent)
+        console.log(haveUploadFiles)
+        let copyArr = Object.assign([],haveUploadFiles);
+        console.log(copyArr)
+        commonController.findElement(copyArr, 0, path);
+        console.log(copyArr);
+        // setHaveUploadFiles(copyArr);
+        // console.log(parent);
+
+    }
+    const isInArray = (children : any, index : number, paths : any)=>{
+        return children.some((childItem : any)=> childItem.title === paths[index]);
+    };
+    const getIndexInArray = (children : any, index : any, paths : any)=>{
+        return children.find((childrenItem:any)=>childrenItem.title === paths[index]);
+    };
+    const confirmFolder = (parent : any , index : any, paths : any, data : any)=>{
+        let child = undefined;
+        if (parent.children) {
+            child = isInArray(parent.children, index, paths);
+        }else{
+            parent.icon = <img src="/src/icons/folder.png"/>;
+            parent.title =  paths[index];
+            parent.key = new Date().getTime() + Math.random();
+            parent.children =  [];
+            child = false;
+            confirmFolder(parent, index, paths, data);
+            return;
+        }
+        if(!child){
+            if (index === paths.length - 1) {
+                parent.children.push({
+                    icon : <img src="/src/icons/picture.png" alt=""/>,
+                    title : (<div className = {currentStyles.itemInFolder}>
+                        <div className = {currentStyles.columnFileName}>{paths[paths.length - 1]}</div>
+                        <div className = {currentStyles.columnStatus}>{data.hasUploaded ?
+                            (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
+                            (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
+                        <div className = {currentStyles.columnOptionButtons}>
+                            {!data.hasUploaded && <div className = {currentStyles.columnOption1}> 重新上传 </div>}
+                            <div className = {currentStyles.columnOption}
+                                 onClick = {commonController.debounce((event : any)=>deleteFile(data.path),1000)}
+                            >删除</div>
+                        </div>
+                    </div>),
+
+                    key : new Date().getTime() + Math.random(),
+                    isLeaf : true
+                })
+            }else{
+                parent.children.push({
+                    icon : <img src= '/src/icons/folder.png' />,
+                    title : <span>&nbsp;&nbsp;{paths[index]}</span>,
+                    key : new Date().getTime() + Math.random(),
+                    children : []
+                })
+                confirmFolder(parent.children[parent.children.length - 1], index + 1, paths, data);
+            }
+            // console.log(newFolder)
+        }else{
+            if (index !== paths.length - 1) {
+                let childIndex = getIndexInArray(parent.children, index, paths);
+                if (childIndex || childIndex === 0) {
+                    confirmFolder(parent.children[childIndex], index + 1, paths, data);
+                }else{
+                    console.log('数据有问题')
+                }
+            }else{
+                parent.children.push({
+                    icon : <img src= '/src/icons/folder.png' />,
+                    title : paths[paths.length - 1],
+                    key : new Date().getTime() + Math.random(),
+                    isLeaf : true
+                })
+            }
+        }
+    }
+    const setupFolder = ( path : string, fileIndex : number, data : any )=>{
+        if (!path) {
+            return;
+        }else{
+            let paths = path.split('/');
+            if (fileIndex === 0) {
+                newFolder.title = <span>&nbsp;&nbsp;{paths[0]}</span>;
+                newFolder.key = new Date().getTime() + Math.random();
+                newFolder.children = [];
+                newFolder.icon = <img src="/src/icons/folder.png" alt=""/>
+            }
+            confirmFolder(newFolder,  1, paths, data);
+        }
+    }
     const isCorrectFiles = (files : any)=>{
         let result = true;
         for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
             let file = files[fileIndex].file;
-            let isOverSize = CommonController.isOverSize(file.size);
+            let isOverSize = commonController.isOverSize(file.size);
             if(isOverSize) {result = false;break;}
-            let isCorrectFileType = CommonController.isCorrectFileType(file.name);
+            let isCorrectFileType = commonController.isCorrectFileType(file.name);
             if(!isCorrectFileType) {result = false;break;}
         }
         return result;
@@ -147,60 +157,75 @@ const InputInfoConfig = ()=>{
         if (newFileListInfo.length === newFileList.length) {
             let isCorrectCondition = isCorrectFiles(newFileListInfo);
             if(!isCorrectCondition){
-                CommonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
+                commonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
                 newFileList = [];
                 newFileListInfo = [];
                 return;
             }
-            // setHaveUploadFiles(haveUploadFiles.concat(newFileListInfo));
             let currentHaveUploadFiles = [];
             console.log(newFileListInfo);
             for (let newFileListInfoIndex = 0; newFileListInfoIndex < newFileListInfo.length; newFileListInfoIndex++) {
 
                 let currentInfo =  newFileListInfo[newFileListInfoIndex];
                 console.log(currentInfo);
-                let result = await uploadFileService(1, {path : './', file : currentInfo.file  });
+                console.log(newFileListInfo)
+                let path = currentInfo.file.webkitRelativePath;
+                let result = undefined;
+                if (path.indexOf('/') > -1) {
+                    result = await uploadFileService(1, {path, file : currentInfo.file  });
+                    if (result?.status === 201) {
+                        setupFolder(path, newFileListInfoIndex, {
+                                size : currentInfo.file.size,
+                                hasUploaded : true,
+                                uploadId : result?.data.data.id})
+                        // });
+
+                        // newFolder.push({name : currentInfo.file.name,
+                        //     size : currentInfo.file.size,
+                        //     hasUploaded : true,
+                        //     uploadId : result?.data.data.id});
+                    }else{
+                        setupFolder(path, newFileListInfoIndex,{
+                            size : currentInfo.file.size,
+                            hasUploaded : false,
+                            path
+                            });
+
+                        // newFolder.push({name : currentInfo.file.name,
+                        //     size : currentInfo.file.size});
+                    }
+                }else{
+                    result = await uploadFileService(1, {path : './', file : currentInfo.file  });
+                    if (result?.status === 201) {
+
+                        currentHaveUploadFiles.push({name : currentInfo.file.name,
+                            size : currentInfo.file.size,
+                            hasUploaded : true,
+                            uploadId : result?.data.data.id});
+                    }else{
+                        currentHaveUploadFiles.push({name : currentInfo.file.name,
+                            size : currentInfo.file.size});
+                    }
+                }
                 // console.log(2);
                 console.log(result);
-                if (result?.status === 201) {
-                    currentHaveUploadFiles.push({name : currentInfo.file.name,
-                        size : currentInfo.file.size,
-                        hasUploaded : true,
-                        uploadId : result?.data.data.id});
-                    // setHaveUploadFiles(haveUploadFiles.concat([{name : currentInfo.file.name,
-                    //     size : currentInfo.file.size,
-                    //     hasUploaded : true,
-                    // uploadId : result?.data.data.id}]))
-                }else{
-                    currentHaveUploadFiles.push({name : currentInfo.file.name,
-                        size : currentInfo.file.size});
-                    // setHaveUploadFiles(haveUploadFiles.concat([{name : currentInfo.file.name,
-                    //     size : currentInfo.file.size}]))
-                }
+
+                // setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
+            }
+            if (commonController.isNullObject(newFolder)) {
                 setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
-                // console.log(result);
+            }else{
+                setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles, [newFolder]))
             }
             newFileList = [];
             newFileListInfo = [];
+            newFolder = {};
         }
-
-
-        // uploadFileService(1, {path : './', file : info.file  }).then((res)=>{
-        //
-        // })
     }
     const [folderFilePath, setFolderFilePath] = useState(1);
     const handleUploadFolderChange : UploadProps['onChange']  = (info)=>{
-        // let newFileList = [...info.fileList];
-        // for (let fileIndex = 0; fileIndex < newFileList.length; fileIndex++) {
-        //     // setFolderFilePath(newFileList[0].originFileObj?.webkitRelativePath);
-        //     setFolderFilePath(folderFilePath+1);
-        //     // newFileList
-        // }
-        // setAa(aa+1);
 
         let newFileList1 = [...info.fileList];
-        // console.log(newFileList1);
         newFileList = newFileList1;
 
     }
@@ -241,9 +266,7 @@ const InputInfoConfig = ()=>{
                             {/*<div className = {currentStyles.uploadIcon}></div>*/}
 
                             <Upload directory
-                                // customRequest={customRequest}
-                                //     beforeUpload={beforeUploadFolder}
-                                // onChange={uploadFileChange}
+                                // customRequest={customReques
 
                                     action = {'/api/v1/tasks/1/upload'}
                                     // data = {{path : folderFilePath}}
@@ -286,19 +309,31 @@ const InputInfoConfig = ()=>{
 
                         {haveUploadFiles.map((item : any)=>{
                             console.log(item)
-                            return (<div className = {currentStyles.item}>
-                                <div className = {currentStyles.columnFileName}>{item.name}</div>
-                                <div className = {currentStyles.columnStatus}>{item.hasUploaded ? '已上传' : '上传失败'}</div>
-                                <div className = {currentStyles.columnOption}
-                                >删除</div>
-                            </div>)
+
+                            if (item.children) {
+                                return (<div className = {currentStyles.folderItem}>
+                                    <DirectoryTree
+                                        multiple
+                                        selectable={false}
+                                        treeData = {[item]}
+                                    />
+                                </div>)
+                            }else{
+                                return (<div className = {currentStyles.item}>
+                                    <div className = {currentStyles.columnFileName}><img src='/src/icons/picture.png' />&nbsp;&nbsp;{item.name}</div>
+                                    <div className = {currentStyles.columnStatus}>{item.hasUploaded ?
+                                        (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
+                                        (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
+                                    <div className = {currentStyles.columnOptionButtons}>
+                                        {!item.hasUploaded && <div className = {currentStyles.columnOption1}> 重新上传 </div>}
+                                        <div className = {currentStyles.columnOption}
+                                        >删除</div>
+                                    </div>
+
+                                </div>)
+                            }
+
                         })}
-                        <div className = {currentStyles.folderItem}>
-                            <DirectoryTree
-                                multiple
-                                treeData = {treeData}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>

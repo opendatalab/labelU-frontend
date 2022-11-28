@@ -15,8 +15,9 @@ import NullTask from '../pages/nullTask';
 import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
 import TaskAnnotation from "../pages/annotation";
-const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
 import Samples from "../pages/samples";
+
+const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
 
 
 const routeList: RouteObject[] = [

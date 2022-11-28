@@ -1,8 +1,13 @@
 import { message } from 'antd';
 import { ErrorMessages } from '../../services/errorMessage';
 const CommonController = {
-  checkLoginAndSignUp (params : any) {
-
+  isNullObject (obj : any) {
+    let result = true;
+    for(let key in obj){
+      result = false;
+      break;
+    }
+    return result;
   },
   checkEmail (event : any, emailValue ?: any) {
     let email : any = event ? event.target.value : emailValue;
@@ -130,6 +135,22 @@ const CommonController = {
   },
   getHaveConfigedStep (state : any) {
     return state.existTask.haveConfigedStep;
+  },
+  findElement(arr : any[], index : number, path : string){
+    let pathsArr = path.split('/');
+    for (let itemIndex = 0; itemIndex < arr.length; itemIndex++) {
+      let item = arr[itemIndex];
+      if (item.title === pathsArr[index]) {
+        if (index === pathsArr.length - 1) {
+          arr.splice(itemIndex,1);
+          break;
+        }else{
+          CommonController.findElement(item.children, index+1, path);
+          break;
+        }
+      }
+    }
+
   }
 }
 export default CommonController;

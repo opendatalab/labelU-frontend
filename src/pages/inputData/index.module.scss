@@ -188,6 +188,15 @@
   //overflow-y: scroll;
   //overflow: auto;
   //width : 50px;
+  :global{
+    .ant-tree{
+      width : calc(100% - 24px);
+    }
+    .ant-tree.ant-tree-directory .ant-tree-treenode .ant-tree-node-content-wrapper{
+      display : flex;
+      align-items: center;
+    }
+  }
 }
 .itemInFolder{
   @extend .displayFlex;
@@ -200,9 +209,32 @@
   font-size: 14px;
   line-height: 16px;
   color: rgba(0, 0, 0, 0.6);
-  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+  //box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
   overflow-y:scroll ;
   flex : 1;
+  width : 600px;
+
+  .columnFileName{
+    width: 349px;
+    width:30%;
+    flex : 1;
+    margin-left:46px;
+    word-break: break-all;
+  }
+
+  .columnStatus{
+    width: 349px;
+    width : 30%;
+    //width : 39px;
+    flex : 1;
+    margin-left:46px;
+  }
+
+  .columnOption{
+    width: 30%;
+    flex : 1;
+    color: #1B67FF;
+  }
 }
 
 .columnFileName{
@@ -214,15 +246,31 @@
 .columnStatus{
 
   width: 349px;
+  width : 39px;
   flex : 1;
   margin-left:46px;
 
 }
+.columnOptionButtons{
+  width: 96px;
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+}
+.columnOption1{
+  width: 56px;
+  //flex : 1;
+  color: #1B67FF;
+  margin-right:10px;
+  cursor : pointer;
+}
 .columnOption{
   width: 28px;
-  flex : 1;
+  //flex : 1;
   color: #1B67FF;
+  cursor : pointer;
+
 }
+
 .columnsContent{
   height : calc(100vh - 354px);
   //overflow-y: scroll;
@@ -291,3 +339,25 @@
   margin-bottom: 24px;
 }
 
+.uploadStatus{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  align-items: center;
+}
+
+.greenCircle{
+  border-radius: 50%;
+  width : 8px;
+  height : 8px;
+  background-color: #00B365;
+  margin-right : 5px;
+}
+
+.redCircle{
+  border-radius: 50%;
+  width : 8px;
+  height : 8px;
+  background-color:#F5483B;
+  margin-right : 5px;
+
+}
