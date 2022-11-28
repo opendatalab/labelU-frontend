@@ -41,17 +41,20 @@
   margin-right : 24px;
   //height:calc(100vh - 230px);
   //heigth:100%;
+  justify-content: center;
   overflow-y: scroll;
 }
 
 .left{
-  //flex : 1;
+  flex : 1;
   //width : 458px;
   width : 512px;
+  width : 388px;
   @extend .displayFlex;
   @extend .flexDirectionColumn;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-right:70px;
 }
 .leftTitle{
   flex : 1;
@@ -89,8 +92,9 @@
 .right{
   @extend .displayFlex;
   @extend .flexDirectionColumn;
-  //flex : 1;
+  flex : 2;
   width : 918px;
+  width : 894px;
   //width : 100%;
   height : calc(100vh - 230px);
   overflow-y: scroll;
@@ -153,6 +157,7 @@
   line-height: 50px;
   font-weight: 500;
   font-size: 14px;
+  width : calc(100% - 24px);
 }
 .item{
   @extend .displayFlex;

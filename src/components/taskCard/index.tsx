@@ -11,7 +11,8 @@ const TaskCard = (props : any)=>{
     }
     const navigate = useNavigate();
     const turnToAnnotation = ()=>{
-        navigate('/taskList/task/taskAnnotation');
+        // navigate('/taskList/task/taskAnnotation');
+        navigate('/taskList/samples');
     }
     return (<div className = {currentStyles.outerFrame}
     onClick = {turnToAnnotation}

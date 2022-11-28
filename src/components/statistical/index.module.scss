@@ -1,0 +1,47 @@
+@import  '../../utils/common/common.module';
+.outerFrame{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: space-between;
+  align-items: center;
+  height : 56px;
+  width : 100%;
+  line-height: 56px;
+}
+
+
+.left {
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left : 30px;
+}
+
+.logo {
+  background-image: url('../../assets/svg/LOGO.svg');
+  background-size : 120px 32px;
+  background-repeat: no-repeat;
+  width : 120px;
+  height : 32px;
+}
+.shortCutButton {
+  background-image: url('../../assets/png/threeLines.png');
+  background-size : 24px 24px;
+  background-repeat: no-repeat;
+  width : 24px;
+  height : 24px;
+  margin-left : 18px;
+}
+.breadcrumb{
+  margin-left : 39px;
+}
+.right {
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: 400;
+  font-size:14px;
+  margin-right: 40px;
+}

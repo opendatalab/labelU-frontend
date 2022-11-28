@@ -260,7 +260,7 @@ const InputInfoConfig = ()=>{
                         </div>
                     </div>
                     <div className= { currentStyles.illustration }>
-                        <div className = { currentStyles.supportType }>&nbsp;支持jpg、png、bmp、gif、mp4、wav、&nbsp;&nbsp;mp3、cav、txt、&nbsp;&nbsp;json、pcd、bin等文件
+                        <div className = { currentStyles.supportType }>&nbsp;支持文件类型包括：jpg、png、bmp、gif。
                         </div>
                         <div className = { currentStyles.advises }> 建议单个文件大小不超过200mb </div>
                     </div>
