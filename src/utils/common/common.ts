@@ -140,17 +140,31 @@ const CommonController = {
     let pathsArr = path.split('/');
     for (let itemIndex = 0; itemIndex < arr.length; itemIndex++) {
       let item = arr[itemIndex];
-      if (item.title === pathsArr[index]) {
+      if (item.path === pathsArr[index]) {
         if (index === pathsArr.length - 1) {
           arr.splice(itemIndex,1);
-          break;
+          return;
         }else{
           CommonController.findElement(item.children, index+1, path);
-          break;
+          return;
         }
       }
     }
-
-  }
+  },
+  updateElement(arr : any[], index : number, path : string, updateValue : boolean){
+    let pathsArr = path.split('/');
+    for (let itemIndex = 0; itemIndex < arr.length; itemIndex++) {
+      let item = arr[itemIndex];
+      if (item.path === pathsArr[index]) {
+        if (index === pathsArr.length - 1) {
+          item.hasUploaded = updateValue;
+          return;
+        }else{
+          CommonController.findElement(item.children, index+1, path);
+          return;
+        }
+      }
+    }
+  },
 }
 export default CommonController;

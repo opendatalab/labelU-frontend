@@ -11,6 +11,7 @@ import { Tree } from 'antd';
 let newFileList : any[] = [];
 let newFileListInfo : any[] = [];
 let newFolder : any = {};
+let saveFolderFiles : any[] =[];
 const InputInfoConfig = ()=>{
     const { DirectoryTree } = Tree;
 
@@ -45,15 +46,35 @@ const InputInfoConfig = ()=>{
             console.log('delete');
         }
     }];
+    const renewUploadFileInFolder = async function(data : any){
+        let result = await uploadFileService(1, data.params);
+        let temp : any= Object.assign([],haveUploadFiles);
+        if (result?.status === 201) {
+            commonController.updateElement(saveFolderFiles,0,data.path, false);
+        }else{
+            commonController.updateElement(saveFolderFiles,0,data.path, true);
+        }
+        setHaveUploadFiles(saveFolderFiles);
+    }
     // uploadFolder
-    const deleteFile = (path : any)=>{
+    const deleteFile = (path : string)=>{
+        console.log(path)
+        console.log(saveFolderFiles)
+        // console.log(c)
+        // setTimeout(()=>{
+        //     console.log(haveUploadFiles)
+        // },0)
+        // console.log(haveUploadFiles)
+        // console.log(newFolder)
+        // console.log(e)
         // console.log(parent)
-        console.log(haveUploadFiles)
-        let copyArr = Object.assign([],haveUploadFiles);
-        console.log(copyArr)
-        commonController.findElement(copyArr, 0, path);
-        console.log(copyArr);
-        // setHaveUploadFiles(copyArr);
+        // console.log(data);
+        // console.log(haveUploadFiles)
+        // let copyArr = Object.assign([],haveUploadFiles);
+        // console.log(copyArr)
+        commonController.findElement(saveFolderFiles, 0, path);
+        console.log(saveFolderFiles);
+        setHaveUploadFiles(saveFolderFiles);
         // console.log(parent);
 
     }
@@ -72,6 +93,7 @@ const InputInfoConfig = ()=>{
             parent.title =  paths[index];
             parent.key = new Date().getTime() + Math.random();
             parent.children =  [];
+            parent.path = paths[index];
             child = false;
             confirmFolder(parent, index, paths, data);
             return;
@@ -86,14 +108,17 @@ const InputInfoConfig = ()=>{
                             (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
                             (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
                         <div className = {currentStyles.columnOptionButtons}>
-                            {!data.hasUploaded && <div className = {currentStyles.columnOption1}> 重新上传 </div>}
+                            {!data.hasUploaded && <div className = {currentStyles.columnOption1}
+                            onClick = {()=>renewUploadFileInFolder(data)}> 重新上传 </div>}
                             <div className = {currentStyles.columnOption}
                                  onClick = {commonController.debounce((event : any)=>deleteFile(data.path),1000)}
+                                 // onClick = {deleteFile}
                             >删除</div>
                         </div>
                     </div>),
 
                     key : new Date().getTime() + Math.random(),
+                    path : paths[index],
                     isLeaf : true
                 })
             }else{
@@ -101,6 +126,7 @@ const InputInfoConfig = ()=>{
                     icon : <img src= '/src/icons/folder.png' />,
                     title : <span>&nbsp;&nbsp;{paths[index]}</span>,
                     key : new Date().getTime() + Math.random(),
+                    path : paths[index],
                     children : []
                 })
                 confirmFolder(parent.children[parent.children.length - 1], index + 1, paths, data);
@@ -119,7 +145,8 @@ const InputInfoConfig = ()=>{
                     icon : <img src= '/src/icons/folder.png' />,
                     title : paths[paths.length - 1],
                     key : new Date().getTime() + Math.random(),
-                    isLeaf : true
+                    isLeaf : true,
+                    path : paths[paths.length - 1]
                 })
             }
         }
@@ -134,6 +161,7 @@ const InputInfoConfig = ()=>{
                 newFolder.key = new Date().getTime() + Math.random();
                 newFolder.children = [];
                 newFolder.icon = <img src="/src/icons/folder.png" alt=""/>
+                newFolder.path = paths[0];
             }
             confirmFolder(newFolder,  1, paths, data);
         }
@@ -172,12 +200,16 @@ const InputInfoConfig = ()=>{
                 let path = currentInfo.file.webkitRelativePath;
                 let result = undefined;
                 if (path.indexOf('/') > -1) {
+                    if (newFileListInfoIndex === 0) {
+                        setHaveUploadFiles(haveUploadFiles.concat([newFolder]));
+                    }
                     result = await uploadFileService(1, {path, file : currentInfo.file  });
                     if (result?.status === 201) {
                         setupFolder(path, newFileListInfoIndex, {
                                 size : currentInfo.file.size,
                                 hasUploaded : true,
-                                uploadId : result?.data.data.id})
+                                uploadId : result?.data.data.id,
+                        })
                         // });
 
                         // newFolder.push({name : currentInfo.file.name,
@@ -188,7 +220,11 @@ const InputInfoConfig = ()=>{
                         setupFolder(path, newFileListInfoIndex,{
                             size : currentInfo.file.size,
                             hasUploaded : false,
-                            path
+                            path,
+                            params : {
+                                path,
+                                file : currentInfo.file
+                            }
                             });
 
                         // newFolder.push({name : currentInfo.file.name,
@@ -204,7 +240,12 @@ const InputInfoConfig = ()=>{
                             uploadId : result?.data.data.id});
                     }else{
                         currentHaveUploadFiles.push({name : currentInfo.file.name,
-                            size : currentInfo.file.size});
+                            size : currentInfo.file.size,
+                            params : {
+                                path:'./',
+                                file : currentInfo.file
+                            }
+                        });
                     }
                 }
                 // console.log(2);
@@ -212,9 +253,12 @@ const InputInfoConfig = ()=>{
 
                 // setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
             }
+            console.log(newFolder)
             if (commonController.isNullObject(newFolder)) {
                 setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
+                saveFolderFiles = saveFolderFiles.concat(currentHaveUploadFiles);
             }else{
+                saveFolderFiles.push(newFolder);
                 setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles, [newFolder]))
             }
             newFileList = [];
@@ -233,8 +277,28 @@ const InputInfoConfig = ()=>{
     const deleteUploadFiles = ()=>{
         console.log(1)
     }
+
+    const deleteSingleFile = (itemIndex : number)=>{
+        console.log(itemIndex)
+       const tempArr = Object.assign([],haveUploadFiles);
+       tempArr.splice(itemIndex,1);
+       console.log(tempArr)
+       setHaveUploadFiles(tempArr);
+    }
+    const renewUpload = async function(item : any, itemIndex : number){
+        console.log(item);
+        let result = await uploadFileService(1, item.params);
+        let temp : any= Object.assign([],haveUploadFiles);
+        if (result?.status === 201) {
+            temp[itemIndex].hasUploaded = true;
+        }else{
+            temp[itemIndex].hasUploaded = false;
+        }
+        setHaveUploadFiles(temp);
+    }
     useEffect(()=>{
-        console.log(haveUploadFiles)
+        console.log(haveUploadFiles);
+
     },[haveUploadFiles]);
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.title}>
@@ -307,7 +371,7 @@ const InputInfoConfig = ()=>{
 
 
 
-                        {haveUploadFiles.map((item : any)=>{
+                        {haveUploadFiles.map((item : any, itemIndex : number)=>{
                             console.log(item)
 
                             if (item.children) {
@@ -325,8 +389,10 @@ const InputInfoConfig = ()=>{
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
                                     <div className = {currentStyles.columnOptionButtons}>
-                                        {!item.hasUploaded && <div className = {currentStyles.columnOption1}> 重新上传 </div>}
+                                        {!item.hasUploaded && <div className = {currentStyles.columnOption1}
+                                        onClick = {()=>renewUpload(item, itemIndex)}> 重新上传 </div>}
                                         <div className = {currentStyles.columnOption}
+                                             onClick = { ()=>deleteSingleFile(itemIndex) }
                                         >删除</div>
                                     </div>
 

@@ -17,6 +17,57 @@
   align-items: center;
   margin-left : 30px;
 }
+.leftTitle{
+  width: 56px;
+  height: 22px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  /* identical to box height, or 157% */
+  /* 中性色/87% */
+  color: rgba(0, 0, 0, 0.87);
+  margin-right:56px;
+}
+.leftTitleContent{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+}
+.leftTitleContentOption{
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  /* identical to box height, or 157% */
+
+
+  /* 中性色/87% */
+
+  color: rgba(0, 0, 0, 0.87);
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  align-items: center;
+  width: 94px;
+  height: 24px;
+  margin-right:50px;
+}
+
+.leftTitleContentOptionContent{
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  /* identical to box height, or 157% */
+
+
+  /* 中性色/87% */
+
+  font-color: rgba(0, 0, 0, 0.87);
+  margin-right : 6px;
+  font-style: normal;
+}
+
+.leftTitleContentOptionBlueIcon{ width : 8px; height : 8px; border-radius: 50%; background-color: #1B67ff;margin-right:6px; }
+.leftTitleContentOptionGrayIcon{ width : 8px; height : 8px; border-radius: 50%; background: rgba(0, 0, 0, 0.24);margin-right:6px; }
+.leftTitleContentOptionOrangeIcon{ width : 8px; height : 8px; border-radius: 50%; background: #FF8800;margin-right:6px; }
+.leftTitleContentOptionWhiteIcon{ width : 8px; height : 8px; border-radius: 50%; background-color: #ffffff;margin-right:6px; }
 
 .logo {
   background-image: url('../../assets/svg/LOGO.svg');
@@ -44,4 +95,54 @@
   font-weight: 400;
   font-size:14px;
   margin-right: 40px;
+}
+.rightOption1{
+  margin-right : 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.87);
+}
+.rightOption1:hover{
+  color : #1B67ff;
+  cursor : pointer;
+
+}
+.rightOption2{
+  margin-right : 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.87);
+}
+.rightOption2:hover{
+  color : #1B67ff;
+  cursor : pointer;
+}
+.rightOption3{
+  width: 88px;
+  height: 32px;
+
+  border: 1px solid #1B67FF;
+  border-radius: 2px;
+
+  color: #1B67FF;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 32px;
+  text-align: center;
+  margin-right: 16px;
+}
+.rightOption4{
+  width: 88px;
+  height: 32px;
+
+  background: #1B67FF;
+  border-radius: 3px;
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 32px;
+  text-align: center;
+  cursor : pointer;
 }

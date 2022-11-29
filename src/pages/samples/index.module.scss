@@ -62,5 +62,81 @@
   margin-left:24px;
   margin-right:24px;
   margin-top:24px;
-  background-color: white;
+  //background-color: white;
+  background: #FBFCFF;
+  :global{
+    .ant-table-thead .ant-table-cell{
+      background-color: white;
+      text-align: center;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+}
+.dataProcess{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+}
+.dataProcessDelete{
+  color: #F5483B;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  width: 56px;
+  height: 22px;
+  cursor : pointer;
+  margin-right : 32px;
+}
+.dataProcessOutput{
+  color: #1B67FF;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  width: 84px;
+  height: 22px;
+  cursor : pointer;
+}
+.pagination{
+  width : 100%;
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.tableColumn{
+  color : red;
+}
+
+.optionItem{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+}
+.optionItemEnter{
+  align-items: center;
+
+  /* 蓝色/蓝色-默认 */
+
+  color: #1B67FF;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  cursor : pointer;
+  margin-right : 32px;
+}
+
+.optionItemDelete{
+  align-items: center;
+
+  /* 蓝色/蓝色-默认 */
+
+  color: #F5483B;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  cursor : pointer;
 }
