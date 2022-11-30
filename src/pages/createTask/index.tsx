@@ -5,35 +5,43 @@ import {Breadcrumb, Steps} from 'antd';
 import Step from '../../components/step';
 import {Link, Outlet, useNavigate } from "react-router-dom";
 import Separator from '../../components/separator';
-import { updateTaskConfig } from '../../services/createTask';
+import {submitBasicConfig, updateTaskConfig} from '../../services/createTask';
 import constant from '../../constants';
 import {connect, useSelector, useDispatch} from 'react-redux';
-
+import { updateHaveConfigedStep } from '../../stores/task.store'
 import commonController from '../../utils/common/common';
 
-import { updateConfigStep } from '../../stores/task.store';
+import { updateConfigStep, updateTaskId } from '../../stores/task.store';
+import { createSamples } from '../../services/samples';
+
 const CreateTask = (props : any)=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let configStep = useSelector(state=>state.existTask.configStep );
+    let haveConfigedStep =  useSelector(state=>state.existTask.haveConfigedStep );
+    let taskName = useSelector(state=>state.existTask.taskName );
+    let taskDescription = useSelector(state=>state.existTask.taskDescription );
+    let taskTips = useSelector(state=>state.existTask.taskTips );
+    let taskId = useSelector(state=>state.existTask.taskId );
 
+    let newSamples = useSelector(state=>state.samples.newSamples);
     const steps = [{
         title : '基础配置',
         index : 1,
-        contentUrl : './inputInfoConfig'
+        contentUrl : `/tasks/${taskId}/edit/basic`
     },
         {
 
             title : '数据导入',
             index : 2,
-            contentUrl : './inputData'
+            contentUrl : `/tasks/${taskId}/edit/upload`
 
         },
         {
 
             title : '标注配置',
             index : 3,
-            contentUrl : './annotationConfig'
+            contentUrl : `/tasks/${taskId}/edit/config`
         }
         ];
     const [current, setCurrent] = useState(0);
@@ -62,20 +70,92 @@ const CreateTask = (props : any)=>{
             }
         }
     }
-    const nextStep = ()=>{
+
+    const updateStep = (status : string)=>{
+        let result = 0;
+        switch(status){
+            case 'DRAFT' :
+                result = 1;
+                break;
+            case 'IMPORTED' :
+                result = 2;
+                break;
+            default :
+                result = 3;
+                break;
+        }
+        dispatch(updateHaveConfigedStep(result));
+    }
+    const updateTaskIdLocal = (id : number)=>{
+        dispatch(updateTaskId(id))
+    }
+    const nextWhen0= async function(){
+        let result = true;
+        if (!taskName) {
+            commonController.notificationErrorMessage({message : '请填入任务名称'}, 1);
+            return false;
+        }
+        try{
+            let res : any= await submitBasicConfig({name : taskName,
+                description : taskDescription,
+                tips : taskTips
+            })
+            if (res.status === 201) {
+                const { status, id } = res.data.data;
+                updateStep(status);
+                updateTaskIdLocal(id);
+            }else{
+                result = false;
+                commonController.notificationErrorMessage(res.data,1);
+            }
+        }catch(error){
+            result = false;
+            commonController.notificationErrorMessage(error, 1);
+        }
+        return result;
+    }
+    const nextWhen1 = async function(){
+        let result = true;
+        if (newSamples.length === 0) {
+            commonController.notificationWarnMessage({message : '请导入数据,再进行下一步操作'}, 1);
+            return false;
+        }
+        try{
+            let res : any= await createSamples(taskId,newSamples)
+            if (res.status === 201) {
+                // const { status, id } = res.data.data;
+                updateStep('IMPORTED');
+                // updateTaskIdLocal(id);
+            }else{
+                result = false;
+                commonController.notificationErrorMessage(res.data,1);
+            }
+        }catch(error){
+            result = false;
+            commonController.notificationErrorMessage(error, 1);
+        }
+        return result;
+    }
+    const nextStep = async function(){
+        console.log(configStep)
         let currentStep = -1;
-        let childOutlet = 'inputInfoConfig';
+        let childOutlet = `/tasks/${taskId}/edit/basic`;
         switch (configStep) {
             case -1 :
+                let isSuccess0 = await nextWhen0();
+                if (!isSuccess0) return;
                 currentStep = 0;
-                childOutlet = 'inputData';
+                childOutlet = `/tasks/${taskId}/edit/upload`;
                 break;
             case 0 :
+                let isSuccess1 = await nextWhen1();
+                if (!isSuccess1) return;
                 currentStep = 1;
-                childOutlet = 'annotationConfig';
+                childOutlet = `/tasks/${taskId}/edit/config`;
                 break;
         }
         dispatch(updateConfigStep(currentStep));
+        console.log(childOutlet)
         navigate(childOutlet);
     }
 

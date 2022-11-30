@@ -8,7 +8,7 @@ const submitBasicConfig = async function (data : { name : string, description ?:
             method : 'POST',
             data
         });
-        return res.data.data;
+        return res;
     // }catch (e) {
     //     CommonController.notificationErrorMessage(e, 5);
     // }
@@ -20,7 +20,7 @@ const uploadFile = async function (taskId : number, params : any ){
         data.append('file', params.file);
         data.append('path', './')
         let res = await axiosInstance({
-            url : `/api/v1/tasks/${taskId}/upload`,
+            url : `/api/v1/tasks/${taskId}/attachments`,
             headers : {
               "Content-Type" : 'application/x-www-form-urlencoded',
             },
@@ -63,6 +63,8 @@ const getTaskList =async function (page : number){
         CommonController.notificationErrorMessage(e, 5);
     }
 }
+
+
 export {
     submitBasicConfig,
     uploadFile,

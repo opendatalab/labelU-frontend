@@ -16,7 +16,7 @@ import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
 import TaskAnnotation from "../pages/annotation1";
 import Samples from "../pages/samples";
-
+import RootGuard, { action as RootAction } from "../pages/guards/rootGuard";
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
 
 
@@ -54,10 +54,61 @@ const routeList: RouteObject[] = [
 
   {
     path : '/',
+    element : <RootGuard />,
+    // action : RootAction,
+    children : [
+      {
+        path : '',
+        element : <Homepage />,
+        children : [
+          {
+            path : '',
+            element : <TaskList />
+          },
+        ]
+      },
+      {
+        path : 'tasks',
+        element : <Homepage />,
+        children : [
+          {
+            path : '',
+            element : <TaskList />
+          }
+        ]
+      },
+      {
+        path : 'tasks/:id',
+        element : <Homepage />,
+        children : [
+          {
+            path : 'edit',
+            element : <CreateTask />,
+            children : [
+              {
+                path : 'basic',
+                element : (<InputInfoConfig />)
+              },
+              {
+                path : 'upload',
+                element : (<InputData />)
+              },
+              {
+                path : 'config',
+                element : (<AnnotationConfig />)
+              },
+            ]
+          },
+        ]
+      }
+    ]
+  },
+  {
+    path : 'login',
     element : <Login1 />,
   },
   {
-    path : 'signUp',
+    path : 'register',
     element : <SignUp />
   },
   {
@@ -110,10 +161,10 @@ const routeList: RouteObject[] = [
       }
     ]
   },
-  {
-    path : 'tasks',
-    element : <TaskAnnotation/>
-  }
+  // {
+  //   path : 'tasks',
+  //   element : <TaskAnnotation/>
+  // }
 
 
 

@@ -28,11 +28,13 @@
 .cards{
   margin-top : 16px;
   width : 100%;
+  width : 1394px;
   @extend .displayFlex;
   @extend .flexDirectionRow;
   @extend .flexDirectionRowWrap;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .stationSymbol{
@@ -46,5 +48,6 @@
   justify-content: flex-end;
   align-items : center;
   width : 100%;
+  width : 1393px;
 }
 

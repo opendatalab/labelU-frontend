@@ -75,6 +75,8 @@ const CommonController = {
     return result;
   },
   notificationErrorMessage (error : any, time : number) {
+    console.log(error);
+    console.trace();
     let errCode = error['err_code'];
     if (errCode || errCode === 0) {
       let errorMessage = ErrorMessages[errCode];

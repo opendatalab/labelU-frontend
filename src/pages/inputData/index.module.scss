@@ -273,8 +273,8 @@
 
 .columnsContent{
   height : calc(100vh - 354px);
-  //overflow-y: scroll;
-
+  overflow-y: scroll;
+  width : 100%;
 }
 .buttons{
   @extend .displayFlex;

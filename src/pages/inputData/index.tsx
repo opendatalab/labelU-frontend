@@ -7,14 +7,29 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import commonController from "../../utils/common/common";
 import { uploadFile as uploadFileService } from "../../services/createTask";
 import { Tree } from 'antd';
-
+import {useSelector, useDispatch} from "react-redux";
+import { updateNewSamples } from '../../stores/sample.store';
 let newFileList : any[] = [];
 let newFileListInfo : any[] = [];
 let newFolder : any = {};
 let saveFolderFiles : any[] =[];
 const InputInfoConfig = ()=>{
     const { DirectoryTree } = Tree;
-
+    const dispatch = useDispatch();
+    let configStep = useSelector(state=>state.existTask.configStep );
+    let haveConfigedStep =  useSelector(state=>state.existTask.haveConfigedStep );
+    let taskName = useSelector(state=>state.existTask.taskName );
+    let taskDescription = useSelector(state=>state.existTask.taskDescription );
+    let taskTips = useSelector(state=>state.existTask.taskTips );
+    let taskId = useSelector(state=>state.existTask.taskId );
+    console.log({
+        configStep,
+        haveConfigedStep,
+        taskName,
+        taskDescription,
+        taskTips,
+        taskId
+    })
 
     const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -58,20 +73,8 @@ const InputInfoConfig = ()=>{
     }
     // uploadFolder
     const deleteFile = (path : string)=>{
-        console.log(path)
-        console.log(saveFolderFiles)
-        // console.log(c)
-        // setTimeout(()=>{
-        //     console.log(haveUploadFiles)
-        // },0)
-        // console.log(haveUploadFiles)
-        // console.log(newFolder)
-        // console.log(e)
-        // console.log(parent)
-        // console.log(data);
-        // console.log(haveUploadFiles)
-        // let copyArr = Object.assign([],haveUploadFiles);
-        // console.log(copyArr)
+        console.log(path);
+        console.log(saveFolderFiles);
         commonController.findElement(saveFolderFiles, 0, path);
         console.log(saveFolderFiles);
         setHaveUploadFiles(saveFolderFiles);
@@ -197,52 +200,59 @@ const InputInfoConfig = ()=>{
                 let currentInfo =  newFileListInfo[newFileListInfoIndex];
                 console.log(currentInfo);
                 console.log(newFileListInfo)
-                let path = currentInfo.file.webkitRelativePath;
+                let path = currentInfo.file.webkitRelativePath ? currentInfo.file.webkitRelativePath : './';
                 let result = undefined;
-                if (path.indexOf('/') > -1) {
-                    if (newFileListInfoIndex === 0) {
-                        setHaveUploadFiles(haveUploadFiles.concat([newFolder]));
-                    }
-                    result = await uploadFileService(1, {path, file : currentInfo.file  });
+                // if (path.indexOf('/') > -1)
+                {
+                    // if (newFileListInfoIndex === 0) {
+                    //     setHaveUploadFiles(haveUploadFiles.concat([newFolder]));
+                    // }
+                    // result = await uploadFileService(1, {path, file : currentInfo.file  });
+                    // if (result?.status === 201) {
+                    //     setupFolder(path, newFileListInfoIndex, {
+                    //             size : currentInfo.file.size,
+                    //             hasUploaded : true,
+                    //             uploadId : result?.data.data.id,
+                    //     })
+                    //     // });
+                    //
+                    //     // newFolder.push({name : currentInfo.file.name,
+                    //     //     size : currentInfo.file.size,
+                    //     //     hasUploaded : true,
+                    //     //     uploadId : result?.data.data.id});
+                    // }else{
+                    //     setupFolder(path, newFileListInfoIndex,{
+                    //         size : currentInfo.file.size,
+                    //         hasUploaded : false,
+                    //         path,
+                    //         params : {
+                    //             path,
+                    //             file : currentInfo.file
+                    //         }
+                    //         });
+                    //
+                    //     // newFolder.push({name : currentInfo.file.name,
+                    //     //     size : currentInfo.file.size});
+                    // }
+
+
+                // }
+                // else{
+                //     result = await uploadFileService(1, {path : './', file : currentInfo.file  });
+                    result = await uploadFileService(taskId, {path , file : currentInfo.file  });
                     if (result?.status === 201) {
-                        setupFolder(path, newFileListInfoIndex, {
-                                size : currentInfo.file.size,
-                                hasUploaded : true,
-                                uploadId : result?.data.data.id,
-                        })
-                        // });
-
-                        // newFolder.push({name : currentInfo.file.name,
-                        //     size : currentInfo.file.size,
-                        //     hasUploaded : true,
-                        //     uploadId : result?.data.data.id});
-                    }else{
-                        setupFolder(path, newFileListInfoIndex,{
-                            size : currentInfo.file.size,
-                            hasUploaded : false,
-                            path,
-                            params : {
-                                path,
-                                file : currentInfo.file
-                            }
-                            });
-
-                        // newFolder.push({name : currentInfo.file.name,
-                        //     size : currentInfo.file.size});
-                    }
-                }else{
-                    result = await uploadFileService(1, {path : './', file : currentInfo.file  });
-                    if (result?.status === 201) {
-
                         currentHaveUploadFiles.push({name : currentInfo.file.name,
                             size : currentInfo.file.size,
                             hasUploaded : true,
-                            uploadId : result?.data.data.id});
+                            uploadId : result?.data.data.id,
+                            url : result.data.data.url,
+                            id : result.data.data.id
+                        });
                     }else{
                         currentHaveUploadFiles.push({name : currentInfo.file.name,
                             size : currentInfo.file.size,
                             params : {
-                                path:'./',
+                                path ,
                                 file : currentInfo.file
                             }
                         });
@@ -287,7 +297,7 @@ const InputInfoConfig = ()=>{
     }
     const renewUpload = async function(item : any, itemIndex : number){
         console.log(item);
-        let result = await uploadFileService(1, item.params);
+        let result = await uploadFileService(taskId, item.params);
         let temp : any= Object.assign([],haveUploadFiles);
         if (result?.status === 201) {
             temp[itemIndex].hasUploaded = true;
@@ -296,9 +306,28 @@ const InputInfoConfig = ()=>{
         }
         setHaveUploadFiles(temp);
     }
+    const updateUploadedFiles = ()=>{
+        let result = [];
+        for (let fileIndex = 0; fileIndex < haveUploadFiles.length; fileIndex++ ) {
+            let fileItem = haveUploadFiles[fileIndex];
+            if(fileItem.id || fileItem === 0){
+                let newItem = {
+                    attachement_ids : [fileItem.id],
+                    data : {
+                        result : {},
+                        urls : {[fileItem.id] : fileItem.url},
+                        fileNames : {[fileItem.id] : ''}
+                    }
+                }
+                result.push(newItem);
+            }
+        }
+        console.log(result)
+        dispatch(updateNewSamples(result))
+    }
     useEffect(()=>{
         console.log(haveUploadFiles);
-
+        updateUploadedFiles();
     },[haveUploadFiles]);
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.title}>
@@ -363,6 +392,7 @@ const InputInfoConfig = ()=>{
                 <div className={currentStyles.rightContent}>
                     <div className = {currentStyles.columnsName}>
                         <div className = {currentStyles.columnFileName}  style={{color : 'rgba(0, 0, 0, 0.6)'}}>文件名</div>
+                        <div className = {currentStyles.columnFileName}  style={{color : 'rgba(0, 0, 0, 0.6)'}}>地址</div>
                         <div className = {currentStyles.columnStatus}  style={{color : 'rgba(0, 0, 0, 0.6)'}}>状态</div>
                         <div className = {currentStyles.columnOption} style={{color : 'rgba(0, 0, 0, 0.6)'}}>操作</div>
                     </div>
@@ -385,6 +415,7 @@ const InputInfoConfig = ()=>{
                             }else{
                                 return (<div className = {currentStyles.item}>
                                     <div className = {currentStyles.columnFileName}><img src='/src/icons/picture.png' />&nbsp;&nbsp;{item.name}</div>
+                                    <div className = {currentStyles.columnFileName}>{item.params.path}</div>
                                     <div className = {currentStyles.columnStatus}>{item.hasUploaded ?
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
@@ -407,3 +438,4 @@ const InputInfoConfig = ()=>{
     </div>)
 }
 export  default InputInfoConfig;
+

@@ -58,4 +58,6 @@
 }
 .itemInput{
   width : 516px;
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
 }

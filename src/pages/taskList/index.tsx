@@ -8,13 +8,14 @@ import {getTaskList, updateTaskConfig} from '../../services/createTask';
 import CommonController from "../../utils/common/common";
 import { useDispatch } from "react-redux";
 import { updateConfigStep, updateHaveConfigedStep } from '../../stores/task.store';
+import NullTask from "../nullTask";
 const TaskList = ()=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const createTask = ()=>{
         dispatch(updateConfigStep(-1));
         dispatch(updateHaveConfigedStep(0));
-        navigate(Constatns.urlToCreateTask);
+        navigate(Constatns.urlToCreateNewTask);
     };
     const [taskCards, setTaskCards] = useState<any>([]);
     const [taskTotal, setTaskTotal] = useState<any>(0);
@@ -50,21 +51,110 @@ const TaskList = ()=>{
           "total" : 2,
           "status" : 2,    //不确定的
           "media_type" : "IMAGE"   // 也有点问题
-        }])
+        },
+            {
+                id : 1,
+                name : 'test1',
+                "created_by" : {
+                    id : 2,
+                    username : 'test1@qq.com'
+                },
+                "created_at" : "2022-11-25T02:52:24.215Z",
+                "annotated_count" : 1,
+                "total" : 2,
+                "status" : 2,    //不确定的
+                "media_type" : "IMAGE"   // 也有点问题
+            },
+            {
+                id : 1,
+                name : 'test1',
+                "created_by" : {
+                    id : 2,
+                    username : 'test1@qq.com'
+                },
+                "created_at" : "2022-11-25T02:52:24.215Z",
+                "annotated_count" : 1,
+                "total" : 2,
+                "status" : 2,    //不确定的
+                "media_type" : "IMAGE"   // 也有点问题
+            },
+            {
+                id : 1,
+                name : 'test1',
+                "created_by" : {
+                    id : 2,
+                    username : 'test1@qq.com'
+                },
+                "created_at" : "2022-11-25T02:52:24.215Z",
+                "annotated_count" : 1,
+                "total" : 2,
+                "status" : 2,    //不确定的
+                "media_type" : "IMAGE"   // 也有点问题
+            },
+            {
+                id : 1,
+                name : 'test1',
+                "created_by" : {
+                    id : 2,
+                    username : 'test1@qq.com'
+                },
+                "created_at" : "2022-11-25T02:52:24.215Z",
+                "annotated_count" : 1,
+                "total" : 2,
+                "status" : 2,    //不确定的
+                "media_type" : "IMAGE"   // 也有点问题
+            },
+            {
+                id : 1,
+                name : 'test1',
+                "created_by" : {
+                    id : 2,
+                    username : 'test1@qq.com'
+                },
+                "created_at" : "2022-11-25T02:52:24.215Z",
+                "annotated_count" : 1,
+                "total" : 2,
+                "status" : 2,    //不确定的
+                "media_type" : "IMAGE"   // 也有点问题
+            },
+            {
+                id : 1,
+                name : 'test1',
+                "created_by" : {
+                    id : 2,
+                    username : 'test1@qq.com'
+                },
+                "created_at" : "2022-11-25T02:52:24.215Z",
+                "annotated_count" : 1,
+                "total" : 2,
+                "status" : 2,    //不确定的
+                "media_type" : "IMAGE"   // 也有点问题
+            }])
 
 
     },[]);
 
 
-    return (<div className = {currentStyles.outerFrame}>
+    return (
+        <React.Fragment>
+
+        {taskCards.length > 0 &&<div className = {currentStyles.outerFrame}>
+
+
         <div className = {currentStyles.createTaskButtonRow}>
             <div className = {currentStyles.createTaskButton}
             onClick = { createTask }
             >新建任务</div>
         </div>
         <div className = {currentStyles.cards}>
-            {taskCards.length > 0 && taskCards.map((cardInfo : any, cardInfoIndex : number)=>{
-                return <TaskCard cardInfo = {cardInfo}/>
+            {taskCards.map((cardInfo : any, cardInfoIndex : number)=>{
+                if (cardInfoIndex%4 === 0) {
+                    return (<React.Fragment><TaskCard cardInfo = {cardInfo}/>
+                    <br/></React.Fragment>)
+                }else{
+                    return <TaskCard cardInfo = {cardInfo}/>
+
+                }
             })}
         </div>
         <div className = {currentStyles.pagination}>
@@ -76,6 +166,10 @@ const TaskList = ()=>{
             />
         </div>
 
-    </div>)
+    </div>}
+            {
+                taskCards.length === 0 && <NullTask />
+            }
+        </React.Fragment>)
 }
 export  default TaskList;
