@@ -14,7 +14,7 @@ import CreateTask from '../pages/createTask';
 import NullTask from '../pages/nullTask';
 import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
-import TaskAnnotation from "../pages/annotation1";
+import TaskAnnotation from "../pages/annotation2";
 import Samples from "../pages/samples";
 import RootGuard, { action as RootAction } from "../pages/guards/rootGuard";
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
@@ -82,6 +82,10 @@ const routeList: RouteObject[] = [
         element : <Homepage />,
         children : [
           {
+            path : '',
+            element : <Samples />
+          },
+          {
             path : 'edit',
             element : <CreateTask />,
             children : [
@@ -99,6 +103,10 @@ const routeList: RouteObject[] = [
               },
             ]
           },
+          {
+            path : 'samples/:sampleId',
+            element: <TaskAnnotation />
+          }
         ]
       }
     ]

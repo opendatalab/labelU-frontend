@@ -161,15 +161,18 @@
 //
 // export default AnnotationConfig;
 
+
+
 import React from 'react';
 import currentStyles from './index.module.scss';
-import { Pagination } from 'antd';
+import AnnotationConfig from '../annotationConfig';
 const TaskCard = ()=>{
     const createTask = ()=>{
         alert('createTask')
     }
     return (<div className = {currentStyles.outerFrame}>
-        <iframe src="/annotationConfig" width = '1440px' height = '800px'></iframe>
+        <AnnotationConfig />
+        {/*<iframe src="/annotationConfig" width = '1440px' height = '800px'></iframe>*/}
     </div>)
 }
 export  default TaskCard;

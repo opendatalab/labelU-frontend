@@ -10,8 +10,9 @@ import {
 } from '../../stores/toolConfig.store';
 
 import toolCombineConfig from '../../config/toolCombineConfig.json';
-const AnnotationPage: FC = () => {
+const AnnotationPage: FC = (props : any) => {
   console.log(1111111)
+  console.log(props)
   const dispatch = useDispatch();
   const { tools, tagList, attribute, textConfig } = useSelector(state => state.toolsConfig);
   // const currentIsVideo = StepUtils.currentToolIsVideo(1, stepConfig);

@@ -34,8 +34,8 @@ const uploadFile = async function (taskId : number, params : any ){
 }
 
 const updateTaskConfig = async function (taskId : number, taskConfig : any) {
+    console.log(taskConfig)
     try {
-
         let res = await axiosInstance({
             url : `/api/v1/tasks/${taskId}`,
             method : 'PATCH',
@@ -49,7 +49,6 @@ const updateTaskConfig = async function (taskId : number, taskConfig : any) {
 
 const getTaskList =async function (page : number){
     try {
-
         let res = await axiosInstance({
             url : `/api/v1/tasks`,
             method : 'GET',

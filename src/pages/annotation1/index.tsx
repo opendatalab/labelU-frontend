@@ -10,8 +10,15 @@ import {
 } from '../../stores/toolConfig.store';
 
 import toolCombineConfig from '../../config/toolCombineConfig.json';
-const AnnotationPage: FC = () => {
-    console.log(1111111)
+const AnnotationPage: FC = (props : any) => {
+    console.log(1111111);
+    console.log(props);
+    const {leftSiderContent, topActionContent} = props;
+    console.log({
+        leftSiderContent,
+        topActionContent
+    })
+
     const dispatch = useDispatch();
     const { tools, tagList, attribute, textConfig } = useSelector(state => state.toolsConfig);
     // const currentIsVideo = StepUtils.currentToolIsVideo(1, stepConfig);
@@ -38,25 +45,20 @@ const AnnotationPage: FC = () => {
     const goBack = (data: any) => {
         console.log('goBack', data);
     };
-    const leftSiderContent = ()=>{
-        return (<div>test 22</div>)
-    };
-    const topActionContent = ()=>{
-        return <div>test action</div>
-    };
+
     return (
         <>
             {fileList && fileList.length > 0 && tools && tools.length > 0 && (
-                <div style = {{width : '1440px'}}>
+                <div style = {{width : '1440px', marginTop : '40px'}}>
                     <Annotation
-                        leftSiderContent = { leftSiderContent() }
-                        topActionContent = { topActionContent() }
-                        attribute={attribute}
-                        tagList={tagList}
-                        fileList={fileList}
-                        textConfig={textConfig}
-                        goBack={goBack}
-                        tools={tools}
+                        leftSiderContent = { leftSiderContent }
+                        topActionContent = { topActionContent }
+                        attribute={props.attribute}
+                        tagList={props.tagList}
+                        fileList={props.fileList}
+                        textConfig={props.textConfig}
+                        goBack={props.goBack}
+                        tools={props.tools}
                     />
                 </div>
             )}

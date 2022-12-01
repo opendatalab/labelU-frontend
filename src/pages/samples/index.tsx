@@ -11,7 +11,11 @@ import {connect, useSelector, useDispatch} from 'react-redux';
 import commonController from '../../utils/common/common';
 import { Table, Pagination, Modal } from 'antd';
 import { updateConfigStep } from '../../stores/task.store';
+import {  getSamples } from '../../services/samples';
+import statisticalStyles from '../../components/statistical/index.module.scss';
+import moment from "moment";
 const Samples = (props : any)=>{
+  let taskId = parseInt(window.location.pathname.split('/')[2]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let configStep = useSelector(state=>state.existTask.configStep );
@@ -79,8 +83,8 @@ const Samples = (props : any)=>{
   const columns = [
     {
       title: '数据ID',
-      dataIndex: 'packageID',
-      key: 'packageID',
+      dataIndex: 'id',
+      key: 'id',
       className : currentStyles.tableColumn
       // width: 80,
     },
@@ -92,33 +96,68 @@ const Samples = (props : any)=>{
     },
     {
       title: '标注情况',
-      dataIndex: 'packageID',
+      dataIndex: 'state',
       key: 'packageID',
       // width: 80,
+      render:(text : string)=>{
+        let result = undefined;
+        switch(text){
+          case 'Done' :
+            result = (<div className = {statisticalStyles.leftTitleContentOption}>
+              <div className = {statisticalStyles.leftTitleContentOptionBlueIcon}></div>
+              <div className = {statisticalStyles.leftTitleContentOptionContent} >已标注</div>
+            </div>);
+            break;
+          case 'NEW' :
+            result = (<div className = {statisticalStyles.leftTitleContentOption}>
+              <div className = {statisticalStyles.leftTitleContentOptionGrayIcon}></div>
+              <div className = {statisticalStyles.leftTitleContentOptionContent} >未标注</div>
+            </div>);
+            break;
+          case 'NEW' :
+            result = (<div className = {statisticalStyles.leftTitleContentOption}>
+              <div className = {statisticalStyles.leftTitleContentOptionOrangeIcon}></div>
+              <div className = {statisticalStyles.leftTitleContentOptionContent} ><b>跳过</b></div>
+            </div>);
+            break;
+        };
+        return result;
+      }
     },
     {
       title: '标注数',
-      dataIndex: 'packageID',
-      key: 'packageID',
+      dataIndex: 'annotated_count',
+      key: 'annotated_count',
       // width: 80,
     },
     {
       title: '标注者',
-      dataIndex: 'packageID',
-      key: 'packageID',
-      // width: 80,
+      dataIndex: 'created_by',
+      key: 'created_by',
+      render:(created_by: any)=>{
+        return created_by.username;
+      }
     },
     {
       title: '上次标注时间',
-      dataIndex: 'packageID',
-      key: 'packageID',
+      dataIndex: 'updated_at',
+      key: 'updated_at',
+      render : (updated_at : any)=>{
+        return moment(updated_at).format('YYYY-MM-DD HH:MM');
+      }
       // width: 80,
     },
     {
       title: '',
       dataIndex: 'option',
-      key: 'packageID',
+      key: 'option',
       width: 180,
+      render:(x : any, record : any)=>{
+        return (<div className={ currentStyles.optionItem }>
+          <div className={ currentStyles.optionItemEnter } onClick={ ()=>turnToAnnotate(record.id) }>进入标注</div>
+          <div className={ currentStyles.optionItemDelete }>删除</div>
+        </div>)
+      }
     }
   ]
   const [showDatas, setShowDatas] = useState<any[]>([]);
@@ -146,18 +185,41 @@ const Samples = (props : any)=>{
 
     }
   }
-  const turnToAnnotate = ()=>{
-    navigate('/tasks/samples')
+  const turnToAnnotate = (sampleId : number)=>{
+    navigate(`/tasks/${taskId}/samples/${sampleId}`)
   }
-
+  const [total, setTotal] = useState(0);
+  const getSamplesLocal = (params : any)=>{
+    getSamples(taskId,params).then(res=>{
+      if(res.status === 200){
+        setShowDatas(res.data.data);
+        setTotal(res.data['meta_data'].total);
+      }else{
+        commonController.notificationErrorMessage({message : '请求samples 出问题'}, 1)
+      }
+    }).catch(error=>{
+      commonController.notificationErrorMessage(error, 1)
+    });
+  }
   useEffect(()=>{
-    setShowDatas([{
-      option : (<div className={ currentStyles.optionItem }>
-        <div className={ currentStyles.optionItemEnter } onClick={ turnToAnnotate }>进入标注</div>
-        <div className={ currentStyles.optionItemDelete }>删除</div>
-      </div>)
-    }])
+
+    getSamplesLocal({pageNo : 0,pageSize : 10});
+
+    // setShowDatas([{
+    //   option : (<div className={ currentStyles.optionItem }>
+    //     <div className={ currentStyles.optionItemEnter } onClick={ ()=>turnToAnnotate() }>进入标注</div>
+    //     <div className={ currentStyles.optionItemDelete }>删除</div>
+    //   </div>)
+    // }])
+
+
   },[]);
+  const changePage = (page : number, pageSize : number)=>{
+    getSamplesLocal({
+      pageNo :  page - 1,
+      pageSize
+    })
+  }
   return (<div className={currentStyles.outerFrame}>
     <div className = {currentStyles.stepsRow}>
         <Statistical />
@@ -175,9 +237,10 @@ const Samples = (props : any)=>{
           <div className = { currentStyles.dataProcessOutput }>批量数据导出</div>
         </div>
         <Pagination
-            total = {25}
+            total = {total+20}
             showSizeChanger
             showQuickJumper
+            onChange={changePage}
         />
       </div>
 

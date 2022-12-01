@@ -73,6 +73,16 @@
       line-height: 22px;
       color: rgba(0, 0, 0, 0.87);
     }
+
+  }
+}
+
+:global{
+  .ant-table-cell{
+    text-align: center;
+    //display: flex;
+    //flex-direction: row;
+    //justify-content: center;
   }
 }
 .dataProcess{

@@ -1,5 +1,7 @@
 import { message } from 'antd';
 import { ErrorMessages } from '../../services/errorMessage';
+import {util} from "prettier";
+import addDanglingComment = util.addDanglingComment;
 const CommonController = {
   isNullObject (obj : any) {
     let result = true;
@@ -168,5 +170,24 @@ const CommonController = {
       }
     }
   },
+  transformFileList(data : any, sampleId : number){
+    let id = sampleId;
+    let url = data.urls[sampleId];
+    for (let sampleId in data.urls) {
+      url = data.urls[sampleId];
+    }
+    // delete
+    url = 'http://localhost:8000/src/img/example/bear1.webp'
+    let result : any = '';
+    if(data.result && !CommonController.isNullObject(data.result)) {result = JSON.parse(data.result)}else{
+      result = [];
+    };
+    return [{
+      id,url,result : JSON.stringify(result)
+    },
+      {
+        id,url,result : JSON.stringify(result)
+      }]
+  }
 }
 export default CommonController;

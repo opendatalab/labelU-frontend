@@ -153,7 +153,6 @@ const TaskList = ()=>{
                     <br/></React.Fragment>)
                 }else{
                     return <TaskCard cardInfo = {cardInfo}/>
-
                 }
             })}
         </div>

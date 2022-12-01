@@ -25,6 +25,7 @@ const CreateTask = (props : any)=>{
     let taskId = useSelector(state=>state.existTask.taskId );
 
     let newSamples = useSelector(state=>state.samples.newSamples);
+    let toolsConfig = useSelector(state=>state.toolsConfig);
     const steps = [{
         title : '基础配置',
         index : 1,
@@ -54,9 +55,8 @@ const CreateTask = (props : any)=>{
     const items = steps.map(item=>({key : item.title, title : item.title}));
     const tempBao = true;
     const finallySave = async function(){
-        // console.log(props.toolsConfig);
         let res = await updateTaskConfig(taskId, {
-            'config' : JSON.stringify(props.toolsConfig)
+            'config' : JSON.stringify(toolsConfig)
         })
         if(!res) {
             commonController.notificationErrorMessage({message : '配置不成功'}, 1);

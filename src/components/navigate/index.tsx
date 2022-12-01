@@ -114,6 +114,38 @@ const Homepage = ()=>{
                         </React.Fragment>
                     )
                 }
+                console.log(pathnames.length)
+                console.log(pathnames.length === 2)
+                console.log( !isNaN(parseInt(pathnames[1])))
+                if (pathnames.length == 3 && !isNaN(parseInt(pathnames[2]))) {
+                    result = (
+                        <React.Fragment>
+                            <Breadcrumb.Item>
+                                <Link to = {constants.urlToTasks}>任务列表</Link>
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                任务{pathnames[2]}
+                            </Breadcrumb.Item>
+                        </React.Fragment>
+                    )
+                }
+                if(pathnames[1] === 'tasks' && !isNaN(parseInt(pathnames[2]))
+                    && pathnames[3] === 'samples'
+                    &&  !isNaN(parseInt(pathnames[4])) ){
+                    result = (
+                        <React.Fragment>
+                            <Breadcrumb.Item>
+                                <Link to = {constants.urlToTasks}>任务列表</Link>
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                <Link to = {`/tasks/${pathnames[2]}`}>任务{pathnames[2]}</Link>
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                开始标注
+                            </Breadcrumb.Item>
+                        </React.Fragment>
+                    )
+                }
                 break;
         }
         console.log(result)
