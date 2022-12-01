@@ -246,7 +246,11 @@ const InputInfoConfig = ()=>{
                             hasUploaded : true,
                             uploadId : result?.data.data.id,
                             url : result.data.data.url,
-                            id : result.data.data.id
+                            id : result.data.data.id,
+                            params : {
+                              path,
+                              file : currentInfo.file
+                            }
                         });
                     }else{
                         currentHaveUploadFiles.push({name : currentInfo.file.name,

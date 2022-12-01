@@ -38,7 +38,7 @@ const updateTaskConfig = async function (taskId : number, taskConfig : any) {
 
         let res = await axiosInstance({
             url : `/api/v1/tasks/${taskId}`,
-            method : 'PUT',
+            method : 'PATCH',
             data : taskConfig
         });
         return res;

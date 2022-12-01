@@ -1,7 +1,7 @@
 const Constatns = {
     urlToRegister : '/register',
     // urlTurnToSignUp : '/taskList/createTask',
-    urlTurnToTaskList : '/taskList',
+    urlTurnToTaskList : '/tasks',
     // urlToCreateTask : '/taskList/createTask',
     urlToLogin : '/login',
     urlToTasks : '/tasks',

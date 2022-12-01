@@ -55,10 +55,7 @@ const CreateTask = (props : any)=>{
     const tempBao = true;
     const finallySave = async function(){
         // console.log(props.toolsConfig);
-        let res = await updateTaskConfig(4, {
-            name : 'task_test_annotationConfig',
-            "description" : '1',
-            'tips' : '1',
+        let res = await updateTaskConfig(taskId, {
             'config' : JSON.stringify(props.toolsConfig)
         })
         if(!res) {
@@ -137,7 +134,8 @@ const CreateTask = (props : any)=>{
         return result;
     }
     const nextStep = async function(){
-        console.log(configStep)
+        console.log(configStep);
+        console.log(taskId);
         let currentStep = -1;
         let childOutlet = `/tasks/${taskId}/edit/basic`;
         switch (configStep) {

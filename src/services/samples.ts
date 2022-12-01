@@ -4,7 +4,7 @@ const { axiosInstance } = axiosProxy;
 const createSamples = async function (taskId : number,data : any){
     // try {
     let res = await axiosInstance({
-        url : `/api/v1/${taskId}/samples`,
+        url : `/api/v1/tasks/${taskId}/samples`,
         method : 'POST',
         data
     });

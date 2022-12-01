@@ -102,7 +102,7 @@ const Homepage = ()=>{
                     )
                 }
                 if(pathnames[1] === 'tasks' && pathnames[2] !== '0' && pathnames[3] === 'edit'
-                    && (pathnames[4] === 'upload' || pathname[4] === 'config')){
+                    && (pathnames[4] === 'upload' || pathnames[4] === 'config')){
                     result = (
                         <React.Fragment>
                             <Breadcrumb.Item>
@@ -116,6 +116,7 @@ const Homepage = ()=>{
                 }
                 break;
         }
+        console.log(result)
         return result;
     }
     useEffect(()=>{
