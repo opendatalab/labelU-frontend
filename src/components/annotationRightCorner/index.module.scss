@@ -1,0 +1,29 @@
+@import "../../utils/common/common.module";
+.outerFrame{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: space-between;
+  align-items: center;
+}
+.left{
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 32px;
+  color: rgba(0, 0, 0, 0.6);
+  width: 56px;
+  height: 32px;
+  margin-right : 16px;
+  cursor : pointer;
+}
+
+.right{
+  width: 74px;
+  height: 32px;
+  background: #1B67FF;
+  border-radius: 4px;
+  text-align: center;
+  line-hight: 32px;
+  line-height: 32px;
+  cursor: pointer;
+  color: #ffffff;
+}

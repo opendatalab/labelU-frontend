@@ -1,0 +1,83 @@
+@import '../../../../utils/common/common.module';
+.outerFrameActive{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  justify-content: center;
+  align-items: center;
+  width : 220px;
+  //height : 120px;
+  margin-bottom : 10px;
+  //position : relative;
+}
+
+.outerFrame{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  justify-content: center;
+  align-items: center;
+  width : 220px;
+  //height : 120px;
+  margin-bottom : 10px;
+  //position : relative;
+}
+
+.contentActive{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  justify-content: center;
+  align-items: center;
+  width : 200px;
+  height : 120px;
+  position : relative;
+  margin-bottom : 10px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  border:3px solid #1b67ff;
+}
+.idHighlight{
+  background-color: #1b67ff;
+  color : white;
+  border-radius: 2px;
+}
+.content{
+  @extend .displayFlex;
+  @extend .flexDirectionColumn;
+  justify-content: center;
+  align-items: center;
+  width : 200px;
+  height : 120px;
+  position : relative;
+  margin-bottom : 10px;
+  background: #FFFFFF;
+  border-radius: 4px;
+}
+
+.tagBottom{
+  position : absolute;
+  top : 0;
+  right : 0;
+  z-index: 100;
+}
+
+.tagTop{
+  position : absolute;
+  top : 0;
+  right : 0;
+  z-index: 1000;
+}
+
+.skipped{
+  position : absolute;
+  top : 0;
+  right : 0;
+  z-index: 1000;
+  background: #FF8800;
+  border-radius:0px 4px;
+  width: 36px;
+  height: 25px;
+  color : white;
+  text-align: center;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+}

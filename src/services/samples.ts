@@ -31,6 +31,15 @@ const getSamples = async function (taskId : number, params : any) {
     return res;
 }
 
+const getPrevSamples = async function (taskId : number, params : any) {
+    let res = await axiosInstance({
+        url : `/api/v1/tasks/${taskId}/samples`,
+        method : 'GET',
+        params
+    });
+    return res;
+}
+
 
 const getSample = async function (taskId : number, sampleId : number) {
     let res = await axiosInstance({
@@ -40,9 +49,25 @@ const getSample = async function (taskId : number, sampleId : number) {
     return res;
 }
 
+const updateSampleState = async function (taskId : number, sampleId : number) {
+    let res = await axiosInstance({
+        url : `/api/v1/tasks/${taskId}/samples/${sampleId}`,
+        method : 'PATCH',
+        params : {
+          sample_id : sampleId
+        },
+        data : {
+            state : "SKIPPED"
+        }
+    });
+    return res;
+}
+
 export {
     createSamples,
     getTask,
     getSamples,
-    getSample
+    getSample,
+    getPrevSamples,
+    updateSampleState
 };

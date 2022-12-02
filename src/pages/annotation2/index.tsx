@@ -1,15 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, memo} from 'react';
 // import Annotation from '../annotation/index';
 import Annotation from '../../components/business/annotation';
 import './index.module.scss';
 import { getTask, getSample } from '../../services/samples';
 import classnames from 'classnames';
 import commonController from '../../utils/common/common'
-import AnnotationOperation from "@label-u/components";
+import SlideLoader from "../../components/slideLoader";
+import { useDispatch } from "react-redux";
+import { updateCurrentSampleId } from '../../stores/sample.store';
+import otherStore from "../../stores/other";
+import currentStyles from './index.module.scss';
+import AnnotationRightCorner from "../../components/annotationRightCorner";
+// @ts-ignore
 const AnnotationPage = ()=>{
+    console.log(otherStore);
+    // @ts-ignore
+    const MemoSlideLoader = memo(SlideLoader);
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let sampleId = parseInt(window.location.pathname.split('/')[4]);
-    let imgList = [
+    // @ts-ignore
+    otherStore.currentSampleId = sampleId;
+
+        let imgList = [
         {
             id: 1,
             url: "http://localhost:8000/api/v1/tasks/attachment/upload/7/59bf7e17-test1.txt",
@@ -26,6 +38,7 @@ const AnnotationPage = ()=>{
             result: JSON.stringify([]),
         }
     ];
+    const dispatch = useDispatch();
     const [taskConfig, setTaskConfig] = useState<any>({});
     const [taskSample, setTaskSample] = useState<any>([]);
     const getDatas = async function () {
@@ -98,19 +111,22 @@ const AnnotationPage = ()=>{
     }
     useEffect(()=>{
         getDatas().then(()=>console.log('ok')).catch(err=>console.log(err));
+        dispatch(updateCurrentSampleId(sampleId));
     },[]);
     const goBack = (data: any) => {
         console.log('goBack', data);
     };
-    const leftSiderContent = (<div>leftSiderContent</div>)
-    const topActionContent = (<div>下一步</div>)
+    // @ts-ignore
+    // const leftSiderContent = <MemoSlideLoader />;
+    const leftSiderContent = <SlideLoader />;
+    const topActionContent = (<AnnotationRightCorner />)
     const exportData = (data : any)=>{
         console.log(data)
     }
     const onSubmit = (data : any)=>{
         console.log(data)
     }
-    return <>
+    return <div className={currentStyles.annotationPage}>
         {taskSample && taskSample.length > 0 && taskConfig.tools && taskConfig.tools.length > 0 && (
             <Annotation
                 leftSiderContent = { leftSiderContent }
@@ -126,6 +142,6 @@ const AnnotationPage = ()=>{
                 onSubmit = {onSubmit}
             />
         )}
-    </>;
+    </div>;
 }
 export default AnnotationPage;

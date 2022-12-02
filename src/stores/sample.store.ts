@@ -4,17 +4,22 @@ import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 const samplesSlice = createSlice({
     name : 'samples',
     initialState : {
-        newSamples : []
+        newSamples : [],
+        currentSampleId  : undefined
     },
     reducers : {
         updateNewSamples : (state : any, action : any)=>{
+            state.newSamples = action.payload;
+        },
+        updateCurrentSampleId : (state : any, action : any)=>{
             state.newSamples = action.payload;
         }
     }
 });
 
 export const {
-    updateNewSamples
+    updateNewSamples,
+    updateCurrentSampleId
 } = samplesSlice.actions;
 
 export default samplesSlice.reducer;

@@ -184,10 +184,16 @@ const CommonController = {
     };
     return [{
       id,url,result : JSON.stringify(result)
-    },
-      {
-        id,url,result : JSON.stringify(result)
-      }]
+    }]
+  },
+  drawImg (divId : number, src : string) {
+    console.log(divId + '')
+    let img : any = window.document.getElementById(divId+'');
+    img.onload = (e : any)=>{
+
+    }
+    // @ts-ignore
+    img.src = src;
   }
 }
 export default CommonController;

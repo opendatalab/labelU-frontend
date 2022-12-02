@@ -114,10 +114,10 @@ const Samples = (props : any)=>{
               <div className = {statisticalStyles.leftTitleContentOptionContent} >未标注</div>
             </div>);
             break;
-          case 'NEW' :
+          case 'SKIPPED' :
             result = (<div className = {statisticalStyles.leftTitleContentOption}>
               <div className = {statisticalStyles.leftTitleContentOptionOrangeIcon}></div>
-              <div className = {statisticalStyles.leftTitleContentOptionContent} ><b>跳过</b></div>
+              <div className = {statisticalStyles.leftTitleContentOptionContent} >跳过</div>
             </div>);
             break;
         };

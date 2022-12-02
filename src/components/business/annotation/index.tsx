@@ -37,7 +37,7 @@ const Annotation = (props: {
   // };
   console.log(props);
   return (
-    <div style = {{width : '1440px', marginTop : '40px'}}>
+    <div style = {{width : '1440px'}}>
       <AnnotationOperation
           leftSiderContent = { leftSiderContent }
           topActionContent = { topActionContent }

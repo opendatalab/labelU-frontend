@@ -16,7 +16,7 @@ import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
 import TaskAnnotation from "../pages/annotation2";
 import Samples from "../pages/samples";
-import RootGuard, { action as RootAction } from "../pages/guards/rootGuard";
+import RootGuard from "../pages/guards/rootGuard";
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
 
 
