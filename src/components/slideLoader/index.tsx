@@ -3,6 +3,9 @@ import SliderCard from './components/sliderCard';
 import {getPrevSamples, getSample} from '../../services/samples';
 import commonController from '../../utils/common/common';
 import currentStyles from './index.module.scss';
+import Ob from '../../utils/Observable'
+import { debounceTime } from 'rxjs'
+import {useNavigate} from "react-router";
 const SlideLoader = ()=>{
     const [prevImgList, setPrevImgList] = useState<any[]>([]);
     let taskId = parseInt(window.location.pathname.split('/')[2]);
@@ -92,31 +95,87 @@ const SlideLoader = ()=>{
             commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
         }
     }
+    const navigate = useNavigate();
+    // @ts-ignore
+    Ob.skipped?.pipe(debounceTime(100)).subscribe(()=>{
+        if (!(window.location.search.indexOf('SKIPPED') > -1)) {return;}
+        console.log(parseInt(window.location.pathname.split('/')[4]));
+        let temp = Object.assign([],prevImgList);
+        let nextPageId : any= null;
+        for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+            let prevImg : any= temp[prevImgIndex];
+            if (prevImg.id === sampleId) {
+                prevImg.state = 'SKIPPED';
+                if (temp[prevImgIndex + 1]) {
+                    // @ts-ignore
+                    nextPageId = temp[prevImgIndex + 1].id;
+                }
+                break;
+            }
+        }
+        setPrevImgList(temp);
+        // navigate()
+        if(nextPageId || nextPageId === 0){
+            let pathnames = window.location.pathname.split('/');
+            pathnames.splice(4,1,nextPageId);
+            navigate(pathnames.join('/'))
+        }else{
+            commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
+        }
+    })
+    // @ts-ignore
+    Ob.nextPage?.pipe(debounceTime(100)).subscribe(()=>{
+        console.log(parseInt(window.location.pathname.split('/')[4]));
+        if (!(window.location.search.indexOf('DONE') > -1)) {return;}
+        let temp = Object.assign([],prevImgList);
+        let nextPageId : any= null;
+        for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+            let prevImg : any= temp[prevImgIndex];
+            if (prevImg.id === sampleId) {
+                prevImg.state = 'DONE';
+                if (temp[prevImgIndex + 1]) {
+                    // @ts-ignore
+                    nextPageId = temp[prevImgIndex + 1].id;
+                }
+                break;
+            }
+        }
+        setPrevImgList(temp);
+        // navigate()
+        if(nextPageId || nextPageId === 0){
+            let pathnames = window.location.pathname.split('/');
+            pathnames.splice(4,1,nextPageId);
+            navigate(pathnames.join('/'))
+        }else{
+            commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
+        }
+    })
     useEffect(()=>{
         getSampleLocal();
     },[]);
-    const updataCurrentPrevsample = async function () {
-        let sampleRes = await getSample(taskId, sampleId);
-        if (sampleRes.status === 200) {
-            console.log(sampleRes);
-            let newSample = commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
-            console.log(newSample);
-            let temp : any = Object.assign([],prevImgList);
-            for (let prevImg of temp) {
-                if (prevImg.id == newSample[0].id) {
-                    prevImg.state = sampleRes.data.data.state;
-                    break;
-                }
-            }
-            setPrevImgList(temp);
-        }else{
-            commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
-        }
-    }
-    useEffect(()=>{
-        console.log(window.location.search)
-        updataCurrentPrevsample();
-    },[window.location.search])
+    // const updataCurrentPrevsample = async function () {
+    //     let sampleRes = await getSample(taskId, sampleId);
+    //     if (sampleRes.status === 200) {
+    //         console.log(sampleRes);
+    //         let newSample = commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
+    //         console.log(newSample);
+    //         let temp : any = Object.assign([],prevImgList);
+    //         for (let prevImg of temp) {
+    //             if (prevImg.id == newSample[0].id) {
+    //                 prevImg.state = sampleRes.data.data.state;
+    //                 break;
+    //             }
+    //         }
+    //         setPrevImgList(temp);
+    //     }else{
+    //         commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
+    //     }
+    // }
+    // useEffect(()=>{
+    //     console.log('dafdfasdfaisdjflkasdfiojasdlfjaklsdjfiasdjfijasdlkfjas')
+    //     console.log(window.location.search)
+    //     updataCurrentPrevsample();
+    // },[window.location.pathname])
     return (<div className = { currentStyles.leftBar }
     onScroll={lazyLoading}>
         {upNoneTipShow && <div>向上没有了</div>}

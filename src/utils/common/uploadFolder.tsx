@@ -34,7 +34,7 @@ const UploadFolderController = {
                         <div className = {currentStyles.columnOptionButtons}>
                             {!data.hasUploaded && <div className = {currentStyles.columnOption1}> 重新上传 </div>}
                             <div className = {currentStyles.columnOption}
-                                 onClick = {UploadFolderController.deleteFile(data)}
+                                 // onClick = {UploadFolderController.deleteFile(data)}
                             >删除</div>
                         </div>
                     </div>),

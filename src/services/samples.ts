@@ -63,11 +63,28 @@ const updateSampleState = async function (taskId : number, sampleId : number) {
     return res;
 }
 
+const updateSampleAnnotationResult = async function (taskId : number, sampleId : number,
+                                                     data : any) {
+    let res = await axiosInstance({
+        url : `/api/v1/tasks/${taskId}/samples/${sampleId}`,
+        method : 'PATCH',
+        params : {
+            sample_id : sampleId
+        },
+        data : {
+            data
+        }
+    });
+    return res;
+}
+
+
 export {
     createSamples,
     getTask,
     getSamples,
     getSample,
     getPrevSamples,
-    updateSampleState
+    updateSampleState,
+    updateSampleAnnotationResult
 };

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, memo} from 'react';
+import React, {useState, useEffect, memo, createRef} from 'react';
 // import Annotation from '../annotation/index';
 import Annotation from '../../components/business/annotation';
 import './index.module.scss';
@@ -11,33 +11,18 @@ import { updateCurrentSampleId } from '../../stores/sample.store';
 import otherStore from "../../stores/other";
 import currentStyles from './index.module.scss';
 import AnnotationRightCorner from "../../components/annotationRightCorner";
+
 // @ts-ignore
 const AnnotationPage = ()=>{
     console.log(otherStore);
+
     // @ts-ignore
     const MemoSlideLoader = memo(SlideLoader);
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let sampleId = parseInt(window.location.pathname.split('/')[4]);
     // @ts-ignore
     otherStore.currentSampleId = sampleId;
-
-        let imgList = [
-        {
-            id: 1,
-            url: "http://localhost:8000/api/v1/tasks/attachment/upload/7/59bf7e17-test1.txt",
-            result: JSON.stringify([]),
-        },
-        {
-            id: 2,
-            url: "http://localhost:8000/api/v1/tasks/attachment/upload/7/59bf7e17-test1.txt",
-            result: JSON.stringify([]),
-        },
-        {
-            id: 2,
-            url: "http://localhost:8000/api/v1/tasks/attachment/upload/7/59bf7e17-test1.txt",
-            result: JSON.stringify([]),
-        }
-    ];
+    let annotationRef = createRef();
     const dispatch = useDispatch();
     const [taskConfig, setTaskConfig] = useState<any>({});
     const [taskSample, setTaskSample] = useState<any>([]);
@@ -126,12 +111,19 @@ const AnnotationPage = ()=>{
     const onSubmit = (data : any)=>{
         console.log(data)
     }
+
+    const testGet = ()=>{
+        // @ts-ignore
+        console.log(annotationRef?.current?.getResult());
+    }
     return <div className={currentStyles.annotationPage}>
+        <div onClick={testGet}>Get</div>
+        <div onClick={ exportData }>GetExport</div>
         {taskSample && taskSample.length > 0 && taskConfig.tools && taskConfig.tools.length > 0 && (
             <Annotation
                 leftSiderContent = { leftSiderContent }
                 topActionContent = { topActionContent }
-
+                annotationRef = { annotationRef }
                 attribute={taskConfig.attribute}
                 tagList={taskConfig.tagList}
                 fileList={taskSample}

@@ -6,6 +6,9 @@ import { BasicConfig, Attribute, OneTag } from 'interface/toolConfig';
 import React, { memo } from 'react';
 // import tagConfigList from '../../../config/tagConfigList.json';
 // import attributeList from '../../../config/attributeList.json';
+import { createRef } from 'react'
+
+
 
 const Annotation = (props: {
   fileList: any;
@@ -19,9 +22,11 @@ const Annotation = (props: {
   topActionContent?:any;
   onSubmit?:any;
   exportData?:any;
+  annotationRef ?: any;
 }) => {
   const { fileList, goBack, tools, tagList, attribute, textConfig, isPreview, leftSiderContent, topActionContent,
-  exportData, onSubmit } = props;
+  exportData, onSubmit,
+  annotationRef} = props;
   // const exportData = (data: any) => {
   //   // console.log('exportData', data);
   // };
@@ -35,12 +40,14 @@ const Annotation = (props: {
   // const topActionContent = ()=>{
   //   return <div>test action</div>
   // };
-  console.log(props);
+  // console.log(props);
   return (
     <div style = {{width : '1440px'}}>
       <AnnotationOperation
           leftSiderContent = { leftSiderContent }
           topActionContent = { topActionContent }
+
+        ref = { annotationRef }
         isPreview = {isPreview}
         exportData={exportData}
         onSubmit={onSubmit}

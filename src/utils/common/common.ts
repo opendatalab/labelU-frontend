@@ -102,6 +102,9 @@ const CommonController = {
   notificationWarnMessage (info : any, time : number) {
     message.warn(info.message, time);
   },
+  notificationInfoMessage (info : any, time : number) {
+    message.info(info.message, time);
+  },
   debounce(fn : any, delayTime : number){
     let timer : any = null
     return function(name : any) {

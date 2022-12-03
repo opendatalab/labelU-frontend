@@ -114,9 +114,7 @@ const Homepage = ()=>{
                         </React.Fragment>
                     )
                 }
-                console.log(pathnames.length)
-                console.log(pathnames.length === 2)
-                console.log( !isNaN(parseInt(pathnames[1])))
+
                 if (pathnames.length == 3 && !isNaN(parseInt(pathnames[2]))) {
                     result = (
                         <React.Fragment>
@@ -148,7 +146,6 @@ const Homepage = ()=>{
                 }
                 break;
         }
-        console.log(result)
         return result;
     }
     useEffect(()=>{
