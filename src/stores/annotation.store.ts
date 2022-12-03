@@ -4,7 +4,7 @@ import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 const  annotationSlice = createSlice({
     name : 'annotation',
     initialState : {
-        annotationDatas : undefined
+        annotationDatas : ''
     },
     reducers : {
         updateAnnotationDatas : (state : any, action : any)=>{

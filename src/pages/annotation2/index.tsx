@@ -6,11 +6,14 @@ import { getTask, getSample } from '../../services/samples';
 import classnames from 'classnames';
 import commonController from '../../utils/common/common'
 import SlideLoader from "../../components/slideLoader";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { updateCurrentSampleId } from '../../stores/sample.store';
 import otherStore from "../../stores/other";
 import currentStyles from './index.module.scss';
 import AnnotationRightCorner from "../../components/annotationRightCorner";
+import { updateAnnotationDatas } from '../../stores/annotation.store'
+
+export let annotationRef = createRef();
 
 // @ts-ignore
 const AnnotationPage = ()=>{
@@ -22,7 +25,7 @@ const AnnotationPage = ()=>{
     let sampleId = parseInt(window.location.pathname.split('/')[4]);
     // @ts-ignore
     otherStore.currentSampleId = sampleId;
-    let annotationRef = createRef();
+    // let annotationRef = useSelector(state => state.annotation.annotationDatas)
     const dispatch = useDispatch();
     const [taskConfig, setTaskConfig] = useState<any>({});
     const [taskSample, setTaskSample] = useState<any>([]);
@@ -97,6 +100,7 @@ const AnnotationPage = ()=>{
     useEffect(()=>{
         getDatas().then(()=>console.log('ok')).catch(err=>console.log(err));
         dispatch(updateCurrentSampleId(sampleId));
+        // dispatch(updateAnnotationDatas(annotationRefNew))
     },[]);
     const goBack = (data: any) => {
         console.log('goBack', data);
@@ -110,6 +114,8 @@ const AnnotationPage = ()=>{
     }
     const onSubmit = (data : any)=>{
         console.log(data)
+        dispatch(updateAnnotationDatas(data[0].result));
+
     }
 
     const testGet = ()=>{
@@ -117,8 +123,8 @@ const AnnotationPage = ()=>{
         console.log(annotationRef?.current?.getResult());
     }
     return <div className={currentStyles.annotationPage}>
-        <div onClick={testGet}>Get</div>
-        <div onClick={ exportData }>GetExport</div>
+        {/*<div onClick={testGet}>Get</div>*/}
+        {/*<div onClick={ exportData }>GetExport</div>*/}
         {taskSample && taskSample.length > 0 && taskConfig.tools && taskConfig.tools.length > 0 && (
             <Annotation
                 leftSiderContent = { leftSiderContent }

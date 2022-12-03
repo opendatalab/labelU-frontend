@@ -102,7 +102,7 @@ const Samples = (props : any)=>{
       render:(text : string)=>{
         let result = undefined;
         switch(text){
-          case 'Done' :
+          case 'DONE' :
             result = (<div className = {statisticalStyles.leftTitleContentOption}>
               <div className = {statisticalStyles.leftTitleContentOptionBlueIcon}></div>
               <div className = {statisticalStyles.leftTitleContentOptionContent} >已标注</div>

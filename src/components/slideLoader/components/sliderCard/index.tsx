@@ -22,7 +22,6 @@ const SliderCard = (props : any)=>{
         navigate(newPathname);
     }
     useEffect(()=>{
-        console.log(window.location)
         setCurrentSampleId(parseInt(window.location.pathname.split('/')[4]));
     },[window.location.pathname]);
     return (
