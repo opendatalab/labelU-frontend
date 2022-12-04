@@ -3,7 +3,7 @@ import  currentStyles  from  './index.module.scss';
 import { updateSampleState, updateSampleAnnotationResult } from '../../services/samples';
 import commonController from '../../utils/common/common';
 import { useNavigate } from "react-router";
-import { Observable, fromEvent } from 'rxjs' ;
+import { Observable, fromEvent, Subject } from 'rxjs' ;
 import Ob from '../../utils/Observable/index';
 import { useSelector} from "react-redux";
 import { updateAnnotationDatas } from '../../stores/annotation.store'
@@ -17,7 +17,8 @@ const AnnotationRightCorner = ()=>{
     const skipSample = ()=>{
         updateSampleState(taskId, sampleId).then(res=>{
             if(res.status === 200) {
-                navigate(window.location.pathname + '?state=SKIPPED')
+                navigate(window.location.pathname + '?SKIPPED' + new Date().getTime());
+
             }else{
                 commonController.notificationErrorMessage({message : '请求跳过失败'},1);
             }
@@ -30,10 +31,12 @@ const AnnotationRightCorner = ()=>{
     const nextPage = ()=>{
         // @ts-ignore
         // console.log(annotationDatas)
+        // console.log(1)
         // @ts-ignore
-        updateSampleAnnotationResult(taskId, sampleId, {result : annotationRef?.current?.getResult()[0].result }).then(res=>{
+        updateSampleAnnotationResult(taskId, sampleId, {state : 'DONE',result : annotationRef?.current?.getResult()[0].result }).then(res=>{
             if(res.status === 200) {
-                navigate(window.location.pathname + '?state=DONE')
+                // Ob.nextPageS.next('DONE');
+                navigate(window.location.pathname + '?DONE' + new Date().getTime());
             }else{
                 commonController.notificationErrorMessage({message : '请求保存失败'},1);
             }
@@ -41,15 +44,9 @@ const AnnotationRightCorner = ()=>{
             commonController.notificationErrorMessage(error,1);
         })
     }
-    useEffect(()=>{
-        // @ts-ignore
-        Ob.skipped = fromEvent(document.getElementById('skipped'), 'click');
-        // @ts-ignore
-        Ob.nextPage = fromEvent(document.getElementById('nextPage'), 'click');
-    },[])
     return (<div className={ currentStyles.outerFrame }>
         <div className={currentStyles.left} id = {'skipped'}
-        onClick = { commonController.debounce(skipSample, 100) }>取消跳过</div>
+        onClick = { commonController.debounce(skipSample, 100) }>跳过</div>
         <div className={currentStyles.right}
         id = {'nextPage'}
              onClick = { commonController.debounce(nextPage, 100) }

@@ -8,28 +8,29 @@ import commonController from '../../utils/common/common'
 import SlideLoader from "../../components/slideLoader";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCurrentSampleId } from '../../stores/sample.store';
-import otherStore from "../../stores/other";
+// import otherStore from "../../stores/other";
 import currentStyles from './index.module.scss';
 import AnnotationRightCorner from "../../components/annotationRightCorner";
 import { updateAnnotationDatas } from '../../stores/annotation.store'
+import { useLocation } from "react-router";
 
 export let annotationRef = createRef();
 
 // @ts-ignore
 const AnnotationPage = ()=>{
-    console.log(otherStore);
-
+    // console.log(otherStore);
+    const location = useLocation();
     // @ts-ignore
     const MemoSlideLoader = memo(SlideLoader);
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let sampleId = parseInt(window.location.pathname.split('/')[4]);
     // @ts-ignore
-    otherStore.currentSampleId = sampleId;
+    // otherStore.currentSampleId = sampleId;
     // let annotationRef = useSelector(state => state.annotation.annotationDatas)
     const dispatch = useDispatch();
     const [taskConfig, setTaskConfig] = useState<any>({});
     const [taskSample, setTaskSample] = useState<any>([]);
-    const getDatas = async function () {
+    const getDatas = async function (taskId : number, sampleId : number) {
         try{
             let taskRes = await getTask(taskId);
             if (taskRes.status === 200) {
@@ -97,8 +98,17 @@ const AnnotationPage = ()=>{
             commonController.notificationErrorMessage(err, 1)
         }
     }
+
     useEffect(()=>{
-        getDatas().then(()=>console.log('ok')).catch(err=>console.log(err));
+        console.log(window.location.pathname)
+        let taskId = parseInt(window.location.pathname.split('/')[2]);
+        let sampleId = parseInt(window.location.pathname.split('/')[4]);
+        getDatas(taskId, sampleId).then(()=>console.log('ok')).catch(err=>console.log(err));
+        dispatch(updateCurrentSampleId(sampleId));
+    },[ location ]);
+
+    useEffect(()=>{
+        getDatas(taskId, sampleId).then(()=>console.log('ok')).catch(err=>console.log(err));
         dispatch(updateCurrentSampleId(sampleId));
         // dispatch(updateAnnotationDatas(annotationRefNew))
     },[]);
@@ -108,12 +118,14 @@ const AnnotationPage = ()=>{
     // @ts-ignore
     // const leftSiderContent = <MemoSlideLoader />;
     const leftSiderContent = <SlideLoader />;
+    // const leftSiderContent = (<div>test1</div>)
     const topActionContent = (<AnnotationRightCorner />)
+    // const topActionContent = (<div>2</div>)
     const exportData = (data : any)=>{
         console.log(data)
     }
     const onSubmit = (data : any)=>{
-        console.log(data)
+        // console.log(data)
         dispatch(updateAnnotationDatas(data[0].result));
 
     }
@@ -122,9 +134,11 @@ const AnnotationPage = ()=>{
         // @ts-ignore
         console.log(annotationRef?.current?.getResult());
     }
+
+
+
+
     return <div className={currentStyles.annotationPage}>
-        {/*<div onClick={testGet}>Get</div>*/}
-        {/*<div onClick={ exportData }>GetExport</div>*/}
         {taskSample && taskSample.length > 0 && taskConfig.tools && taskConfig.tools.length > 0 && (
             <Annotation
                 leftSiderContent = { leftSiderContent }

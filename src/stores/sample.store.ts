@@ -12,7 +12,7 @@ const samplesSlice = createSlice({
             state.newSamples = action.payload;
         },
         updateCurrentSampleId : (state : any, action : any)=>{
-            state.newSamples = action.payload;
+            state.currentSampleId = action.payload;
         }
     }
 });

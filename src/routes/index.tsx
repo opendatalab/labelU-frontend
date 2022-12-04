@@ -17,6 +17,7 @@ import InputData from '../pages/inputData';
 import TaskAnnotation from "../pages/annotation2";
 import Samples from "../pages/samples";
 import RootGuard from "../pages/guards/rootGuard";
+import TaskSamplesFinished from '../pages/sampleFinished';
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
 
 
@@ -106,6 +107,10 @@ const routeList: RouteObject[] = [
           {
             path : 'samples/:sampleId',
             element: <TaskAnnotation />
+          },
+          {
+            path : 'samples/finished',
+            element : <TaskSamplesFinished />
           }
         ]
       }

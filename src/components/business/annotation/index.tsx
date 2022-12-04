@@ -40,7 +40,7 @@ const Annotation = (props: {
   // const topActionContent = ()=>{
   //   return <div>test action</div>
   // };
-  // console.log(props);
+  console.log(props);
   return (
     <div style = {{width : '1440px'}}>
       <AnnotationOperation

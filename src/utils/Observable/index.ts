@@ -1,5 +1,6 @@
+import { Subject } from 'rxjs'
 const Ob = {
-    skipped : undefined,
-    nextPage : undefined
+    skippedS : new Subject<any>(),
+    nextPageS : new Subject<any>()
 }
 export default Ob;

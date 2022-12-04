@@ -34,9 +34,9 @@ const SliderCard = (props : any)=>{
                         <img  src={ (url) } alt="" style = {{ height : '100%', maxWidth : '100%' }}
                         />
                         {
-                            state === 'Done' && <React.Fragment>
+                            state === 'DONE' && <React.Fragment>
                                 <div className={ currentStyles.tagBottom }></div>
-                                <div className={ currentStyles.tagTop }></div>
+                                <div className={ currentStyles.tagTop }><img src="/src/icons/check.png" alt=""/></div>
                             </React.Fragment>
                         }
                         {
@@ -56,9 +56,9 @@ const SliderCard = (props : any)=>{
                         <img  src={ (url) } alt="" style = {{ height : '100%', maxWidth : '100%' }}
                         />
                         {
-                            state === 'Done' && <React.Fragment>
+                            state === 'DONE' && <React.Fragment>
                                 <div className={ currentStyles.tagBottom }></div>
-                                <div className={ currentStyles.tagTop }></div>
+                                <div className={ currentStyles.tagTop }><img src="/src/icons/check.png" alt=""/></div>
                             </React.Fragment>
                         }
                         {

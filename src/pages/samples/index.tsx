@@ -85,37 +85,48 @@ const Samples = (props : any)=>{
       title: '数据ID',
       dataIndex: 'id',
       key: 'id',
-      className : currentStyles.tableColumn
+      // className : currentStyles.tableColumn
       // width: 80,
     },
     {
       title: '数据预览',
-      dataIndex: 'packageID',
+      dataIndex: 'data',
       key: 'packageID',
+      render:(data : any)=> {
+        let url = '';
+        if(!data.urls){
+          url = window.location.origin + '/src/img/example/bear1.webp';
+        }else{
+          for(let sampleId of data.urls){
+            url = data.urls[sampleId];
+          }
+        }
+        return <img src = {url} style = {{ width : '116px',height : '70px' }}/>
+      }
       // width: 80,
     },
     {
       title: '标注情况',
       dataIndex: 'state',
       key: 'packageID',
-      // width: 80,
+      width: 80,
       render:(text : string)=>{
         let result = undefined;
         switch(text){
           case 'DONE' :
-            result = (<div className = {statisticalStyles.leftTitleContentOption}>
+            result = (<div className = {currentStyles.leftTitleContentOption}>
               <div className = {statisticalStyles.leftTitleContentOptionBlueIcon}></div>
               <div className = {statisticalStyles.leftTitleContentOptionContent} >已标注</div>
             </div>);
             break;
           case 'NEW' :
-            result = (<div className = {statisticalStyles.leftTitleContentOption}>
+            result = (<div className = {currentStyles.leftTitleContentOption}>
               <div className = {statisticalStyles.leftTitleContentOptionGrayIcon}></div>
               <div className = {statisticalStyles.leftTitleContentOptionContent} >未标注</div>
             </div>);
             break;
           case 'SKIPPED' :
-            result = (<div className = {statisticalStyles.leftTitleContentOption}>
+            result = (<div className = {currentStyles.leftTitleContentOption}>
               <div className = {statisticalStyles.leftTitleContentOptionOrangeIcon}></div>
               <div className = {statisticalStyles.leftTitleContentOptionContent} >跳过</div>
             </div>);

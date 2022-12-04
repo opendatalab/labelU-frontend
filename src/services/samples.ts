@@ -72,7 +72,8 @@ const updateSampleAnnotationResult = async function (taskId : number, sampleId :
             sample_id : sampleId
         },
         data : {
-            data
+            data : {result : data.result},
+            // state : data.state
         }
     });
     return res;
