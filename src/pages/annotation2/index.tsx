@@ -35,49 +35,49 @@ const AnnotationPage = ()=>{
             let taskRes = await getTask(taskId);
             if (taskRes.status === 200) {
                 console.log(taskRes);
-                taskRes.data.data.config = {
-                    "tools": [
-                        {
-                            "tool": "rectTool",
-                            "config": {
-                                "isShowCursor": false,
-                                "showConfirm": false,
-                                "skipWhileNoDependencies": false,
-                                "drawOutsideTarget": false,
-                                "copyBackwardResult": true,
-                                "minWidth": 1,
-                                "attributeConfigurable": true,
-                                "textConfigurable": true,
-                                "textCheckType": 4,
-                                "customFormat": "",
-                                "attributeList": [
-                                    {
-                                        "key": "rectTool",
-                                        "value": "rectTool"
-                                    }
-                                ]
-                            }
-                        }
-                    ],
-                    "tagList": [],
-                    "attribute": [
-                        {
-                            "key": "RT",
-                            "value": "RT"
-                        }
-                    ],
-                    "textConfig": [],
-                    "fileInfo": {
-                        "type": "img",
-                        "list": [
-                            {
-                                "id": 1,
-                                "url": "/src/img/example/bear4.webp",
-                                "result": "[]"
-                            }
-                        ]
-                    }
-                }
+                // taskRes.data.data.config = {
+                //     "tools": [
+                //         {
+                //             "tool": "rectTool",
+                //             "config": {
+                //                 "isShowCursor": false,
+                //                 "showConfirm": false,
+                //                 "skipWhileNoDependencies": false,
+                //                 "drawOutsideTarget": false,
+                //                 "copyBackwardResult": true,
+                //                 "minWidth": 1,
+                //                 "attributeConfigurable": true,
+                //                 "textConfigurable": true,
+                //                 "textCheckType": 4,
+                //                 "customFormat": "",
+                //                 "attributeList": [
+                //                     {
+                //                         "key": "rectTool",
+                //                         "value": "rectTool"
+                //                     }
+                //                 ]
+                //             }
+                //         }
+                //     ],
+                //     "tagList": [],
+                //     "attribute": [
+                //         {
+                //             "key": "RT",
+                //             "value": "RT"
+                //         }
+                //     ],
+                //     "textConfig": [],
+                //     "fileInfo": {
+                //         "type": "img",
+                //         "list": [
+                //             {
+                //                 "id": 1,
+                //                 "url": "/src/img/example/bear4.webp",
+                //                 "result": "[]"
+                //             }
+                //         ]
+                //     }
+                // }
                 console.log(taskRes.data.data.config);
                 setTaskConfig(taskRes.data.data.config);
                 // setTaskConfig(JSON.parse(taskRes.data.data.config));
