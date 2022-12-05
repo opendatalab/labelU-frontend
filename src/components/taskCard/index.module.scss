@@ -55,3 +55,34 @@
   align-items: center;
   justify-content: center;
 }
+.item41{
+  width : 100%;
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top:10px;
+
+}
+.item41Left{
+  margin-right:10px;
+  color: rgba(0, 0, 0, 0.72);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+.item41Right{
+  color: #00B365;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+}
+.item42{
+  width : 100%;
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top:10px;
+
+}

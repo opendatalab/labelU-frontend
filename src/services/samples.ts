@@ -1,5 +1,5 @@
 import  axiosProxy from './axiosProxy';
-import CommonController from "../utils/common/common";
+import commonController from "../utils/common/common";
 const { axiosInstance } = axiosProxy;
 const createSamples = async function (taskId : number,data : any){
     // try {
@@ -18,6 +18,9 @@ const getTask = async function(taskId : number){
     let res = await axiosInstance({
         url : `/api/v1/tasks/${taskId}`,
         method : 'GET',
+      params : {
+          task_id : taskId
+      }
     });
     return res;
 }
@@ -78,7 +81,51 @@ const updateSampleAnnotationResult = async function (taskId : number, sampleId :
     });
     return res;
 }
+const outputSample = async function (taskId : number, sampleIds : any) {
+  let res = await axiosInstance({
+    url : `/api/v1/tasks/${taskId}/samples/export`,
+    method : 'POST',
+    params : {
+      task_id :taskId,
+      export_type : 'JSON'
+    },
+    data : {
+      sample_ids : sampleIds
+    }
+  })
+  return res;
+}
 
+const outputSamples = async function (taskId : number) {
+  try{
+    let samplesRes = await getSamples(taskId, {pageNo : 0, pageSize : 100000});
+    let sampleIdArrays = samplesRes.data.data;
+    let sampleIds = [];
+    for (let sample of sampleIdArrays) {
+      sampleIds.push(sample['id']);
+    }
+    if (sampleIds.length === 0) {
+      commonController.notificationErrorMessage({message : '后端返回数据出现问题'}, 1)
+      return;
+    }
+    let outputSamplesRes = await outputSample(taskId, sampleIds);
+    return true;
+  }catch(error){
+    commonController.notificationErrorMessage({message : error}, 1);
+    return false;
+  }
+}
+
+const deleteSamples = async function(taskId : number, sampleIds : number[]){
+  let res = await axiosInstance({
+    url : `/api/v1/tasks/${taskId}/samples`,
+    method : 'DELETE',
+    data : {
+      sample_ids : sampleIds
+    }
+  })
+  return res;
+}
 
 export {
     createSamples,
@@ -87,5 +134,8 @@ export {
     getSample,
     getPrevSamples,
     updateSampleState,
-    updateSampleAnnotationResult
+    updateSampleAnnotationResult,
+    outputSample,
+    outputSamples,
+    deleteSamples
 };

@@ -16,7 +16,9 @@ const existTaskSlice = createSlice({
             state.configStep = action.payload;
         },
         updateHaveConfigedStep : (state : any, action : any)=>{
-            state.haveConfigedStep = action.payload;
+          // if (action.payload > state.haveConfigedStep) {
+          // }
+          state.haveConfigedStep = action.payload;
         },
         updateTaskId (state : any, action : any) {
             state.taskId = action.payload;
@@ -32,6 +34,26 @@ const existTaskSlice = createSlice({
             state.taskTips = action.payload;
 
         },
+        updateTask(state : any, action : any){
+          let taskInfo = action.payload;
+          const {name , tips, description, config, status, id } = taskInfo;
+          state.taskName = name;
+          state.taskTips = tips;
+          state.description = description;
+          state.taskId = id;
+          if(status === 'DRAFT'){
+            state.haveConfigedStep = 1;
+            state.configStep = -1;
+          }
+          if (status === 'IMPORTED') {
+            state.haveConfigedStep = 2;
+            state.configStep = 0;
+          }
+          if (status !== 'IMPORTED' && status !== 'DRAFT') {
+            state.haveConfigedStep = 3;
+            state.configStep = 1;
+          }
+        }
     }
 });
 
@@ -42,6 +64,7 @@ export const {
     updateTaskTips,
     updateConfigStep,
     updateHaveConfigedStep,
+    updateTask
 } = existTaskSlice.actions;
 
 export default existTaskSlice.reducer;

@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+// @ts-ignore
+import React, { useState, useEffect } from 'react';
 import currentStyles from './index.module.scss';
 import commonStyles from '../../utils/common/common.module.scss';
-import {Breadcrumb, Steps} from 'antd';
+import {Breadcrumb, Modal, Steps} from 'antd';
 import Step from '../../components/step';
 import {Link, Outlet, useNavigate } from "react-router-dom";
 import Separator from '../../components/separator';
-import {submitBasicConfig, updateTaskConfig} from '../../services/createTask';
+import {submitBasicConfig, updateTaskConfig, deleteTask} from '../../services/createTask';
 import constant from '../../constants';
 import {connect, useSelector, useDispatch} from 'react-redux';
-import { updateHaveConfigedStep } from '../../stores/task.store'
+import { updateHaveConfigedStep, updateTask } from '../../stores/task.store'
 import commonController from '../../utils/common/common';
 
 import { updateConfigStep, updateTaskId } from '../../stores/task.store';
-import { createSamples } from '../../services/samples';
-
+import { createSamples, getTask } from '../../services/samples';
+import { updateAllConfig } from '../../stores/toolConfig.store'
+import {findNewAnchor} from "yaml/dist/doc/anchors";
 const CreateTask = (props : any)=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -93,11 +95,20 @@ const CreateTask = (props : any)=>{
             return false;
         }
         try{
-            let res : any= await submitBasicConfig({name : taskName,
+            let res : any;
+            if (haveConfigedStep !== 0) {
+              res = await updateTaskConfig(taskId,{name : taskName,
                 description : taskDescription,
                 tips : taskTips
-            })
-            if (res.status === 201) {
+              })
+            }else{
+              res = await submitBasicConfig({name : taskName,
+                description : taskDescription,
+                tips : taskTips
+              })
+            }
+
+            if (res.status === 201 || res.status === 200) {
                 const { status, id } = res.data.data;
                 updateStep(status);
                 updateTaskIdLocal(id);
@@ -141,6 +152,7 @@ const CreateTask = (props : any)=>{
         switch (configStep) {
             case -1 :
                 let isSuccess0 = await nextWhen0();
+                console.log(isSuccess0);
                 if (!isSuccess0) return;
                 currentStep = 0;
                 childOutlet = `/tasks/${taskId}/edit/upload`;
@@ -151,12 +163,66 @@ const CreateTask = (props : any)=>{
                 currentStep = 1;
                 childOutlet = `/tasks/${taskId}/edit/config`;
                 break;
+          case 1 :
+
+            break;
         }
         dispatch(updateConfigStep(currentStep));
         console.log(childOutlet)
         navigate(childOutlet);
     }
 
+  useEffect(()=>{
+    let taskId = parseInt(window.location.pathname.split('/')[2]);
+    if(taskId > 0) {
+      getTask(taskId).then((res:any)=>{
+        if (res.status === 200) {
+          console.log(res.data.data);
+          dispatch(updateTask(res.data.data));
+          if (res.data.data.config){
+            dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
+          }
+        }else{
+          commonController.notificationErrorMessage({message : '请求任务状态不是200'},1)
+        }
+      }).catch(error=>commonController.notificationErrorMessage(error,1))
+    }
+  },[]);
+    const [isShowCancelModal, setIsShowCancelModal] = useState(false);
+    const cancelOption = ()=>{
+      setIsShowCancelModal(true);
+    }
+    const clickModalOk = async function (){
+      setIsShowCancelModal(false);
+      switch (configStep) {
+        case -1 :
+          let isSuccess0 = await nextWhen0();
+          console.log(isSuccess0);
+          if (!isSuccess0) return;
+          break;
+        case 0 :
+          let isSuccess1 = await nextWhen1();
+          if (!isSuccess1) return;
+          break;
+        case 1 :
+          let isSuccess2 = await finallySave();
+          // if (!isSuccess2) return;
+          break;
+      }
+      navigate('/tasks');
+    }
+    const clickModalCancel = ()=>{
+      setIsShowCancelModal(false)
+      if(taskId === 0) return;
+      deleteTask(taskId).then((res:any)=>{
+        if(res.status === 200){
+
+        }else{
+          commonController.notificationErrorMessage({message : '删除任务不成功'},1);
+        }
+      }).catch((error:any)=>commonController.notificationErrorMessage(error, 1));
+      navigate('/tasks')
+    }
     return (<div className={currentStyles.outerFrame}>
         <div className = {currentStyles.stepsRow}>
             <div className = {currentStyles.left}>
@@ -175,7 +241,9 @@ const CreateTask = (props : any)=>{
                 })}
             </div>
             <div className = {currentStyles.right}>
-                <div className = {`${commonStyles.cancelButton}  ${currentStyles.cancelButton}`}>
+                <div className = {`${commonStyles.cancelButton}  ${currentStyles.cancelButton}`}
+                onClick = {cancelOption}
+                >
                     取消
                 </div>
                 {configStep !== 1 && <div className={`${commonStyles.commonButton} ${currentStyles.nextButton}`}
@@ -193,6 +261,10 @@ const CreateTask = (props : any)=>{
         <div className = { currentStyles.content }>
             <Outlet />
         </div>
+      <Modal open = {isShowCancelModal} onOk ={clickModalOk} onCancel={clickModalCancel} centered
+             okText={'保存并退出'} cancelText={'不保存'}>
+        <p><img src="/src/icons/warning.png" alt=""/>是否保存已编辑的内容？</p>
+      </Modal>
     </div>)
 }
 

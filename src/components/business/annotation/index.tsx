@@ -41,6 +41,7 @@ const Annotation = (props: {
   //   return <div>test action</div>
   // };
   console.log(props);
+  // @ts-ignore
   return (
     <div style = {{width : '1440px'}}>
       <AnnotationOperation

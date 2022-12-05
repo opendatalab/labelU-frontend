@@ -63,10 +63,25 @@ const getTaskList =async function (page : number){
     }
 }
 
+const deleteTask = async function (taskId : number) {
+  try {
+    let res = await axiosInstance({
+      url : `/api/v1/tasks/${taskId}`,
+      method : 'GET',
+      params : {
+        task_id : taskId
+      }
+    });
+    return res;
+  }catch (e) {
+    CommonController.notificationErrorMessage(e, 5);
+  }
+}
 
 export {
     submitBasicConfig,
     uploadFile,
     updateTaskConfig,
-    getTaskList
+    getTaskList,
+  deleteTask
 };
