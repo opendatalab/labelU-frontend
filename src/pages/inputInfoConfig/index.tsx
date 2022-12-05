@@ -33,7 +33,6 @@ const InputInfoConfig = ()=>{
             setIsErrorShow(false);
             // setTaskDescription(targetValue);
         }else{
-            console.log(1234234343434)
             setIsErrorShow(true);
         }
     }
