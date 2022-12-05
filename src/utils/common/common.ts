@@ -176,12 +176,12 @@ const CommonController = {
   },
   transformFileList(data : any, sampleId : number){
     let id = sampleId;
-    // let url = data.urls[sampleId];
-    // for (let sampleId in data.urls) {
-    //   url = data.urls[sampleId];
-    // }
+    let url = data.urls[sampleId];
+    for (let sampleId in data.urls) {
+      url = data.urls[sampleId];
+    }
     // delete
-    let url = 'http://localhost:8000/src/img/example/bear1.webp'
+    // let url = 'http://localhost:8000/src/img/example/bear1.webp'
     let result : any = '';
     if(data.result && !CommonController.isNullObject(data.result)) {result = JSON.parse(data.result)}else{
       result = [];

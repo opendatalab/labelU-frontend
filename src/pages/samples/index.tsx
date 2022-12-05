@@ -60,13 +60,13 @@ const Samples = (props : any)=>{
       key: 'packageID',
       render:(data : any)=> {
         let url = '';
-        if(!data.urls){
-          url = window.location.origin + '/src/img/example/bear1.webp';
-        }else{
+        // if(!data.urls){
+        //   url = window.location.origin + '/src/img/example/bear1.webp';
+        // }else{
           for(let sampleId in data.urls){
             url = data.urls[sampleId];
           }
-        }
+        // }
         return <img src = {url} style = {{ width : '116px',height : '70px' }}/>
       }
       // width: 80,
@@ -260,9 +260,9 @@ const Samples = (props : any)=>{
   return (<div className={currentStyles.outerFrame}>
     <div className = {currentStyles.stepsRow}>
       {(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') && <GoToEditTask taskStatus = {taskStatus}/>}
-      {/*{(taskStatus !== 'DRAFT' && taskStatus !== 'IMPORTED') && <Statistical />}*/}
+      {(taskStatus !== 'DRAFT' && taskStatus !== 'IMPORTED') && <Statistical />}
       {/*delete*/}
-      { <Statistical />}
+      {/*{ <Statistical />}*/}
     </div>
     <div className = { currentStyles.content }>
       <Table columns = {columns}

@@ -112,6 +112,7 @@ const CreateTask = (props : any)=>{
                 const { status, id } = res.data.data;
                 updateStep(status);
                 updateTaskIdLocal(id);
+                result = id;
             }else{
                 result = false;
                 commonController.notificationErrorMessage(res.data,1);
@@ -152,10 +153,11 @@ const CreateTask = (props : any)=>{
         switch (configStep) {
             case -1 :
                 let isSuccess0 = await nextWhen0();
+                console.log(taskId)
                 console.log(isSuccess0);
                 if (!isSuccess0) return;
                 currentStep = 0;
-                childOutlet = `/tasks/${taskId}/edit/upload`;
+                childOutlet = `/tasks/${isSuccess0}/edit/upload`;
                 break;
             case 0 :
                 let isSuccess1 = await nextWhen1();
@@ -213,7 +215,8 @@ const CreateTask = (props : any)=>{
     }
     const clickModalCancel = ()=>{
       setIsShowCancelModal(false)
-      if(taskId === 0) return;
+      if(taskId === 0) {      navigate('/tasks');
+          return;}
       deleteTask(taskId).then((res:any)=>{
         if(res.status === 200){
 

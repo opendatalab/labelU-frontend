@@ -56,18 +56,22 @@ const routeList: RouteObject[] = [
   {
     path : '/',
     element : <RootGuard />,
+    // element : <Homepage />,
     // action : RootAction,
     children : [
-      {
-        path : '',
-        element : <Homepage />,
-        children : [
-          {
-            path : '',
-            element : <TaskList />
-          },
-        ]
-      },
+      // {
+      //   path : '/',
+      //   element : <Homepage />,
+      //   children : [
+      //     {
+      //       path : '',
+      //       element : <TaskList />
+      //     },
+      //   ]
+      // },
+
+
+
       {
         path : 'tasks',
         element : <Homepage />,
@@ -124,56 +128,63 @@ const routeList: RouteObject[] = [
     path : 'register',
     element : <SignUp />
   },
-  {
-    path : 'taskList',
-    element : <Homepage />,
-    children : [
-      {
-        path : '',
-        element : <TaskList />
-      },
-      {
-        path : 'createTask',
-        element : <CreateTask />,
-        children : [
-          {
-            path : '',
-            element : <InputInfoConfig />
-          },
-          {
-            path : 'inputInfoConfig',
-            element : <InputInfoConfig />,
-          },
-          {
-            path : 'inputData',
-            element : <InputData />,
-          },
-          {
-            path : 'annotationConfig',
-            element : <AnnotationConfig />,
-          },
-        ]
-      },
-      {
-        path : 'nullTask',
-        element : <NullTask />
-      },
-      {
-        path : 'task',
-        element : (<div></div>),
-        children : [
-          {
-            path : 'taskAnnotation',
-            element : <TaskAnnotation/>
-          }
-        ]
-      },
-      {
-        path : 'samples',
-        element : <Samples />
-      }
-    ]
-  },
+
+
+  // {
+  //   path : 'taskList',
+  //   element : <Homepage />,
+  //   children : [
+  //     {
+  //       path : '',
+  //       element : <TaskList />
+  //     },
+  //     {
+  //       path : 'createTask',
+  //       element : <CreateTask />,
+  //       children : [
+  //         {
+  //           path : '',
+  //           element : <InputInfoConfig />
+  //         },
+  //         {
+  //           path : 'inputInfoConfig',
+  //           element : <InputInfoConfig />,
+  //         },
+  //         {
+  //           path : 'inputData',
+  //           element : <InputData />,
+  //         },
+  //         {
+  //           path : 'annotationConfig',
+  //           element : <AnnotationConfig />,
+  //         },
+  //       ]
+  //     },
+  //     {
+  //       path : 'nullTask',
+  //       element : <NullTask />
+  //     },
+  //     {
+  //       path : 'task',
+  //       element : (<div></div>),
+  //       children : [
+  //         {
+  //           path : 'taskAnnotation',
+  //           element : <TaskAnnotation/>
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path : 'samples',
+  //       element : <Samples />
+  //     }
+  //   ]
+  // },
+
+
+
+
+
   // {
   //   path : 'tasks',
   //   element : <TaskAnnotation/>

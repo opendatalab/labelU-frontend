@@ -6,8 +6,11 @@ import { useSelector } from 'react-redux';
 import commonController from '../../utils/common/common';
 import constants from '../../constants';
 
-const Homepage = ()=>{
-    const username = useSelector(commonController.getUsername);
+const Homepage = (props : any)=>{
+
+    // const username = useSelector(commonController.getUsername);
+    let username = localStorage.getItem('username');
+
     let location  = useLocation();
     const crumbs  : any = {
         '/tasks' : (<Breadcrumb.Item>

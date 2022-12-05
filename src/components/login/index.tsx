@@ -58,6 +58,7 @@ const Login = (props : any)=>{
             }
             let token = res.data.data.token;
             localStorage.setItem('token', token);
+            localStorage.setItem('username',email)
             dispatch(setUsername(email));
             navigate( turnToTaskList );
         }catch(error){

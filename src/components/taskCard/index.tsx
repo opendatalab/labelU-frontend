@@ -4,10 +4,14 @@ import { Pagination } from 'antd';
 import { useNavigate } from "react-router";
 import moment from "moment";
 import { Progress } from "antd";
-import {CheckCircleOutlined} from '@ant-design/icons'
+import commonController from '../../utils/common/common'
+import { outputSamples } from "../../services/samples";
+import {CheckCircleOutlined, UploadOutlined, DeleteOutlined} from '@ant-design/icons'
+import { deleteTask } from "../../services/createTask";
+
 const TaskCard = (props : any)=>{
     const { cardInfo } = props;
-    const { stats, id } = cardInfo;
+    const { stats, id, status } = cardInfo;
     let unDoneSample = stats.new;
     let doneSample = stats.done  + stats.skipped;
     let total = unDoneSample + doneSample;
@@ -19,10 +23,26 @@ const TaskCard = (props : any)=>{
         // navigate('/taskList/task/taskAnnotation');
         navigate('/tasks/'+id);
     }
+    let localUserEmail = localStorage.getItem('username');
+
+    const outputDataLocal = ()=>{
+        outputSamples(id)
+    }
+
+    const deleteTaskLocal= ()=>{
+        deleteTask(id).then((res:any)=>{
+            if(res.status === 200){
+
+            }else{
+                commonController.notificationErrorMessage({message : '删除不成功'},100)
+            }
+        }).catch(e=>commonController.notificationErrorMessage(e,1))
+    }
     return (<div className = {currentStyles.outerFrame}
     onClick = {turnToAnnotation}
     >
         <div className={currentStyles.item}>
+            <div className={currentStyles.itemLeft}>
             <div className = { currentStyles.itemTaskName }>{cardInfo.name}</div>
             {
                 cardInfo.status !== 'DRAFT' &&
@@ -39,23 +59,28 @@ const TaskCard = (props : any)=>{
                     <div style = {{ color : '#FF8800' }}>草稿</div>
                 </div>
             }
-            <div className = {currentStyles.icons}>
-              <div></div>
-              {<div></div>}
+            </div>
+            <div className = {currentStyles.icons2}>
+              <div className = {currentStyles.upload}
+              onClick = {commonController.debounce(outputDataLocal,100)}
+              ><UploadOutlined /></div>
+              {localUserEmail === cardInfo.created_by.username && <div
+                  onClick={commonController.debounce(deleteTask,100)}
+                  className = {currentStyles.delete}><DeleteOutlined/></div>}
             </div>
         </div>
         <div className={currentStyles.item} style = {{marginTop : '8px'}}>{cardInfo.created_by?.username}</div>
         <div className={currentStyles.item} style = {{marginTop : '8px'}}>{moment(cardInfo.created_at).format('YYYY-MM-DD HH:MM')}</div>
         {
-            unDoneSample === 0 && <div className = {currentStyles.item41}>
+            (doneSample === total) && <div className = {currentStyles.item41}>
               <div className = {currentStyles.item41Left}>{total}/{total} </div>
-              <div className = {currentStyles.item41Right}><CheckCircleOutlined style ={{color : '#00B365'}}/>已完成</div>
+              <div className = {currentStyles.item41Right}><CheckCircleOutlined style ={{color : '#00B365'}}/>&nbsp;已完成</div>
             </div>
         }
         {
-          unDoneSample !== 0  && <div className = {currentStyles.item42}>
-            <div className = {currentStyles.item42Left}><Progress percent={Math.trunc(50)} showInfo = {false}/></div>
-            <div className = {currentStyles.item41Left}>{unDoneSample}/{total} </div>
+            (doneSample !== total && status !== 'DRAFT' && status !== 'IMPORTED') && <div className = {currentStyles.item42}>
+            <div className = {currentStyles.item42Left}><Progress percent={Math.trunc(doneSample*100/total)} showInfo = {false}/></div>
+            <div className = {currentStyles.item41Left}>&nbsp;&nbsp;{doneSample}/{total} </div>
             </div>
         }
     </div>)

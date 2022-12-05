@@ -19,6 +19,12 @@
   width : 100%;
   @extend .displayFlex;
   @extend .flexDirectionRow;
+  justify-content: space-between;
+  //justify-content: center;
+}
+.itemLeft{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
 }
 .itemTaskName{
   font-weight: 500;
@@ -26,7 +32,8 @@
   line-height: 26px;
   color: rgba(0, 0, 0, 0.87);
   margin-right : 12px;
-  max-width : calc(100% - 52px - 2rem);
+  //max-width : calc(100% - 52px - 2rem);
+  max-width : 200px;
 }
 
 .mediaType{
@@ -84,5 +91,30 @@
   justify-content: flex-start;
   align-items: center;
   margin-top:10px;
+
+}
+.item42Left{
+  width : 242px;
+}
+
+.icons2{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-end;
+  align-items: center;
+  width : 60px;
+  //margin-left:140px;
+}
+.upload{
+  margin-right : 10px;
+}
+.upload:hover{
+  color : #1b67ff;
+  cursor : pointer;
+}
+
+.delete:hover{
+  color : #1b67ff;
+  cursor : pointer;
 
 }
