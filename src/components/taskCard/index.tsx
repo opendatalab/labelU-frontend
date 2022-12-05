@@ -19,24 +19,33 @@ const TaskCard = (props : any)=>{
         alert('createTask')
     }
     const navigate = useNavigate();
-    const turnToAnnotation = ()=>{
+    const turnToAnnotation = (e:any)=>{
+        e.stopPropagation();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
         // navigate('/taskList/task/taskAnnotation');
         navigate('/tasks/'+id);
     }
     let localUserEmail = localStorage.getItem('username');
 
-    const outputDataLocal = ()=>{
+    const outputDataLocal = (e : any)=>{
         outputSamples(id)
     }
 
-    const deleteTaskLocal= ()=>{
+    const deleteTaskLocal= (e : any)=>{
+        // console.log(e);
+        e.nativeEvent.stopImmediatePropagation();
+        e.preventDefault();
         deleteTask(id).then((res:any)=>{
             if(res.status === 200){
-
+                navigate('/tasks?'+new Date().getTime())
             }else{
                 commonController.notificationErrorMessage({message : '删除不成功'},100)
             }
         }).catch(e=>commonController.notificationErrorMessage(e,1))
+        e.stopPropagation();
+
     }
     return (<div className = {currentStyles.outerFrame}
     onClick = {turnToAnnotation}
@@ -65,7 +74,7 @@ const TaskCard = (props : any)=>{
               onClick = {commonController.debounce(outputDataLocal,100)}
               ><UploadOutlined /></div>
               {localUserEmail === cardInfo.created_by.username && <div
-                  onClick={commonController.debounce(deleteTask,100)}
+                  onClick={deleteTaskLocal}
                   className = {currentStyles.delete}><DeleteOutlined/></div>}
             </div>
         </div>

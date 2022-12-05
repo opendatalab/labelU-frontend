@@ -67,7 +67,7 @@ const deleteTask = async function (taskId : number) {
   try {
     let res = await axiosInstance({
       url : `/api/v1/tasks/${taskId}`,
-      method : 'GET',
+      method : 'DELETE',
       params : {
         task_id : taskId
       }

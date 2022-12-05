@@ -90,6 +90,7 @@ const CreateTask = (props : any)=>{
     }
     const nextWhen0= async function(){
         let result = true;
+        console.log(haveConfigedStep)
         if (!taskName) {
             commonController.notificationErrorMessage({message : '请填入任务名称'}, 1);
             return false;

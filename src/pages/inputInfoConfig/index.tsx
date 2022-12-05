@@ -33,6 +33,7 @@ const InputInfoConfig = ()=>{
             setIsErrorShow(false);
             // setTaskDescription(targetValue);
         }else{
+            console.log(1234234343434)
             setIsErrorShow(true);
         }
     }
@@ -91,37 +92,33 @@ const InputInfoConfig = ()=>{
                     <div style = {{color : 'red', width : '8px'}}>*</div>
                     任务名称</div>
                 <div className = { currentStyles.itemInput}>
-                  {taskName && <Input placeholder = '请输入50字以内的任务名称' onChange = {changeTaskNamme} defaultValue = {taskName}/>}
-                  {!taskName && <Input placeholder = '请输入50字以内的任务名称' onChange = {changeTaskNamme}/>}
+                  {<Input placeholder = '请输入50字以内的任务名称' onChange = {changeTaskNamme} defaultValue = {taskName}
+                  // value = { taskName }
+                  />}
+                  {/*{!taskName && <Input placeholder = '请输入50字以内的任务名称' onChange = {changeTaskNamme}/>}*/}
                     {isErrorShow && <div style = {{color : "red"}}>请输入内容</div>}
                 </div>
             </div>
             <div className = { currentStyles.item}>
                 <div className = { currentStyles.itemLabel}>任务描述</div>
                 <div className = { currentStyles.itemInput}>
-                  {taskDescription && <Input.TextArea placeholder = '请输入500字以内的任务描述'
+                  <Input.TextArea placeholder = '请输入500字以内的任务描述'
                                     onChange = { changeTaskDescription }
                            autoSize = {{minRows : 6, maxRows : 10}}
                   defaultValue = {taskDescription}
-                  />}
-                  {!taskDescription && <Input.TextArea placeholder = '请输入500字以内的任务描述'
-                                                      onChange = { changeTaskDescription }
-                                                      autoSize = {{minRows : 6, maxRows : 10}}
-                  />}
+                                    // value = {taskDescription}
+                  />
                 </div>
             </div>
             <div className = { currentStyles.item}>
                 <div className = { currentStyles.itemLabel}>任务提示</div>
                 <div className = { currentStyles.itemInput}>
-                  {taskTips && <Input.TextArea placeholder = '请输入1000字以内的标注任务提示，在标注过程中为标注者提供帮助'
+                  <Input.TextArea placeholder = '请输入1000字以内的标注任务提示，在标注过程中为标注者提供帮助'
                                     onChange = { changeTaskTips }
                                     autoSize = {{minRows : 6, maxRows : 10}}
                   defaultValue ={ taskTips}
-                  />}
-                  {!taskTips && <Input.TextArea placeholder = '请输入1000字以内的标注任务提示，在标注过程中为标注者提供帮助'
-                                               onChange = { changeTaskTips }
-                                               autoSize = {{minRows : 6, maxRows : 10}}
-                  />}
+                                  // value = {taskTips}
+                  />
                 </div>
 
             </div>

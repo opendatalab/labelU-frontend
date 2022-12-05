@@ -48,10 +48,12 @@ const CommonController = {
     return value.length >= 6;
   },
   isInputValueNull (targetValue : any) {
+    console.log(targetValue)
     let result = true;
-    if (targetValue || !targetValue.trim()) {
+    if (targetValue) {
       result = false;
     }
+    console.log(result)
     return result;
   }
   ,

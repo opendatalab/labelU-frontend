@@ -134,7 +134,10 @@ const TaskList = ()=>{
 
     },[]);
 
+    useEffect(()=>{
+        requestTaskList(0);
 
+    },[window.location.search])
     return (
         <React.Fragment>
 
