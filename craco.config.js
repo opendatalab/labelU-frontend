@@ -15,7 +15,7 @@ module.exports = {
       // webpackConfig.output.path = path.resolve(__dirname, '../server/public'); //ts和less编译后的文件
       //  webpackConfig.output.path = path.resolve(__dirname, '../labelU/labelu/internal/statics'); //ts和less编译后的文件
       webpackConfig.output.path = path.resolve(__dirname, './dist'); //ts和less编译后的文件
-       // paths.appBuild = path.resolve(__dirname, '../labelU/labelu/internal/statics'); //public中的文件
+      //  paths.appBuild = path.resolve(__dirname, '../labelU/labelu/internal/statics'); //public中的文件
       paths.appBuild = path.resolve(__dirname, './dist'); //public中的文件
       return webpackConfig;
     },
