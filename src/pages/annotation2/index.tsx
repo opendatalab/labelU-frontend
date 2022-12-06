@@ -79,7 +79,7 @@ const AnnotationPage = ()=>{
                 //     }
                 // }
                 console.log(taskRes.data.data.config);
-                setTaskConfig(taskRes.data.data.config);
+                setTaskConfig(JSON.parse(taskRes.data.data.config));
                 // setTaskConfig(JSON.parse(taskRes.data.data.config));
             }else{
                 commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
