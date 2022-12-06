@@ -239,7 +239,8 @@ const InputInfoConfig = ()=>{
                 // }
                 // else{
                 //     result = await uploadFileService(1, {path : './', file : currentInfo.file  });
-                    result = await uploadFileService(taskId, {path , file : currentInfo.file  });
+                //     result = await uploadFileService(taskId, {path , file : currentInfo.file  });
+                    result = await uploadFileService(taskId, {  file : currentInfo.file  });
                     if (result?.status === 201) {
                         currentHaveUploadFiles.push({name : currentInfo.file.name,
                             size : currentInfo.file.size,
