@@ -33,6 +33,7 @@ const InputInfoConfig = ()=>{
             setIsErrorShow(false);
             // setTaskDescription(targetValue);
         }else{
+            dispatch(updateTaskName(targetValue))
             setIsErrorShow(true);
         }
     }
