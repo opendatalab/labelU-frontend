@@ -58,7 +58,8 @@ const CreateTask = (props : any)=>{
     const tempBao = true;
     const finallySave = async function(){
         let res = await updateTaskConfig(taskId, {
-            'config' : JSON.stringify(toolsConfig)
+            'config' : JSON.stringify(toolsConfig),
+            'media_type' : 'IMAGE'
         })
         if(!res) {
             commonController.notificationErrorMessage({message : '配置不成功'}, 1);
