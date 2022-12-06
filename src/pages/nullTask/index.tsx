@@ -9,7 +9,7 @@ const NullTask = ()=>{
     const navigate = useNavigate();
     const createTask = ()=>{
         dispatch(updateConfigStep(-1));
-        dispatch(updateHaveConfigedStep(-1));
+        dispatch(updateHaveConfigedStep(0));
         navigate(Constatns.urlToCreateNewTask);
     }
     return (<div className = {currentStyles.outerFrame}>
