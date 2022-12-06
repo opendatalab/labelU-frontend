@@ -81,7 +81,7 @@ const TaskCard = (props : any)=>{
         <div className={currentStyles.item} style = {{marginTop : '8px'}}>{cardInfo.created_by?.username}</div>
         <div className={currentStyles.item} style = {{marginTop : '8px'}}>{moment(cardInfo.created_at).format('YYYY-MM-DD HH:MM')}</div>
         {
-            (doneSample === total) && <div className = {currentStyles.item41}>
+            ((doneSample === total) &&  status !== 'DRAFT' && status !== 'IMPORTED') && <div className = {currentStyles.item41}>
               <div className = {currentStyles.item41Left}>{total}/{total} </div>
               <div className = {currentStyles.item41Right}><CheckCircleOutlined style ={{color : '#00B365'}}/>&nbsp;已完成</div>
             </div>

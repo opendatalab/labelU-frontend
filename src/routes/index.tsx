@@ -18,6 +18,7 @@ import TaskAnnotation from "../pages/annotation2";
 import Samples from "../pages/samples";
 import RootGuard from "../pages/guards/rootGuard";
 import TaskSamplesFinished from '../pages/sampleFinished';
+import OutputData from "../pages/outputData";
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '../pages/404'));
 
 
@@ -128,6 +129,10 @@ const routeList: RouteObject[] = [
     path : 'register',
     element : <SignUp />
   },
+  {
+    path : 'output',
+    element : <OutputData />
+  }
 
 
   // {
