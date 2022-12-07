@@ -88,13 +88,28 @@ const AnnotationConfig: FC = () => {
     left: <span className="leftTabContent">标注配置</span>,
     right: <ConfigTemplate />
   };
-
-  const tijiao = ()=>{
-
-  }
-
   return (
     <div className="container">
+      {/*<div className="headerBox">*/}
+      {/*  <div className="stepBox">*/}
+      {/*    <Steps size="small" current={2}>*/}
+      {/*      <Step title="基础配置" />*/}
+      {/*      <Step title="数据导入" />*/}
+      {/*      <Step title="标注配置" />*/}
+      {/*    </Steps>*/}
+      {/*  </div>*/}
+      {/*  <div className="submitBox">*/}
+      {/*    <Button>取消</Button>*/}
+      {/*    <Button*/}
+      {/*      type="primary"*/}
+      {/*      onClick={e => {*/}
+      {/*        e.stopPropagation();*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      完成*/}
+      {/*    </Button>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
       <div className="configBox">
         <div className="leftSider" id="lefeSiderId">
           <Tabs
@@ -123,15 +138,17 @@ const AnnotationConfig: FC = () => {
               <div className="rightHeader">
                 <span className="leftSpan">标注预览</span>
               </div>
-              <Annotation
-                isPreview={true}
-                attribute={attribute}
-                tagList={tagList}
-                fileList={fileList}
-                textConfig={textConfig}
-                goBack={goBack}
-                tools={tools}
-              />
+              <div className='rightContent'>
+                <Annotation
+                  isPreview={true}
+                  attribute={attribute}
+                  tagList={tagList}
+                  fileList={fileList}
+                  textConfig={textConfig}
+                  goBack={goBack}
+                  tools={tools}
+                />
+              </div>
             </>
           ) : (
             <div className="notMatchBox">
@@ -140,8 +157,6 @@ const AnnotationConfig: FC = () => {
           )}
         </div>
       </div>
-
-      <div onClick = { tijiao }> 提交</div>
     </div>
   );
 };

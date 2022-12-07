@@ -196,7 +196,10 @@ const CreateTask = (props : any)=>{
     const cancelOption = ()=>{
       setIsShowCancelModal(true);
     }
-    const clickModalOk = async function (){
+    const clickModalOk = async function (e : any){
+        e.stopPropagation();
+        e.nativeEvent.stopPropagation();
+        e.preventDefault();
       setIsShowCancelModal(false);
       switch (configStep) {
         case -1 :
@@ -215,17 +218,22 @@ const CreateTask = (props : any)=>{
       }
       navigate('/tasks');
     }
-    const clickModalCancel = ()=>{
+    const clickModalCancel = (e : any)=>{
+        e.stopPropagation();
+        e.nativeEvent.stopPropagation();
+        e.preventDefault();
       setIsShowCancelModal(false)
-      if(taskId === 0) {      navigate('/tasks');
-          return;}
-      deleteTask(taskId).then((res:any)=>{
-        if(res.status === 200){
-
-        }else{
-          commonController.notificationErrorMessage({message : '删除任务不成功'},1);
-        }
-      }).catch((error:any)=>commonController.notificationErrorMessage(error, 1));
+      // if(taskId === 0) {
+      //     navigate('/tasks');
+      //     return;
+      // }
+      // deleteTask(taskId).then((res:any)=>{
+      //   if(res.status === 200){
+      //
+      //   }else{
+      //     commonController.notificationErrorMessage({message : '删除任务不成功'},1);
+      //   }
+      // }).catch((error:any)=>commonController.notificationErrorMessage(error, 1));
       navigate('/tasks')
     }
     return (<div className={currentStyles.outerFrame}>
