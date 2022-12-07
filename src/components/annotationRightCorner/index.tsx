@@ -7,7 +7,8 @@ import { Observable, fromEvent, Subject } from 'rxjs' ;
 import Ob from '../../utils/Observable/index';
 import { useSelector} from "react-redux";
 import { updateAnnotationDatas } from '../../stores/annotation.store'
-import { annotationRef } from '../../pages/annotation2'
+import { annotationRef } from '../../pages/annotation2';
+import { getSample } from '../../services/samples'
 const AnnotationRightCorner = ()=>{
     const navigate = useNavigate();
     let annotationDatas = useSelector(state=> state.annotation.annotationDatas );
@@ -32,17 +33,29 @@ const AnnotationRightCorner = ()=>{
         // @ts-ignore
         // console.log(annotationDatas)
         // console.log(1)
-        // @ts-ignore
-        updateSampleAnnotationResult(taskId, sampleId, {state : 'DONE',result : annotationRef?.current?.getResult()[0].result }).then(res=>{
-            if(res.status === 200) {
-                // Ob.nextPageS.next('DONE');
-                navigate(window.location.pathname + '?DONE' + new Date().getTime());
+        getSample(taskId, sampleId).then((res)=>{
+            if(res.status === 200){
+                let sampleResData = res.data.data.data;
+                // @ts-ignore
+                let dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+                // @ts-ignore
+                updateSampleAnnotationResult(taskId, sampleId, {state : 'DONE',data : dataParam }).then(res=>{
+                    if(res.status === 200) {
+                        // Ob.nextPageS.next('DONE');
+                        navigate(window.location.pathname + '?DONE' + new Date().getTime());
+                    }else{
+                        commonController.notificationErrorMessage({message : '请求保存失败'},1);
+                    }
+                }).catch(error=>{
+                    commonController.notificationErrorMessage(error,1);
+                })
             }else{
-                commonController.notificationErrorMessage({message : '请求保存失败'},1);
+
             }
         }).catch(error=>{
-            commonController.notificationErrorMessage(error,1);
+            commonController.notificationErrorMessage(error, 1)
         })
+
     }
     return (<div className={ currentStyles.outerFrame }>
         <div className={currentStyles.left} id = {'skipped'}
