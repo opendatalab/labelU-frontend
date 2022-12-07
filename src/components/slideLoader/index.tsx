@@ -162,7 +162,7 @@ const SlideLoader = ()=>{
     }
     const updatePrevImageListState = async function (state : string){
         let temp : any= Object.assign([],prevImgList);
-        // console.log(temp)
+        console.log(temp)
         let nextPageId : any= null;
         for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
             let prevImg : any= temp[prevImgIndex];

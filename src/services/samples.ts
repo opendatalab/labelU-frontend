@@ -93,7 +93,45 @@ const outputSample = async function (taskId : number, sampleIds : any, activeTxt
       sample_ids : sampleIds
     }
   })
-  return res;
+    let data = res;
+    // @ts-ignore
+    // res.blob().then(blob=>console.log(blob));
+    // res.blob().then(blob => {
+    // let afString = res.headers['content-disposition'].split(';')[1].split('=')[1];
+    // afString = afString.slice(1,-1);
+    // let blobUrl = 'blob:'+window.location.origin + '/'+ afString;
+    // console.log(blobUrl);
+    console.log(data);
+    const blobData = new Blob([JSON.stringify(data.data)]);
+    let url = window.URL.createObjectURL(blobData);
+    const a = document.createElement('a');
+    let taskRes = await getTask(taskId);
+    let filename = taskRes.data.data.name;
+    switch(activeTxt){
+        case 'JSON' :
+            filename = filename + '.json';
+            break;
+        case 'COCO' :
+            filename = filename + '.coco';
+            break;
+        case 'MASK' :
+            filename = filename + '.mask';
+            break;
+    }
+    a.download = filename;
+    a.href = url;
+    a.click();
+
+    // @ts-ignore
+    // window.saveAs(blobData, 'dataTimestamp' + ".json");
+    //     // const url = window.URL.createObjectURL(blobUrl);
+    //     a.href = url;
+    //     a.download = 'filename';
+    //     a.click();
+        // window.URL.revokeObjectURL(blobUrl);
+    // })
+  // commonController.downloadToFile(data, activeTxt);
+    // return res;
 }
 
 const outputSamples = async function (taskId : number, activeTxt : string) {
@@ -109,6 +147,7 @@ const outputSamples = async function (taskId : number, activeTxt : string) {
       return;
     }
     let outputSamplesRes = await outputSample(taskId, sampleIds, activeTxt);
+      console.log(outputSamplesRes);
     return true;
   }catch(error){
     commonController.notificationErrorMessage({message : error}, 1);

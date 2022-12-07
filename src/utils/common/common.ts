@@ -200,6 +200,38 @@ const CommonController = {
     }
     // @ts-ignore
     img.src = src;
+  },
+  downloadToFile(data:any, fileType : string){
+    // let mimeType = 'application/json';
+    // switch(mimeType){
+    //   case 'JSON' :
+    //     mimeType = 'application/json',
+    //         break;
+    //   case 'COCO' ;
+    //     mimeType =
+    // }
+
+
+    // res.blob().then(blob => {
+    //   const a = document.createElement('a');
+    //   const url = window.URL.createObjectURL(blob);
+    //   a.href = url;
+    //   a.download = filename;
+    //   a.click();
+    //   window.URL.revokeObjectURL(url);
+    // })
+    //
+    console.log(data);
+    let info = new Blob(data.data);
+    // console.log(info)
+    // @ts-ignore
+    let dataTimestamp = new Date().getTime();
+    try {
+      // @ts-ignore
+      window.saveAs(info, dataTimestamp + ".json");
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 export default CommonController;
