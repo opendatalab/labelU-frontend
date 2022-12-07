@@ -81,13 +81,13 @@ const updateSampleAnnotationResult = async function (taskId : number, sampleId :
     });
     return res;
 }
-const outputSample = async function (taskId : number, sampleIds : any) {
+const outputSample = async function (taskId : number, sampleIds : any, activeTxt : string) {
   let res = await axiosInstance({
     url : `/api/v1/tasks/${taskId}/samples/export`,
     method : 'POST',
     params : {
       task_id :taskId,
-      export_type : 'JSON'
+      export_type : activeTxt
     },
     data : {
       sample_ids : sampleIds
@@ -96,7 +96,7 @@ const outputSample = async function (taskId : number, sampleIds : any) {
   return res;
 }
 
-const outputSamples = async function (taskId : number) {
+const outputSamples = async function (taskId : number, activeTxt : string) {
   try{
     let samplesRes = await getSamples(taskId, {pageNo : 0, pageSize : 100000});
     let sampleIdArrays = samplesRes.data.data;
@@ -108,7 +108,7 @@ const outputSamples = async function (taskId : number) {
       commonController.notificationErrorMessage({message : '后端返回数据出现问题'}, 1)
       return;
     }
-    let outputSamplesRes = await outputSample(taskId, sampleIds);
+    let outputSamplesRes = await outputSample(taskId, sampleIds, activeTxt);
     return true;
   }catch(error){
     commonController.notificationErrorMessage({message : error}, 1);

@@ -161,7 +161,7 @@ const SlideLoader = ()=>{
             }
     }
     const updatePrevImageListState = async function (state : string){
-        let temp = Object.assign([],prevImgList);
+        let temp : any= Object.assign([],prevImgList);
         // console.log(temp)
         let nextPageId : any= null;
         for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
@@ -195,7 +195,7 @@ const SlideLoader = ()=>{
             let currentPathname = window.location.pathname.split('/');
             currentPathname.pop();
             currentPathname.push('finished')
-            navigate(currentPathname.join('/'))
+            navigate(currentPathname.join('/')+'?sampleId='+temp[temp.length - 1]?.id);
             // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
         }
     }

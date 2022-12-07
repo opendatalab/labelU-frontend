@@ -38,6 +38,7 @@ const AnnotationRightCorner = ()=>{
                 let sampleResData = res.data.data.data;
                 // @ts-ignore
                 let dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+                console.log(dataParam)
                 // @ts-ignore
                 updateSampleAnnotationResult(taskId, sampleId, {state : 'DONE',data : dataParam }).then(res=>{
                     if(res.status === 200) {

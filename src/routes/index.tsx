@@ -84,7 +84,7 @@ const routeList: RouteObject[] = [
         ]
       },
       {
-        path : 'tasks/:id',
+        path : 'tasks/:taskId',
         element : <Homepage />,
         children : [
           {
