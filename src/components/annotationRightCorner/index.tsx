@@ -16,16 +16,23 @@ const AnnotationRightCorner = ()=>{
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let sampleId = parseInt(window.location.pathname.split('/')[4]);
     const skipSample = ()=>{
-        updateSampleState(taskId, sampleId).then(res=>{
-            if(res.status === 200) {
-                navigate(window.location.pathname + '?SKIPPED' + new Date().getTime());
-
+        getSample(taskId, sampleId).then((sampleRes : any)=>{
+            if(sampleRes.status === 200){
+                console.log(sampleRes)
+                updateSampleState(taskId, sampleId, sampleRes?.data.data.data).then(res=>{
+                    if(res.status === 200) {
+                        navigate(window.location.pathname + '?SKIPPED' + new Date().getTime());
+                    }else{
+                        commonController.notificationErrorMessage({message : '请求跳过失败'},1);
+                    }
+                }).catch(error=>{
+                    commonController.notificationErrorMessage(error,1);
+                })
             }else{
-                commonController.notificationErrorMessage({message : '请求跳过失败'},1);
+                commonController.notificationErrorMessage({message : '请求任务数据出错'},1)
             }
-        }).catch(error=>{
-            commonController.notificationErrorMessage(error,1);
-        })
+        }).catch(error=>commonController.notificationErrorMessage(error, 1));
+
     }
 
     // @ts-ignore

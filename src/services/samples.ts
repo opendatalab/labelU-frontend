@@ -52,7 +52,7 @@ const getSample = async function (taskId : number, sampleId : number) {
     return res;
 }
 
-const updateSampleState = async function (taskId : number, sampleId : number) {
+const updateSampleState = async function (taskId : number, sampleId : number, data : any) {
     let res = await axiosInstance({
         url : `/api/v1/tasks/${taskId}/samples/${sampleId}`,
         method : 'PATCH',
@@ -60,7 +60,8 @@ const updateSampleState = async function (taskId : number, sampleId : number) {
           sample_id : sampleId
         },
         data : {
-            state : "SKIPPED"
+            state : "SKIPPED",
+            data
         }
     });
     return res;

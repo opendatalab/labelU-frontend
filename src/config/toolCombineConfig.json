@@ -3,10 +3,10 @@
     "type": "img",
     "list": [
       {
-        "url": "http://localhost:3000/src/img/annotationCommon/configNotMatch.png"
+        "url": "/src/img/annotationCommon/configNotMatch.png"
       },
       {
-        "url": "http://localhost:3000/src/img/annotationCommon/emptyConfig.png"
+        "url": "/src/img/annotationCommon/emptyConfig.png"
       }
     ]
   },

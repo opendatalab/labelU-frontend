@@ -4,7 +4,7 @@
     "list": [
       {
         "id": 1,
-        "url": "http://localhost:3000/src/img/example/bear1.webp",
+        "url": "/src/img/example/bear1.webp",
         "result": "[]"
       }
     ]
