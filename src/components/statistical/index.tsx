@@ -49,10 +49,10 @@ const Statistical = ()=>{
     getSamplesLocal({pageNo : 0, pageSize : 10})
   }
   const turnToTaskConfig = ()=>{
-    navigate('/tasks/'+taskId+'/edit/config');
+    navigate('/tasks/'+taskId+'/edit/config?currentStatus=2');
   }
   const turnToInputData = ()=>{
-    navigate('/tasks/'+taskId+'/edit/upload')
+    navigate('/tasks/'+taskId+'/edit/upload?currentStatus=1')
   }
     const [activeTxt, setActiveTxt] = useState('JSON');
     const [isShowModal, setIsShowModal] = useState(false);

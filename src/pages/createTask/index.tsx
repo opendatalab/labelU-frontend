@@ -48,6 +48,7 @@ const CreateTask = (props : any)=>{
         }
         ];
     const [current, setCurrent] = useState(0);
+
     const next = ()=>{
         setCurrent(current + 1)
     }
@@ -56,6 +57,7 @@ const CreateTask = (props : any)=>{
     }
     const items = steps.map(item=>({key : item.title, title : item.title}));
     const tempBao = true;
+
     const finallySave = async function(){
         let res = await updateTaskConfig(taskId, {
             'config' : JSON.stringify(toolsConfig),
@@ -178,11 +180,18 @@ const CreateTask = (props : any)=>{
 
   useEffect(()=>{
     let taskId = parseInt(window.location.pathname.split('/')[2]);
+    let searchString = window.location.search;
+    console.log(window.location.search)
+    let currentStatus = 1;
+    if(searchString.indexOf('currentStatus=2') > -1){
+        currentStatus = 2;
+    }
     if(taskId > 0) {
       getTask(taskId).then((res:any)=>{
+          console.log(res);
         if (res.status === 200) {
           console.log(res.data.data);
-          dispatch(updateTask(res.data.data));
+          dispatch(updateTask({data : res.data.data, configStatus : currentStatus }));
           if (res.data.data.config){
             dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
           }

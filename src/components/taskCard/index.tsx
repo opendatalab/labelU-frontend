@@ -13,7 +13,7 @@ import currentStyles1 from "../../pages/outputData/index.module.scss";
 const TaskCard = (props : any)=>{
     const { cardInfo } = props;
     const { stats, id, status } = cardInfo;
-    console.log(cardInfo)
+    // console.log(cardInfo)
     let unDoneSample = stats.new;
     let doneSample = stats.done  + stats.skipped;
     let total = unDoneSample + doneSample;

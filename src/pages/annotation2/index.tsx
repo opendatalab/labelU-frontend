@@ -118,6 +118,8 @@ const AnnotationPage = ()=>{
     // @ts-ignore
     // const leftSiderContent = <MemoSlideLoader />;
     const leftSiderContent = <SlideLoader />;
+    // const leftSiderContent = <div>test</div>;
+
     // const leftSiderContent = (<div>test1</div>)
     const topActionContent = (<AnnotationRightCorner />)
     // const topActionContent = (<div>2</div>)

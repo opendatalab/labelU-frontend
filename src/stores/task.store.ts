@@ -35,7 +35,8 @@ const existTaskSlice = createSlice({
 
         },
         updateTask(state : any, action : any){
-          let taskInfo = action.payload;
+          let taskInfo = action.payload.data;
+          let currentStatus = action.payload.configStatus;
           const {name , tips, description, config, status, id } = taskInfo;
           state.taskName = name;
           state.taskTips = tips;
@@ -49,10 +50,22 @@ const existTaskSlice = createSlice({
             state.haveConfigedStep = 2;
             state.configStep = 0;
           }
-          if (status !== 'IMPORTED' && status !== 'DRAFT') {
+            if (status === 'CONFIGURED' && currentStatus === 1) {
+                state.haveConfigedStep = 2;
+                state.configStep = 0;
+            }
+            if (status === 'CONFIGURED' && currentStatus === 2) {
+                state.haveConfigedStep = 2;
+                state.configStep = 1;
+            }
+          if ((status === 'INPROGRESS' || status === 'FINISHED') && currentStatus === 1) {
             state.haveConfigedStep = 3;
-            state.configStep = 1;
+            state.configStep = 0;
           }
+            if ((status === 'INPROGRESS' || status === 'FINISHED') && currentStatus === 2) {
+                state.haveConfigedStep = 3;
+                state.configStep = 1;
+            }
         }
     }
 });
