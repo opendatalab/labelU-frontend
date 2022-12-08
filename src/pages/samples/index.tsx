@@ -243,8 +243,10 @@ const Samples = (props : any)=>{
   }
   const onRow = (record : any, rowIndex : any)=>{
     return {
-      onMouseEnter : (e: any)=>onMouseEnterRow(record.id),
-      onMouseLeave : (e: any)=>setEnterRowId(undefined)
+      // onMouseEnter : (e: any)=>onMouseEnterRow(record.id),
+      onMouseLeave : (e: any)=>setEnterRowId(undefined),
+      // onMouseOn : (e: any)=>{console.log('wa');onMouseEnterRow(record.id)},
+      onMouseOver : (e: any)=>{console.log('wa');onMouseEnterRow(record.id)},
     }
   }
   // const outputSamplesLocal = ()=>{
