@@ -8,6 +8,7 @@ import { debounceTime, scan } from 'rxjs'
 import {useNavigate} from "react-router";
 import {useSelector, connect, Provider} from 'react-redux';
 import store from '../../stores';
+let tempInit : any = [];
 const SlideLoader = ()=>{
     const [prevImgList, setPrevImgList] = useState<any[]>([]);
     // const t = useSelector(state=>{console.log(state); return state;})
@@ -17,8 +18,8 @@ const SlideLoader = ()=>{
     const [downNoneTipShow, setDownNoneTipShow] = useState(false);
     const [requestUpDoor, setRequestUpDoor] = useState(true);
     const [requestDownDoor, setRequestDownDoor] = useState(true);
-    const requestPreview = (params : any, currentImg ?: any)=>{
-        getPrevSamples(taskId,params).then(res=>{
+    const requestPreview = async function (params : any, currentImg ?: any){
+        await getPrevSamples(taskId,params).then(res=>{
 
             if (res.status === 200) {
                 let newPrevImgList : any[] = [];
@@ -29,7 +30,10 @@ const SlideLoader = ()=>{
                     newPrevImgList.push(transformedPrevImg[0]);
                 }
                 let temp : any = Object.assign([], prevImgList);
-                if (currentImg) {  temp = [ currentImg ] };
+                if (currentImg) {  temp = [ currentImg ];
+                    // tempInit = temp;
+                    // setInitTime(1);
+                };
 
                 if(newPrevImgList.length === 0) {
                     if(params.after || params.after === 0){
@@ -41,15 +45,22 @@ const SlideLoader = ()=>{
                     }
                     if(currentImg) {
                         setPrevImgList(temp);
+                        // tempInit = temp;
+                        // setInitTime(1);
                     // Ob.nextPageS.next(temp);
                     }
                 }else{
                     if (params.after || params.after === 0) {
                         setPrevImgList(temp.concat([],newPrevImgList));
                         // Ob.nextPageS.next(temp.concat([],newPrevImgList))
+                        // tempInit = temp.concat([],tempInit);
+                        // console.log(tempInit)
+                        // setInitTime(1);
 
                     }else{
                         setPrevImgList(newPrevImgList.concat(temp));
+                        // tempInit = tempInit.concat(temp);
+                        // setInitTime(1);
                         // Ob.nextPageS.next(newPrevImgList.concat(temp));
                     }
                     return newPrevImgList[0].id;
@@ -98,49 +109,70 @@ const SlideLoader = ()=>{
             let newSample : any= commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
             newSample[0].state = sampleRes.data.data.state;
             // console.log(newSample);
-            await requestPreview({
-                after : sampleId
-                ,pageSize : 10
-            }, newSample[0])
+            // await requestPreview({
+            //     after : sampleId
+            //     ,pageSize : 10
+            // }, newSample[0]);
+            await getSampleLocalNew();
         }else{
             commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
         }
     }
+    const getSampleLocalNew = async function(){
+        let sampleRes = await getSample(taskId, sampleId);
+        if (sampleRes.status === 200) {
+            // console.log(sampleRes);
+            let newSample : any= commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
+            newSample[0].state = sampleRes.data.data.state;
+            let after10 = await get10Samples('after');
+            let before10 = await get10Samples('before');
+            setPrevImgList(Object.assign(before10.concat(newSample,after10)));
+        }else{
+            commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
+        }
+    }
+
+    const get10Samples = async function (direction : string) {
+        try {
+            let samplesRes = await getPrevSamples(taskId, {
+                [direction]: sampleId,
+                pageSize: 10
+            });
+            if (samplesRes.status === 200) {
+                let newPrevImgList : any[] = [];
+                for (let prevImg of samplesRes.data.data) {
+                    let transformedPrevImg : any = commonController.transformFileList(prevImg.data, prevImg.id);
+                    //delete
+                    transformedPrevImg[0].state = prevImg.state;
+                    newPrevImgList.push(transformedPrevImg[0]);
+                }
+
+                if(newPrevImgList.length === 0) {
+                    if(direction === 'after'){
+                        setDownNoneTipShow(true);
+                        setRequestDownDoor(false);
+                    }else{
+                        setUpNoneTipShow(true);
+                        setRequestUpDoor(false)
+                    }
+                }
+                return newPrevImgList;
+            }else{
+                commonController.notificationErrorMessage({message : '请求samples数据问题'}, 1);
+                return [];
+            }
+        }catch(error){
+            commonController.notificationErrorMessage(error, 1);
+            return [];
+        }
+    }
+
+    const getAfter10 = async function () {
+
+    }
+
     const navigate = useNavigate();
-
-
-
-
-        // @ts-ignore
-        // Ob.nextPageS?.pipe(debounceTime(100)).subscribe({next : (state)=>{
-        //         if(state !== 'DONE'){ return;}
-        //         console.log(parseInt(window.location.pathname.split('/')[4]));
-        //         // if (!(window.location.search.indexOf('DONE') > -1)) {return;}
-        //         console.log(prevImgList)
-        //         let temp = Object.assign([],prevImgList);
-        //         let nextPageId : any= null;
-        //         for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
-        //             let prevImg : any= temp[prevImgIndex];
-        //             if (prevImg.id === sampleId) {
-        //                 prevImg.state = 'DONE';
-        //                 if (temp[prevImgIndex + 1]) {
-        //                     // @ts-ignore
-        //                     nextPageId = temp[prevImgIndex + 1].id;
-        //                 }
-        //                 break;
-        //             }
-        //         }
-        //         setPrevImgList(temp);
-        //         // navigate()
-        //         if(nextPageId || nextPageId === 0){
-        //             let pathnames = window.location.pathname.split('/');
-        //             pathnames.splice(4,1,nextPageId);
-        //             navigate(pathnames.join('/'))
-        //         }else{
-        //             commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
-        //         }
-        //     }})
-    const getAfterSampleId = async function (params) {
+    const getAfterSampleId = async function (params : any) {
         let samplesRes =  await getPrevSamples(taskId,params);
         if (samplesRes.status === 200) {
                 let newPrevImgList : any[] = [];
@@ -208,36 +240,36 @@ const SlideLoader = ()=>{
         getSampleLocal();
 
         // @ts-ignore
-        Ob.skipped?.pipe(debounceTime(100)).subscribe((state)=>{
-            if(state !== 'SKIPPED'){ return;}
-            let temp = Object.assign([],prevImgList);
-            let nextPageId : any= null;
-            for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
-                let prevImg : any= temp[prevImgIndex];
-                if (prevImg.id === sampleId) {
-                    prevImg.state = 'SKIPPED';
-                    if (temp[prevImgIndex + 1]) {
-                        // @ts-ignore
-                        nextPageId = temp[prevImgIndex + 1].id;
-                    }
-                    break;
-                }
-            }
-            setPrevImgList(temp);
-            // console.log(nextPageId)
-            // navigate()
-            if(nextPageId || nextPageId === 0){
-                let pathnames = window.location.pathname.split('/');
-                pathnames.splice(4,1,nextPageId);
-                navigate(pathnames.join('/'))
-            }else{
-                // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
-                let currentPathname = window.location.pathname.split('/');
-                currentPathname.pop();
-                currentPathname.push('finished')
-                navigate(currentPathname.join('/'))
-            }
-        })
+        // Ob.skipped?.pipe(debounceTime(100)).subscribe((state)=>{
+        //     if(state !== 'SKIPPED'){ return;}
+        //     let temp = Object.assign([],prevImgList);
+        //     let nextPageId : any= null;
+        //     for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+        //         let prevImg : any= temp[prevImgIndex];
+        //         if (prevImg.id === sampleId) {
+        //             prevImg.state = 'SKIPPED';
+        //             if (temp[prevImgIndex + 1]) {
+        //                 // @ts-ignore
+        //                 nextPageId = temp[prevImgIndex + 1].id;
+        //             }
+        //             break;
+        //         }
+        //     }
+        //     setPrevImgList(temp);
+        //     // console.log(nextPageId)
+        //     // navigate()
+        //     if(nextPageId || nextPageId === 0){
+        //         let pathnames = window.location.pathname.split('/');
+        //         pathnames.splice(4,1,nextPageId);
+        //         navigate(pathnames.join('/'))
+        //     }else{
+        //         // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
+        //         let currentPathname = window.location.pathname.split('/');
+        //         currentPathname.pop();
+        //         currentPathname.push('finished')
+        //         navigate(currentPathname.join('/'))
+        //     }
+        // })
 
             // @ts-ignore
             // Ob.nextPageS?.pipe(scan(prevImgList=>prevImgList)).subscribe({next : (state)=>{
@@ -258,7 +290,21 @@ const SlideLoader = ()=>{
         if(search.indexOf('SKIPPED') > -1){
             updatePrevImageListState('SKIPPED');
         }
-    },[window.location.search])
+    },[window.location.search]);
+
+    const [initTime, setInitTime] = useState<any>(0);
+    useEffect(()=>{
+        if(initTime === 0) return;
+        if(initTime === 1){
+            requestPreview({
+                before : sampleId,
+                pageSize : 10
+            }).then(()=>{
+                setPrevImgList(tempInit);
+            })
+        }
+    },[initTime]);
+
     return (
         <Provider store = {store}>
         <div className = { currentStyles.leftBar }
