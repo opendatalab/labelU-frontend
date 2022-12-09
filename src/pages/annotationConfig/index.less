@@ -22,6 +22,8 @@
 }
 
 .container {
+  width : 100%;
+  height : 100%;
   .headerBox {
     height: 56px;
     align-items: center;
@@ -46,7 +48,7 @@
   .configBox {
     position: relative;
     width: 100vw;
-    height: calc(100vh - 56px);
+    height: calc(100% - 56px);
     padding: 24px 24px 0px;
     background-color: #f4f5f7;
     // display: flex;
@@ -167,7 +169,7 @@
         }
       }
       .rightContent {
-        height: calc(100% - 62px);
+        height: calc(100vh - 375px);
       }
       .notMatchBox {
         width: 100%;
