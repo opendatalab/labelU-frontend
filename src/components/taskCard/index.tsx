@@ -3,12 +3,15 @@ import currentStyles from './index.module.scss';
 import {Modal, Pagination} from 'antd';
 import { useNavigate } from "react-router";
 import moment from "moment";
-import { Progress } from "antd";
+import { Progress, Tooltip } from "antd";
 import commonController from '../../utils/common/common'
 import { outputSamples } from "../../services/samples";
-import {CheckCircleOutlined, UploadOutlined, DeleteOutlined} from '@ant-design/icons'
+import {CheckCircleOutlined, UploadOutlined, DeleteOutlined,
+ExclamationOutlined
+} from '@ant-design/icons'
 import { deleteTask } from "../../services/createTask";
 import currentStyles1 from "../../pages/outputData/index.module.scss";
+
 
 const TaskCard = (props : any)=>{
     const { cardInfo } = props;
@@ -39,15 +42,8 @@ const TaskCard = (props : any)=>{
         // console.log(e);
         e.nativeEvent.stopImmediatePropagation();
         e.preventDefault();
-        deleteTask(id).then((res:any)=>{
-            if(res.status === 200){
-                navigate('/tasks?'+new Date().getTime())
-            }else{
-                commonController.notificationErrorMessage({message : '删除不成功'},100)
-            }
-        }).catch(e=>commonController.notificationErrorMessage(e,1))
         e.stopPropagation();
-
+        setIsShowDeleteModal(true);
     }
     const [activeTxt, setActiveTxt] = useState('JSON');
     const [isShowModal, setIsShowModal] = useState(false);
@@ -70,6 +66,31 @@ const TaskCard = (props : any)=>{
         e.nativeEvent.stopPropagation();
         e.preventDefault();
         setActiveTxt(value)
+    }
+    const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+    const deleteSingleTaskOk = (e : any)=>{
+        e.stopPropagation();
+        e.nativeEvent.stopPropagation();
+        e.preventDefault();
+        setIsShowDeleteModal(false);
+        deleteTask(id).then((res:any)=>{
+            if(res.status === 200){
+                navigate('/tasks?'+new Date().getTime())
+            }else{
+                commonController.notificationErrorMessage({message : '删除不成功'},100)
+            }
+        }).catch(e=>commonController.notificationErrorMessage(e,1))
+    }
+    const deleteSingleTaskCancel = (e : any)=>{
+        e.stopPropagation();
+        e.nativeEvent.stopPropagation();
+        e.preventDefault();
+        setIsShowDeleteModal(false)
+    }
+    const stopPropagation = (e : any)=>{
+        e.stopPropagation();
+        e.nativeEvent.stopPropagation();
+        e.preventDefault();
     }
     return (<div className = {currentStyles.outerFrame}
     onClick = {turnToAnnotation}
@@ -100,10 +121,18 @@ const TaskCard = (props : any)=>{
                   e.stopPropagation();
                   e.preventDefault();
                   setIsShowModal(true)}}
-              ><UploadOutlined /></div>
+              >
+                  <Tooltip placement={'top'} title = {'数据导出'}>
+                      <UploadOutlined />
+                  </Tooltip>
+                  </div>
               {localUserEmail === cardInfo.created_by.username && <div
                   onClick={deleteTaskLocal}
-                  className = {currentStyles.delete}><DeleteOutlined/></div>}
+                  className = {currentStyles.delete}>
+                  <Tooltip title = {'删除项目'} placement={'top'}>
+                  <DeleteOutlined/>
+                  </Tooltip>
+              </div>}
             </div>
         </div>
         <div className={currentStyles.item} style = {{marginTop : '8px'}}>{cardInfo.created_by?.username}</div>
@@ -120,11 +149,26 @@ const TaskCard = (props : any)=>{
             <div className = {currentStyles.item41Left}>&nbsp;&nbsp;{doneSample}/{total} </div>
             </div>
         }
-        <Modal title = '选择导出格式'
-               okText={'导出'}
-               onOk = {clickOk}
-               onCancel = {clickCancel}
-               open = {isShowModal}>
+        {isShowDeleteModal && <div onClick={stopPropagation}>
+            <Modal
+                open = {isShowDeleteModal}
+                onOk = {deleteSingleTaskOk}
+                onCancel = {deleteSingleTaskCancel}
+            >
+                <div className = { currentStyles.deleteWarnInfo }>
+                <div  className = { currentStyles.tipWarnIcon }>
+                    <ExclamationOutlined/>
+                    </div>
+                <span>&nbsp;&nbsp;您确认要删除该任务吗？</span>
+
+            </div>
+            </Modal>
+        </div>}
+        {isShowModal && <div onClick={stopPropagation}><Modal title = '选择导出格式'
+                                    okText={'导出'}
+                                    onOk = {clickOk}
+                                    onCancel = {clickCancel}
+                                    open = {isShowModal}>
             <div className={currentStyles1.outerFrame}>
                 <div className = {currentStyles1.pattern}>
                     <div className = {currentStyles1.title}>导出格式</div>
@@ -141,7 +185,8 @@ const TaskCard = (props : any)=>{
                 </div>
                 <div className={currentStyles.bottom}>Label U 标准格式，包含任务id,标注结果、url、fileName字段</div>
             </div>
-        </Modal>
+        </Modal></div>}
+
     </div>)
 }
 export  default TaskCard;

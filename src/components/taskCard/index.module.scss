@@ -118,3 +118,22 @@
   cursor : pointer;
 
 }
+
+.deleteWarnInfo{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.tipWarnIcon{
+  width : 18px;
+  height : 18px;
+  border-radius : 50%;
+  background-color : #FF8800;
+  color : white;
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  justify-content: center;
+  align-items: center;
+}

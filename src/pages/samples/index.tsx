@@ -134,7 +134,7 @@ const Samples = (props : any)=>{
         return (<React.Fragment>
           {
             record.id === enterRowId && (<div className={ currentStyles.optionItem }>
-              <div className={ currentStyles.optionItemEnter } onClick={ ()=>turnToAnnotate(record.id) }>进入标注</div>
+              {taskStatus !== 'IMPORTED' &&  taskStatus !== 'DRAFT' &&  <div className={ currentStyles.optionItemEnter } onClick={ ()=>turnToAnnotate(record.id) }>进入标注</div>}
               <div className={ currentStyles.optionItemDelete } onClick = {commonController.debounce(deleteSamplesLocal.bind(null,[record.id]),100)}>删除</div>
             </div>)
           }

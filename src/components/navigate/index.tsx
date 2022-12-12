@@ -5,78 +5,79 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import commonController from '../../utils/common/common';
 import constants from '../../constants';
-
+import AnnotationTips from '../../components/annotationTips';
+import HelpTips from "../helpTips";
 const Homepage = (props : any)=>{
 
     // const username = useSelector(commonController.getUsername);
     let username = localStorage.getItem('username');
-
+    const [isShowHelp, setIsShowHelp] = useState(false);
     let location  = useLocation();
-    const crumbs  : any = {
-        '/tasks' : (<Breadcrumb.Item>
-            <Link to = ''>任务列表</Link>
-        </Breadcrumb.Item>),
-        '/tasks/0/edit/basic' : (
-            <React.Fragment>
-                <Breadcrumb.Item>
-                    <Link to = '/taskList'>任务列表</Link>
-                </Breadcrumb.Item>
-            </React.Fragment>
-        ),
-        '/taskList/task/taskAnnotation' : (
-            <React.Fragment>
-                <Breadcrumb.Item>
-                    <Link to = '/taskList'>任务列表</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    <Link to = '/taskList/task'>任务</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    开始标注
-                </Breadcrumb.Item>
-            </React.Fragment>
-        ),
-        '/taskList/createTask' : (
-            <React.Fragment>
-                <Breadcrumb.Item>
-                    <Link to = '/taskList'>任务列表</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                   新建任务
-                </Breadcrumb.Item>
-            </React.Fragment>
-        ),
-        '/taskList/createTask/inputInfoConfig' : (
-            <React.Fragment>
-                <Breadcrumb.Item>
-                    <Link to = '/taskList'>任务列表</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    新建任务
-                </Breadcrumb.Item>
-            </React.Fragment>
-        ),
-        '/taskList/createTask/inputData' : (
-            <React.Fragment>
-                <Breadcrumb.Item>
-                    <Link to = '/taskList'>任务列表</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    新建任务
-                </Breadcrumb.Item>
-            </React.Fragment>
-        ),
-        '/taskList/createTask/annotationConfig' : (
-            <React.Fragment>
-                <Breadcrumb.Item>
-                    <Link to = '/taskList'>任务列表</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    新建任务
-                </Breadcrumb.Item>
-            </React.Fragment>
-        )
-    }
+    // const crumbs  : any = {
+    //     '/tasks' : (<Breadcrumb.Item>
+    //         <Link to = ''>任务列表</Link>
+    //     </Breadcrumb.Item>),
+    //     '/tasks/0/edit/basic' : (
+    //         <React.Fragment>
+    //             <Breadcrumb.Item>
+    //                 <Link to = '/taskList'>任务列表</Link>
+    //             </Breadcrumb.Item>
+    //         </React.Fragment>
+    //     ),
+    //     '/taskList/task/taskAnnotation' : (
+    //         <React.Fragment>
+    //             <Breadcrumb.Item>
+    //                 <Link to = '/taskList'>任务列表</Link>
+    //             </Breadcrumb.Item>
+    //             <Breadcrumb.Item>
+    //                 <Link to = '/taskList/task'>任务</Link>
+    //             </Breadcrumb.Item>
+    //             <Breadcrumb.Item>
+    //                 开始标注
+    //             </Breadcrumb.Item>
+    //         </React.Fragment>
+    //     ),
+    //     '/taskList/createTask' : (
+    //         <React.Fragment>
+    //             <Breadcrumb.Item>
+    //                 <Link to = '/taskList'>任务列表</Link>
+    //             </Breadcrumb.Item>
+    //             <Breadcrumb.Item>
+    //                新建任务
+    //             </Breadcrumb.Item>
+    //         </React.Fragment>
+    //     ),
+    //     '/taskList/createTask/inputInfoConfig' : (
+    //         <React.Fragment>
+    //             <Breadcrumb.Item>
+    //                 <Link to = '/taskList'>任务列表</Link>
+    //             </Breadcrumb.Item>
+    //             <Breadcrumb.Item>
+    //                 新建任务
+    //             </Breadcrumb.Item>
+    //         </React.Fragment>
+    //     ),
+    //     '/taskList/createTask/inputData' : (
+    //         <React.Fragment>
+    //             <Breadcrumb.Item>
+    //                 <Link to = '/taskList'>任务列表</Link>
+    //             </Breadcrumb.Item>
+    //             <Breadcrumb.Item>
+    //                 新建任务
+    //             </Breadcrumb.Item>
+    //         </React.Fragment>
+    //     ),
+    //     '/taskList/createTask/annotationConfig' : (
+    //         <React.Fragment>
+    //             <Breadcrumb.Item>
+    //                 <Link to = '/taskList'>任务列表</Link>
+    //             </Breadcrumb.Item>
+    //             <Breadcrumb.Item>
+    //                 新建任务
+    //             </Breadcrumb.Item>
+    //         </React.Fragment>
+    //     )
+    // }
     const [breadcrumbItems, setBreadcrumbItems] = useState<any>((<Breadcrumb.Item>
         <Link to = '/tasks'>任务列表</Link>
     </Breadcrumb.Item>));
@@ -86,13 +87,18 @@ const Homepage = (props : any)=>{
         </Breadcrumb.Item>);
         switch (pathname) {
             case '/tasks' :
+                setIsShowAnnotationTips(false);
+                setIsShowHelp(true);
                 result = (<Breadcrumb.Item>
                     <Link to = ''>任务列表</Link>
                 </Breadcrumb.Item>);
                 break;
             default :
+
                 let pathnames = pathname.split('/');
                 if(pathnames[1] === 'tasks' && pathnames[2] === '0' && pathnames[3] === 'edit' && pathnames[4] === 'basic'){
+                    setIsShowAnnotationTips(false);
+                    setIsShowHelp(false);
                     result = (
                         <React.Fragment>
                             <Breadcrumb.Item>
@@ -106,6 +112,8 @@ const Homepage = (props : any)=>{
                 }
                 if(pathnames[1] === 'tasks' && pathnames[2] !== '0' && pathnames[3] === 'edit'
                     && (pathnames[4] === 'upload' || pathnames[4] === 'config')){
+                    setIsShowAnnotationTips(false);
+                    setIsShowHelp(false);
                     result = (
                         <React.Fragment>
                             <Breadcrumb.Item>
@@ -119,6 +127,8 @@ const Homepage = (props : any)=>{
                 }
 
                 if (pathnames.length == 3 && !isNaN(parseInt(pathnames[2]))) {
+                    setIsShowAnnotationTips(false);
+                    setIsShowHelp(false);
                     result = (
                         <React.Fragment>
                             <Breadcrumb.Item>
@@ -133,6 +143,8 @@ const Homepage = (props : any)=>{
                 if(pathnames[1] === 'tasks' && !isNaN(parseInt(pathnames[2]))
                     && pathnames[3] === 'samples'
                     &&  !isNaN(parseInt(pathnames[4])) ){
+                    setIsShowAnnotationTips(true);
+                    setIsShowHelp(false);
                     result = (
                         <React.Fragment>
                             <Breadcrumb.Item>
@@ -151,10 +163,12 @@ const Homepage = (props : any)=>{
         }
         return result;
     }
+    const [isShowAnnotationTips, setIsShowAnnotationTips] = useState(false);
     useEffect(()=>{
         if (location.pathname) {
             // setBreadcrumbItems(crumbs[location.pathname])
-            setBreadcrumbItems(getBreadcrumb(location.pathname))
+            setBreadcrumbItems(getBreadcrumb(location.pathname));
+
         }else{
             commonController.notificationErrorMessage({message : '地址不正确'}, 1)
         }
@@ -172,6 +186,9 @@ const Homepage = (props : any)=>{
             </div>
         </div>
         <div className = {currentStyles.right}>
+            {isShowHelp && <HelpTips />}
+            {isShowAnnotationTips && <AnnotationTips />}
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             {username}
         </div>
     </div>)
