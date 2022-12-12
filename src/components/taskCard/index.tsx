@@ -8,7 +8,7 @@ import commonController from '../../utils/common/common'
 import { outputSamples } from "../../services/samples";
 import {CheckCircleOutlined, UploadOutlined, DeleteOutlined,
 ExclamationOutlined
-} from '@ant-design/icons'
+} from '@ant-design/icons';
 import { deleteTask } from "../../services/createTask";
 import currentStyles1 from "../../pages/outputData/index.module.scss";
 

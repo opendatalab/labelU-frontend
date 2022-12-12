@@ -228,6 +228,10 @@ const Samples = (props : any)=>{
   },[]);
 
   const changePage = (page : number, pageSize : number)=>{
+    console.log(page)
+    if (page === 0) {
+      page = 1;
+    }
     setPageInfo({
       pageNo : page - 1,
       pageSize: pageSize

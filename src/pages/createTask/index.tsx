@@ -28,6 +28,7 @@ const CreateTask = (props : any)=>{
 
     let newSamples = useSelector(state=>state.samples.newSamples);
     let toolsConfig = useSelector(state=>state.toolsConfig);
+    let taskStatus = useSelector(state=>state.existTask.status);
     const steps = [{
         title : '基础配置',
         index : 1,
@@ -68,7 +69,8 @@ const CreateTask = (props : any)=>{
             return;
         }else{
             if (res.status === 200) {
-                navigate(constant.urlTurnToTaskList);
+                // navigate(constant.urlTurnToTaskList);
+                navigate('/tasks/'+taskId);
             }
         }
     }
@@ -125,6 +127,7 @@ const CreateTask = (props : any)=>{
 
             if (res.status === 201 || res.status === 200) {
                 const { status, id } = res.data.data;
+                console.log(status)
                 updateStep(status);
                 updateTaskIdLocal(id);
                 result = id;
@@ -140,10 +143,13 @@ const CreateTask = (props : any)=>{
     }
     const nextWhen1 = async function(){
         let result = true;
+        console.log(taskStatus);
         if (newSamples.length === 0) {
             commonController.notificationWarnMessage({message : '请导入数据,再进行下一步操作'}, 1);
             return false;
         }
+        console.log(newSamples);
+        // console.log(taskStatus);
         try{
             let res : any= await createSamples(taskId,newSamples)
             if (res.status === 201) {
@@ -216,6 +222,7 @@ const CreateTask = (props : any)=>{
     const cancelOption = ()=>{
       setIsShowCancelModal(true);
     }
+
     const clickModalOk = async function (e : any){
         e.stopPropagation();
         e.nativeEvent.stopPropagation();

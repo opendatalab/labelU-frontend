@@ -317,7 +317,7 @@ const InputInfoConfig = ()=>{
                 let newItem = {
                     attachement_ids : [fileItem.id],
                     data : {
-                        result : {},
+                        result : '{}',
                         urls : {[fileItem.id] : fileItem.url},
                         fileNames : {[fileItem.id] : ''}
                     }

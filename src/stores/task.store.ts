@@ -9,7 +9,8 @@ const existTaskSlice = createSlice({
         taskDescription : '',
         taskTips : '',
         configStep : -1,
-        haveConfigedStep : 0
+        haveConfigedStep : 0,
+        status : 'DRAFT'
     },
     reducers : {
         updateConfigStep : (state : any, action : any)=>{
@@ -42,6 +43,7 @@ const existTaskSlice = createSlice({
           state.taskTips = tips;
           state.description = description;
           state.taskId = id;
+          state.status = status;
           if(status === 'DRAFT'){
             state.haveConfigedStep = 1;
             state.configStep = -1;

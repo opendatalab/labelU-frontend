@@ -239,44 +239,6 @@ const SlideLoader = ()=>{
     useEffect(()=>{
         getSampleLocal();
 
-        // @ts-ignore
-        // Ob.skipped?.pipe(debounceTime(100)).subscribe((state)=>{
-        //     if(state !== 'SKIPPED'){ return;}
-        //     let temp = Object.assign([],prevImgList);
-        //     let nextPageId : any= null;
-        //     for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
-        //         let prevImg : any= temp[prevImgIndex];
-        //         if (prevImg.id === sampleId) {
-        //             prevImg.state = 'SKIPPED';
-        //             if (temp[prevImgIndex + 1]) {
-        //                 // @ts-ignore
-        //                 nextPageId = temp[prevImgIndex + 1].id;
-        //             }
-        //             break;
-        //         }
-        //     }
-        //     setPrevImgList(temp);
-        //     // console.log(nextPageId)
-        //     // navigate()
-        //     if(nextPageId || nextPageId === 0){
-        //         let pathnames = window.location.pathname.split('/');
-        //         pathnames.splice(4,1,nextPageId);
-        //         navigate(pathnames.join('/'))
-        //     }else{
-        //         // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
-        //         let currentPathname = window.location.pathname.split('/');
-        //         currentPathname.pop();
-        //         currentPathname.push('finished')
-        //         navigate(currentPathname.join('/'))
-        //     }
-        // })
-
-            // @ts-ignore
-            // Ob.nextPageS?.pipe(scan(prevImgList=>prevImgList)).subscribe({next : (state)=>{
-            //         // if(state === 'DONE'){ return;}
-            //         updatePrevImageListState()
-            //     }});
-
         }
         ,[]);
 
