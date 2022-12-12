@@ -332,6 +332,22 @@ const InputInfoConfig = ()=>{
         console.log(haveUploadFiles);
         updateUploadedFiles();
     },[haveUploadFiles]);
+
+    useEffect(()=>{
+        let successfulFiles = 0;
+        let failedFiles = 0;
+        for (let haveUploadFile of haveUploadFiles) {
+            if (haveUploadFile.hasUploaded) {
+                successfulFiles = successfulFiles + 1;
+            }else{
+                failedFiles = failedFiles + 1;
+            }
+        }
+        setUploadedSuccessful(successfulFiles);
+        setUploadedFailed(failedFiles);
+    },[haveUploadFiles]);
+
+
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.title}>
             <div className={currentStyles.icon}></div>
@@ -388,12 +404,18 @@ const InputInfoConfig = ()=>{
             <div className={currentStyles.right}>
                 <div className={currentStyles.rightTitle}>
                     <div className = {currentStyles.rightTitleLeft}>上传列表</div>
-                    <div className = {currentStyles.rightTitleRight}>正在上传&nbsp;
-                        <div  className = {currentStyles.rightTitleRightHight}>10</div>
-                        /30&nbsp;个文件</div>
-                    <div>已上传{ uploadedTotal }个文件</div>
-                    <div>上传成功{ uploadedSuccessful }个,</div>
-                    <div>上传失败{ uploadedFailed }个</div>
+                    {/*<div className = {currentStyles.rightTitleRight}>正在上传&nbsp;*/}
+                    {/*    <div  className = {currentStyles.rightTitleRightHight}>10</div>*/}
+                    {/*    /30&nbsp;个文件</div>*/}
+                    <div>已上传
+                        { uploadedTotal }
+                        个文件,</div>
+                    <div>&nbsp;&nbsp;上传成功
+                        <div style = {{display : 'inline-block',color : '#00B365'}}>{ uploadedSuccessful }</div>
+                        个,</div>
+                    <div>&nbsp;&nbsp;上传失败
+                        <div style = {{display : 'inline-block',color : '#f5483B'}}>{ uploadedFailed }</div>
+                        个</div>
                 </div>
                 <div className={currentStyles.rightContent}>
                     <div className = {currentStyles.columnsName}>
