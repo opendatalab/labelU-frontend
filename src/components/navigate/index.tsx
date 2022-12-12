@@ -174,19 +174,24 @@ const Homepage = (props : any)=>{
 
         if (location.pathname) {
             let pathnames = window.location.pathname.split('/');
-            getTask(parseInt(pathnames[2])).then(
-                (res:any)=>{
-                    if (res.status === 200) {
-                        // setTaskName(res.data.data.name);
-                        let taskName = res.data.data.name;
-                        setBreadcrumbItems(getBreadcrumb(location.pathname,  taskName));
-                    }else{
-                        commonController.notificationErrorMessage({
-                            message : '导航条获取任务数据出错'
-                        },1)
-                    }
-                }
-            ).catch(error=>commonController.notificationErrorMessage(error,1))
+            if(pathnames[2]){
+                getTask(parseInt(pathnames[2])).then(
+                    (res:any)=>{
+                        if (res.status === 200) {
+                            // setTaskName(res.data.data.name);
+                            let taskName = res.data.data.name;
+                            setBreadcrumbItems(getBreadcrumb(location.pathname,  taskName));
+                        }else{
+                            commonController.notificationErrorMessage({
+                                message : '导航条获取任务数据出错'
+                            },1)
+                        }
+                    }).catch(error=>commonController.notificationErrorMessage(error,1))
+            }else{
+                setBreadcrumbItems(getBreadcrumb(location.pathname));
+            }
+
+
 
         }else{
             commonController.notificationErrorMessage({message : '地址不正确'}, 1)

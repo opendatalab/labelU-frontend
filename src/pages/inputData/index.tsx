@@ -22,14 +22,9 @@ const InputInfoConfig = ()=>{
     let taskDescription = useSelector(state=>state.existTask.taskDescription );
     let taskTips = useSelector(state=>state.existTask.taskTips );
     let taskId = useSelector(state=>state.existTask.taskId );
-    console.log({
-        configStep,
-        haveConfigedStep,
-        taskName,
-        taskDescription,
-        taskTips,
-        taskId
-    })
+    const [uploadedTotal, setUploadedTotal] = useState(0);
+    const [uploadedSuccessful, setUploadedSuccessful] = useState(0);
+    const [uploadedFailed, setUploadedFailed] = useState(0);
 
     const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -195,6 +190,7 @@ const InputInfoConfig = ()=>{
             }
             let currentHaveUploadFiles = [];
             console.log(newFileListInfo);
+            setUploadedTotal(uploadedTotal + newFileList.length);
             for (let newFileListInfoIndex = 0; newFileListInfoIndex < newFileListInfo.length; newFileListInfoIndex++) {
 
                 let currentInfo =  newFileListInfo[newFileListInfoIndex];
@@ -242,6 +238,7 @@ const InputInfoConfig = ()=>{
                 //     result = await uploadFileService(taskId, {path , file : currentInfo.file  });
                     result = await uploadFileService(taskId, {  file : currentInfo.file  });
                     if (result?.status === 201) {
+                        setUploadedSuccessful(uploadedSuccessful + 1)
                         currentHaveUploadFiles.push({name : currentInfo.file.name,
                             size : currentInfo.file.size,
                             hasUploaded : true,
@@ -254,6 +251,7 @@ const InputInfoConfig = ()=>{
                             }
                         });
                     }else{
+
                         currentHaveUploadFiles.push({name : currentInfo.file.name,
                             size : currentInfo.file.size,
                             params : {
@@ -393,6 +391,9 @@ const InputInfoConfig = ()=>{
                     <div className = {currentStyles.rightTitleRight}>正在上传&nbsp;
                         <div  className = {currentStyles.rightTitleRightHight}>10</div>
                         /30&nbsp;个文件</div>
+                    <div>已上传{ uploadedTotal }个文件</div>
+                    <div>上传成功{ uploadedSuccessful }个,</div>
+                    <div>上传失败{ uploadedFailed }个</div>
                 </div>
                 <div className={currentStyles.rightContent}>
                     <div className = {currentStyles.columnsName}>
