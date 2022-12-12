@@ -24,7 +24,7 @@
         "lineColor": 1,
         "edgeAdsorption": true,
         "outOfTarget": true,
-        "copyBackwardResult": true,
+        "copyBackwardResult": false,
         "attributeConfigurable": true,
         "textConfigurable": true,
         "textCheckType": 4,

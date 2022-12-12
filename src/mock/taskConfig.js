@@ -5,7 +5,7 @@ const rectToolConfig = {
   showConfirm: false, // 无效配置
   skipWhileNoDependencies: false, // 无效配置
   drawOutsideTarget: false, //框是否可以画至图片以外
-  copyBackwardResult: true, // 无效配置
+  copyBackwardResult: false, // 无效配置
   minWidth: 1, // 拉框最小宽度
   minHeight: 1, // 拉框最小高度
   filterData: ['valid', 'invalid'],
@@ -72,7 +72,7 @@ const lineToolConfig = {
   lineColor: 1, // 配置拉线颜色，0为单一色，1 为多色（暂未生效）
   edgeAdsorption: true, //多线条情况下是否支持 点吸附
   outOfTarget: true,
-  copyBackwardResult: true, //无效配置
+  copyBackwardResult: false, //无效配置
   attributeConfigurable: true, //是否显示划线标签配置选项
   attributeList: [
     { key: '类别1', value: '类别1' },

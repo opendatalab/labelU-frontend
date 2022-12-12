@@ -29,11 +29,14 @@ const InputInfoConfig = ()=>{
         let targetValue = event.target.value;
         let isNull = CommonController.isInputValueNull(targetValue);
         if(!isNull){
-            dispatch(updateTaskName(targetValue));
             setIsErrorShow(false);
+            let isOver = commonController.isOverFontCount(targetValue, 50);
+
+            dispatch(updateTaskName(targetValue));
+            // if(isOver) return;
             // setTaskDescription(targetValue);
         }else{
-            dispatch(updateTaskName(targetValue))
+            dispatch(updateTaskName(targetValue));
             setIsErrorShow(true);
         }
     }
@@ -41,14 +44,20 @@ const InputInfoConfig = ()=>{
         let targetValue = event.target.value;
         let isNull = CommonController.isInputValueNull(targetValue);
         if(!isNull){
+            let isOver = commonController.isOverFontCount(targetValue, 500);
             dispatch(updateTaskDescription(targetValue));
+            // if(isOver) return;
+
         }
     }
     const changeTaskTips = (event : any)=>{
         let targetValue = event.target.value;
         let isNull = CommonController.isInputValueNull(targetValue);
         if(!isNull){
+            let isOver = commonController.isOverFontCount(targetValue, 1000);
             dispatch(updateTaskTips(targetValue));
+            // if(isOver) return;
+
         }
     }
   // useEffect(()=>{

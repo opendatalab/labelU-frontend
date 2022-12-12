@@ -22,7 +22,7 @@
         "upperLimit": 10,
         "isShowCursor": false,
         "attributeConfigurable": true,
-        "copyBackwardResult": true,
+        "copyBackwardResult": false,
         "textConfigurable": true,
         "textCheckType": 0,
         "customFormat": "",

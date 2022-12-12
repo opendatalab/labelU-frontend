@@ -2,7 +2,7 @@ import { message } from 'antd';
 import { ErrorMessages } from '../../services/errorMessage';
 import {util} from "prettier";
 import addDanglingComment = util.addDanglingComment;
-const CommonController = {
+const commonController = {
   isNullObject (obj : any) {
     let result = true;
     for(let key in obj){
@@ -20,7 +20,7 @@ const CommonController = {
       result = true;
     }
     if(!result) {
-      CommonController.notificationErrorMessage({msg : '请填写正确的邮箱'},2);
+      commonController.notificationErrorMessage({msg : '请填写正确的邮箱'},2);
     }
     return result;
   },
@@ -32,7 +32,7 @@ const CommonController = {
       result = true;
     }
     if(!result) {
-      CommonController.notificationErrorMessage({self : true, msg : '请填写6-18字符密码'},2);
+      commonController.notificationErrorMessage({self : true, msg : '请填写6-18字符密码'},2);
     }
     return result;
   },
@@ -155,7 +155,7 @@ const CommonController = {
           arr.splice(itemIndex,1);
           return;
         }else{
-          CommonController.findElement(item.children, index+1, path);
+          commonController.findElement(item.children, index+1, path);
           return;
         }
       }
@@ -170,7 +170,7 @@ const CommonController = {
           item.hasUploaded = updateValue;
           return;
         }else{
-          CommonController.findElement(item.children, index+1, path);
+          commonController.findElement(item.children, index+1, path);
           return;
         }
       }
@@ -185,7 +185,7 @@ const CommonController = {
     // delete
     // let url = 'http://localhost:8000/src/img/example/bear1.webp'
     let result : any = '';
-    if(data.result && !CommonController.isNullObject(data.result)) {result = JSON.parse(data.result)}else{
+    if(data.result && !commonController.isNullObject(data.result)) {result = JSON.parse(data.result)}else{
       result = [];
     };
     return [{
@@ -232,6 +232,14 @@ const CommonController = {
     } catch (e) {
       console.log(e)
     }
+  },
+  isOverFontCount(field : string, limitedLength : number){
+    let result = false;
+    if (field.length > limitedLength) {
+      result = true;
+      commonController.notificationErrorMessage({message : '超过限定的'+ limitedLength + '字数'},1);
+    }
+    return result;
   }
 }
-export default CommonController;
+export default commonController;

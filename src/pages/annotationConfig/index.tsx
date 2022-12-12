@@ -150,6 +150,7 @@ const AnnotationConfig: FC = () => {
                 {/*  tools={tools}*/}
                 {/*/>*/}
                 <AnnotationOperation
+                    isPreview={ true }
                     attributeList={attribute}
                     tagConfigList={tagList}
                     imgList={fileList}

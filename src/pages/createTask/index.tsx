@@ -94,10 +94,21 @@ const CreateTask = (props : any)=>{
     const nextWhen0= async function(){
         let result = true;
         console.log(haveConfigedStep)
+        console.log({
+            taskName,
+            taskDescription,
+            taskTips
+        })
         if (!taskName) {
             commonController.notificationErrorMessage({message : '请填入任务名称'}, 1);
             return false;
         }
+        let isTaskNameOver = commonController.isOverFontCount(taskName, 50);
+        if (isTaskNameOver) {return false;}
+        let isTaskDescriptionOver = commonController.isOverFontCount(taskDescription, 500);
+        if (isTaskDescriptionOver) {return false;}
+        let isTaskTipsOver = commonController.isOverFontCount(taskTips, 1000);
+        if (isTaskTipsOver) {return false;}
         try{
             let res : any;
             if (haveConfigedStep !== 0) {

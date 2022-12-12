@@ -174,7 +174,7 @@ const Homepage = (props : any)=>{
 
         if (location.pathname) {
             let pathnames = window.location.pathname.split('/');
-            if(pathnames[2]){
+            if(pathnames[2] && pathnames[2] !== '0'){
                 getTask(parseInt(pathnames[2])).then(
                     (res:any)=>{
                         if (res.status === 200) {
@@ -190,9 +190,6 @@ const Homepage = (props : any)=>{
             }else{
                 setBreadcrumbItems(getBreadcrumb(location.pathname));
             }
-
-
-
         }else{
             commonController.notificationErrorMessage({message : '地址不正确'}, 1)
         }

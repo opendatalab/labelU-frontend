@@ -23,7 +23,7 @@
         "showConfirm": false,
         "skipWhileNoDependencies": false,
         "drawOutsideTarget": false,
-        "copyBackwardResult": true,
+        "copyBackwardResult": false,
         "minWidth": 1,
         "attributeConfigurable": true,
         "textConfigurable": true,

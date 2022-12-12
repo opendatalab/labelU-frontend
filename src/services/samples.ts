@@ -15,6 +15,7 @@ const createSamples = async function (taskId : number,data : any){
 }
 
 const getTask = async function(taskId : number){
+    if(taskId === 0){ return {};}
     let res = await axiosInstance({
         url : `/api/v1/tasks/${taskId}`,
         method : 'GET',
