@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import commonController from '../../utils/common/common';
 import constants from '../../constants';
 import AnnotationTips from '../../components/annotationTips';
+import { getTask } from '../../services/samples'
 import HelpTips from "../helpTips";
 const Homepage = (props : any)=>{
 
@@ -78,10 +79,12 @@ const Homepage = (props : any)=>{
     //         </React.Fragment>
     //     )
     // }
+
+    // const [taskName, setTaskName] = useState('');
     const [breadcrumbItems, setBreadcrumbItems] = useState<any>((<Breadcrumb.Item>
         <Link to = '/tasks'>任务列表</Link>
     </Breadcrumb.Item>));
-    const getBreadcrumb = (pathname : string )=>{
+    const getBreadcrumb = (pathname : string, taskName ?: string )=>{
         let result = (<Breadcrumb.Item>
             <Link to = '/tasks'>任务列表</Link>
         </Breadcrumb.Item>);
@@ -129,13 +132,15 @@ const Homepage = (props : any)=>{
                 if (pathnames.length == 3 && !isNaN(parseInt(pathnames[2]))) {
                     setIsShowAnnotationTips(false);
                     setIsShowHelp(false);
+
                     result = (
                         <React.Fragment>
                             <Breadcrumb.Item>
                                 <Link to = {constants.urlToTasks}>任务列表</Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>
-                                任务{pathnames[2]}
+                                {/*任务{pathnames[2]}*/}
+                                {taskName}
                             </Breadcrumb.Item>
                         </React.Fragment>
                     )
@@ -165,9 +170,23 @@ const Homepage = (props : any)=>{
     }
     const [isShowAnnotationTips, setIsShowAnnotationTips] = useState(false);
     useEffect(()=>{
+
+
         if (location.pathname) {
-            // setBreadcrumbItems(crumbs[location.pathname])
-            setBreadcrumbItems(getBreadcrumb(location.pathname));
+            let pathnames = window.location.pathname.split('/');
+            getTask(parseInt(pathnames[2])).then(
+                (res:any)=>{
+                    if (res.status === 200) {
+                        // setTaskName(res.data.data.name);
+                        let taskName = res.data.data.name;
+                        setBreadcrumbItems(getBreadcrumb(location.pathname,  taskName));
+                    }else{
+                        commonController.notificationErrorMessage({
+                            message : '导航条获取任务数据出错'
+                        },1)
+                    }
+                }
+            ).catch(error=>commonController.notificationErrorMessage(error,1))
 
         }else{
             commonController.notificationErrorMessage({message : '地址不正确'}, 1)
