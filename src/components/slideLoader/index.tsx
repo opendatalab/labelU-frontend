@@ -193,6 +193,8 @@ const SlideLoader = ()=>{
             }
     }
     const updatePrevImageListState = async function (state : string){
+        // navigate(window.location.pathname+'?sampleId='+sampleId);
+
         let temp : any= Object.assign([],prevImgList);
         console.log(temp)
         let nextPageId : any= null;

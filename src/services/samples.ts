@@ -84,6 +84,7 @@ const updateSampleAnnotationResult = async function (taskId : number, sampleId :
     return res;
 }
 const outputSample = async function (taskId : number, sampleIds : any, activeTxt : string) {
+
   let res = await axiosInstance({
     url : `/api/v1/tasks/${taskId}/samples/export`,
     method : 'POST',
@@ -95,6 +96,20 @@ const outputSample = async function (taskId : number, sampleIds : any, activeTxt
       sample_ids : sampleIds
     }
   })
+    if (activeTxt === 'MASK') {
+        res = await axiosInstance({
+            url : `/api/v1/tasks/${taskId}/samples/export`,
+            method : 'POST',
+            params : {
+                task_id :taskId,
+                export_type : activeTxt
+            },
+            data : {
+                sample_ids : sampleIds
+            },
+            responseType : 'blob'
+        })
+    }
     let data = res;
     // @ts-ignore
     // res.blob().then(blob=>console.log(blob));
@@ -104,7 +119,7 @@ const outputSample = async function (taskId : number, sampleIds : any, activeTxt
     // let blobUrl = 'blob:'+window.location.origin + '/'+ afString;
     // console.log(blobUrl);
     console.log(data);
-    const blobData = new Blob([JSON.stringify(data.data)]);
+    let blobData = new Blob([JSON.stringify(data.data)]);
     let url = window.URL.createObjectURL(blobData);
     const a = document.createElement('a');
     let taskRes : any = await getTask(taskId);
@@ -117,7 +132,10 @@ const outputSample = async function (taskId : number, sampleIds : any, activeTxt
             filename = filename + '.json';
             break;
         case 'MASK' :
-            filename = filename + '.mask';
+            // @ts-ignore
+            blobData = new Blob([data.data], {type : 'application/zip'});
+            filename = filename + '.zip';
+            url = window.URL.createObjectURL(blobData);
             break;
     }
     a.download = filename;

@@ -11,13 +11,15 @@ const Statistical = ()=>{
 
   const [statisticalDatas, setStatisticalDatas] = useState<any>({});
   let taskId = parseInt(window.location.pathname.split('/')[2]);
+    const [taskStatus, setTaskStatus] = useState(undefined);
 
   useEffect(()=>{
-      getTask(taskId).then((res)=>{
+      getTask(taskId).then((res: any)=>{
           // @ts-ignore
           if(res?.status === 200){
               // @ts-ignore
               setStatisticalDatas(res.data.data.stats);
+              setTaskStatus(res.data.data.status)
           }else{
               commonController.notificationErrorMessage({message : '请求任务数据出错'},1);
           }
@@ -51,7 +53,11 @@ const Statistical = ()=>{
     getSamplesLocal({pageNo : 0, pageSize : 10})
   }
   const turnToTaskConfig = ()=>{
-    navigate('/tasks/'+taskId+'/edit/config?currentStatus=2');
+      if (taskStatus !== 'CONFIGURED') {
+          navigate('/tasks/'+taskId+'/edit/config?currentStatus=2&noConfig=1');
+      }else{
+          navigate('/tasks/'+taskId+'/edit/config?currentStatus=2');
+      }
   }
   const turnToInputData = ()=>{
     navigate('/tasks/'+taskId+'/edit/upload?currentStatus=1')

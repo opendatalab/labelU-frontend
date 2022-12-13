@@ -100,7 +100,8 @@ const Samples = (props : any)=>{
             break;
         };
         return result;
-      }
+      },
+      sorter : true
     },
     {
       title: '标注数',
@@ -108,9 +109,9 @@ const Samples = (props : any)=>{
       key: 'annotated_count',
       render:(temp : any, record : any)=>{
         let result = 0;
-        console.log(record)
+        // console.log(record)
         let resultJson = JSON.parse(record.data.result);
-        console.log(resultJson)
+        // console.log(resultJson)
         for (let key in resultJson) {
           if(key.indexOf('Tool') > -1){
             let tool = resultJson[key];
@@ -118,7 +119,9 @@ const Samples = (props : any)=>{
           }
         }
         return result;
-      }
+      },
+      sorter : true
+
       // width: 80,
     },
     {
@@ -201,6 +204,8 @@ const Samples = (props : any)=>{
       if(res.status === 200){
         setShowDatas(res.data.data);
         setTotal(res.data['meta_data'].total);
+        setCurrentPage(params.pageNo + 1);
+        setCurrentPageSize(params.pageSize)
       }else{
         commonController.notificationErrorMessage({message : '请求samples 出问题'}, 1)
       }
@@ -241,7 +246,7 @@ const Samples = (props : any)=>{
   },[]);
 
   const changePage = (page : number, pageSize : number)=>{
-    console.log(page)
+    // console.log(page, pageSize)
     if (page === 0) {
       page = 1;
     }
@@ -263,7 +268,7 @@ const Samples = (props : any)=>{
       // onMouseEnter : (e: any)=>onMouseEnterRow(record.id),
       onMouseLeave : (e: any)=>setEnterRowId(undefined),
       // onMouseOn : (e: any)=>{console.log('wa');onMouseEnterRow(record.id)},
-      onMouseOver : (e: any)=>{console.log('wa');onMouseEnterRow(record.id)},
+      onMouseOver : (e: any)=>{onMouseEnterRow(record.id)},
     }
   }
   // const outputSamplesLocal = ()=>{
@@ -298,6 +303,29 @@ const Samples = (props : any)=>{
     e.preventDefault();
     setActiveTxt(value)
   }
+  const [sortGroup, setSortGroup] = useState({state : 'desc', 'annotated_count' : 'desc'});
+  const [currentPage, setCurrentPage]=useState(1);
+  const [currentPageSize, setCurrentPageSize]=useState(10);
+  const reactSorter = (p:any, f:any,s:any)=>{
+
+    let field = s.field;
+    let sortStr = s.order;
+    switch(sortStr){
+      case 'ascend' :
+        sortStr = 'asc';
+        break;
+      case 'descend' :
+        sortStr = 'desc';
+        break;
+      case undefined :
+        sortStr = 'desc';
+        break;
+    }
+    let newSortGroup = Object.assign({},sortGroup,{[field]:sortStr});
+    setSortGroup(newSortGroup);
+    let queryStr = `state:${newSortGroup['state']},annotated_count:${newSortGroup['annotated_count']}`;
+    getSamplesLocal({pageNo : currentPage - 1, pageSize : currentPageSize, sort : queryStr})
+  }
   return (<div className={currentStyles.outerFrame}>
     <div className = {currentStyles.stepsRow}>
       {(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') && <GoToEditTask taskStatus = {taskStatus}/>}
@@ -313,6 +341,7 @@ const Samples = (props : any)=>{
              rowKey = {record=>record.id}
              rowSelection = { rowSelection }
              onRow = {onRow}
+             onChange={reactSorter}
       ></Table>
       <div className = { currentStyles.pagination }>
         <div className = { currentStyles.dataProcess}>
@@ -324,6 +353,8 @@ const Samples = (props : any)=>{
           setIsShowModal1(true)}}>批量数据导出</div>
         </div>
         <Pagination
+            pageSize={currentPageSize}
+            current={currentPage}
             total = {total}
             showSizeChanger
             showQuickJumper
