@@ -107,7 +107,7 @@ const outputSample = async function (taskId : number, sampleIds : any, activeTxt
     const blobData = new Blob([JSON.stringify(data.data)]);
     let url = window.URL.createObjectURL(blobData);
     const a = document.createElement('a');
-    let taskRes = await getTask(taskId);
+    let taskRes : any = await getTask(taskId);
     let filename = taskRes.data.data.name;
     switch(activeTxt){
         case 'JSON' :

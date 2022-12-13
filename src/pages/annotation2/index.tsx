@@ -33,6 +33,7 @@ const AnnotationPage = ()=>{
     const getDatas = async function (taskId : number, sampleId : number) {
         try{
             let taskRes = await getTask(taskId);
+            // @ts-ignore
             if (taskRes.status === 200) {
                 console.log(taskRes);
                 // taskRes.data.data.config = {
@@ -78,8 +79,10 @@ const AnnotationPage = ()=>{
                 //         ]
                 //     }
                 // }
-                console.log(taskRes.data.data.config);
-                setTaskConfig(JSON.parse(taskRes.data.data.config));
+                // @ts-ignore
+                console.log(taskRes?.data.data.config);
+                // @ts-ignore
+                setTaskConfig(JSON.parse(taskRes?.data.data.config));
                 // setTaskConfig(JSON.parse(taskRes.data.data.config));
             }else{
                 commonController.notificationErrorMessage({message : '请求任务出错'}, 1);

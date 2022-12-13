@@ -12,7 +12,7 @@ const SamplesFinished = (props : any)=>{
   let taskId = parseInt(window.location.pathname.split('/')[2]);
   const {sampleId} = props;
   useEffect(()=>{
-    getTask(taskId).then(res=>{
+    getTask(taskId).then((res: any)=>{
       if(res.status === 200){
         setStat(res.data.data.stats);
       }else{

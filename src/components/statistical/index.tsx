@@ -14,7 +14,9 @@ const Statistical = ()=>{
 
   useEffect(()=>{
       getTask(taskId).then((res)=>{
-          if(res.status === 200){
+          // @ts-ignore
+          if(res?.status === 200){
+              // @ts-ignore
               setStatisticalDatas(res.data.data.stats);
           }else{
               commonController.notificationErrorMessage({message : '请求任务数据出错'},1);

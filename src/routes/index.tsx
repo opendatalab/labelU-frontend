@@ -1,17 +1,12 @@
 import React, { lazy, FC } from 'react';
-import LoginPage from '../pages/login';
-import LayoutPage from '../pages/layout';
 import { RouteObject } from 'react-router';
-import WrapperRouteComponent from './config';
 import { useRoutes } from 'react-router-dom';
-import AnnotationPage from '../pages/annotation';
 import AnnotationConfig from '../pages/annotationConfig';
 import Login1 from '../pages/login1/index';
 import SignUp from "../pages/signUp";
 import Homepage from '../pages/homepage';
 import TaskList from "../pages/taskList";
 import CreateTask from '../pages/createTask';
-import NullTask from '../pages/nullTask';
 import InputInfoConfig from '../pages/inputInfoConfig';
 import InputData from '../pages/inputData';
 import TaskAnnotation from "../pages/annotation2";
