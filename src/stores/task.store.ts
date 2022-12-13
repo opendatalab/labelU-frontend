@@ -10,7 +10,8 @@ const existTaskSlice = createSlice({
         taskTips : '',
         configStep : -1,
         haveConfigedStep : 0,
-        status : 'DRAFT'
+        status : 'DRAFT',
+        config : ''
     },
     reducers : {
         updateConfigStep : (state : any, action : any)=>{
@@ -44,6 +45,11 @@ const existTaskSlice = createSlice({
           state.description = description;
           state.taskId = id;
           state.status = status;
+          state.config = config;
+          if (!status) {
+              state.haveConfigedStep = 0;
+              state.configStep = -1;
+          }
           if(status === 'DRAFT'){
             state.haveConfigedStep = 1;
             state.configStep = -1;
@@ -54,11 +60,11 @@ const existTaskSlice = createSlice({
             state.configStep = 1;
           }
             if (status === 'CONFIGURED' && currentStatus === 1) {
-                state.haveConfigedStep = 2;
+                state.haveConfigedStep = 3;
                 state.configStep = 0;
             }
             if (status === 'CONFIGURED' && currentStatus === 2) {
-                state.haveConfigedStep = 2;
+                state.haveConfigedStep = 3;
                 state.configStep = 1;
             }
           if ((status === 'INPROGRESS' || status === 'FINISHED') && currentStatus === 1) {
@@ -69,7 +75,7 @@ const existTaskSlice = createSlice({
                 state.haveConfigedStep = 3;
                 state.configStep = 1;
             }
-        }
+        },
     }
 });
 

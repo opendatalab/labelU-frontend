@@ -169,9 +169,8 @@ const Homepage = (props : any)=>{
         return result;
     }
     const [isShowAnnotationTips, setIsShowAnnotationTips] = useState(false);
+    const [taskTips, setTaskTips] = useState('');
     useEffect(()=>{
-
-
         if (location.pathname) {
             let pathnames = window.location.pathname.split('/');
             if(pathnames[2] && pathnames[2] !== '0'){
@@ -180,6 +179,7 @@ const Homepage = (props : any)=>{
                         if (res.status === 200) {
                             // setTaskName(res.data.data.name);
                             let taskName = res.data.data.name;
+                            setTaskTips(res.data.data.tips);
                             setBreadcrumbItems(getBreadcrumb(location.pathname,  taskName));
                         }else{
                             commonController.notificationErrorMessage({
@@ -207,7 +207,7 @@ const Homepage = (props : any)=>{
             </div>
         </div>
         <div className = {currentStyles.right}>
-            {isShowHelp && <HelpTips />}
+            {isShowHelp && <HelpTips taskTips = {taskTips}/>}
             {isShowAnnotationTips && <AnnotationTips />}
             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             {username}

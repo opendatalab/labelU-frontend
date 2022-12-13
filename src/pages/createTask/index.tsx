@@ -111,6 +111,7 @@ const CreateTask = (props : any)=>{
         if (isTaskDescriptionOver) {return false;}
         let isTaskTipsOver = commonController.isOverFontCount(taskTips, 1000);
         if (isTaskTipsOver) {return false;}
+        console.log(haveConfigedStep)
         try{
             let res : any;
             if (haveConfigedStep !== 0) {
@@ -144,12 +145,15 @@ const CreateTask = (props : any)=>{
     const nextWhen1 = async function(){
         let result = true;
         console.log(taskStatus);
-        if (newSamples.length === 0) {
+        if (newSamples.length === 0 && taskStatus === 'DRAFT') {
             commonController.notificationWarnMessage({message : '请导入数据,再进行下一步操作'}, 1);
             return false;
         }
         console.log(newSamples);
         // console.log(taskStatus);
+        if (newSamples.length === 0 && taskStatus === 'CONFIGURED') {
+            return true;
+        }
         try{
             let res : any= await createSamples(taskId,newSamples)
             if (res.status === 201) {

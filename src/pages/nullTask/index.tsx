@@ -1,6 +1,6 @@
 import React from 'react';
 import currentStyles from './index.module.scss';
-import {updateConfigStep, updateHaveConfigedStep} from "../../stores/task.store";
+import {updateConfigStep, updateHaveConfigedStep, updateTask} from "../../stores/task.store";
 import Constatns from "../../constants";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -10,6 +10,14 @@ const NullTask = ()=>{
     const createTask = ()=>{
         dispatch(updateConfigStep(-1));
         dispatch(updateHaveConfigedStep(0));
+        dispatch(updateTask({
+            data : {
+                name : '',
+                tips : '',
+                description : '',
+                config : ''
+            }
+        }));
         navigate(Constatns.urlToCreateNewTask);
     }
     return (<div className = {currentStyles.outerFrame}>

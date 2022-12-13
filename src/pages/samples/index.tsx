@@ -106,6 +106,19 @@ const Samples = (props : any)=>{
       title: '标注数',
       dataIndex: 'annotated_count',
       key: 'annotated_count',
+      render:(temp : any, record : any)=>{
+        let result = 0;
+        console.log(record)
+        let resultJson = JSON.parse(record.data.result);
+        console.log(resultJson)
+        for (let key in resultJson) {
+          if(key.indexOf('Tool') > -1){
+            let tool = resultJson[key];
+            result = result + tool.result.length;
+          }
+        }
+        return result;
+      }
       // width: 80,
     },
     {

@@ -7,7 +7,7 @@ import Constatns from '../../constants';
 import {getTaskList, updateTaskConfig} from '../../services/createTask';
 import CommonController from "../../utils/common/common";
 import { useDispatch } from "react-redux";
-import { updateConfigStep, updateHaveConfigedStep } from '../../stores/task.store';
+import {updateConfigStep, updateHaveConfigedStep, updateTask} from '../../stores/task.store';
 import NullTask from "../nullTask";
 const TaskList = ()=>{
     const dispatch = useDispatch();
@@ -15,6 +15,14 @@ const TaskList = ()=>{
     const createTask = ()=>{
         dispatch(updateConfigStep(-1));
         dispatch(updateHaveConfigedStep(0));
+        dispatch(updateTask({
+            data : {
+                name : '',
+                tips : '',
+                description : '',
+                config : ''
+            }
+        }));
         navigate(Constatns.urlToCreateNewTask);
     };
     const [taskCards, setTaskCards] = useState<any>([]);

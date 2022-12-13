@@ -181,6 +181,7 @@ const InputInfoConfig = ()=>{
         newFileListInfo.push(info);
         console.log(newFileListInfo)
         if (newFileListInfo.length === newFileList.length) {
+            commonController.notificationSuccessMessage({message : '已添加'+newFileList.length + '个项目至上传列表'},1);
             let isCorrectCondition = isCorrectFiles(newFileListInfo);
             if(!isCorrectCondition){
                 commonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
@@ -342,6 +343,12 @@ const InputInfoConfig = ()=>{
             }else{
                 failedFiles = failedFiles + 1;
             }
+        }
+        if (failedFiles === 0 && haveUploadFiles.length > 0) {
+            commonController.notificationSuccessMessage({message : successfulFiles + '个文件上传成功'},1);
+        }
+        if (failedFiles > 0 && haveUploadFiles.length > 0) {
+            commonController.notificationWarnMessage({message : `${successfulFiles}个文件上传成功, ${failedFiles}个文件上传成功`},1);
         }
         setUploadedSuccessful(successfulFiles);
         setUploadedFailed(failedFiles);

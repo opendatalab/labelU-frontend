@@ -14,6 +14,8 @@ const Step = (props : any)=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const turnToOutlet = ()=>{
+        console.log(configStep)
+        console.log(ordinalNumber)
       if (configStep !== ordinalNumber - 2
           && haveConfigedStep < ordinalNumber) {
           commonController.notificationWarnMessage({message : '请先完成上一步配置，再进行下一步操作'}, 1);
