@@ -18,7 +18,7 @@ const uploadFile = async function (taskId : number, params : any ){
     try {
         let data = new FormData();
         data.append('file', params.file);
-        data.append('path', './')
+        // data.append('path', './')
         let res = await axiosInstance({
             url : `/api/v1/tasks/${taskId}/attachments`,
             headers : {
