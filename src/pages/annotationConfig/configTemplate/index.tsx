@@ -62,7 +62,7 @@ const ConfigTemplate: FC = () => {
   const titleNode = <div className="templateHeaderSpan">预设模板</div>;
   return (
     <div>
-      {window.location.search.indexOf('currentStatus=2') > -1 &&
+      {!(window.location.search.indexOf('currentStatus=2') > -1) &&
       <React.Fragment>
         <Button onClick={shwoModal} className="rightTabContent" type="primary">
           选择模板

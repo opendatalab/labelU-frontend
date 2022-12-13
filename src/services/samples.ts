@@ -114,7 +114,7 @@ const outputSample = async function (taskId : number, sampleIds : any, activeTxt
             filename = filename + '.json';
             break;
         case 'COCO' :
-            filename = filename + '.coco';
+            filename = filename + '.json';
             break;
         case 'MASK' :
             filename = filename + '.mask';
