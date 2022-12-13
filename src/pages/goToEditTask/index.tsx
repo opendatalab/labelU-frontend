@@ -15,13 +15,13 @@ const GoToEditTask = (props : any)=>{
         break;
       case 'IMPORTED' :
         // tail = 'upload';
-        tail = 'config';
+        tail = 'config?currentStatus=3';
         break;
       case 'CONFIGURED' :
         tail = 'config';
       break;
     }
-    navigate('/tasks/'+taskId+'/edit/'+tail);
+    navigate('/tasks/'+taskId+'/edit/'+ tail);
   }
   return (<div className={currentStyles.outerFrame}>
     <InfoCircleOutlined  style = {{color : '#F5483B'}} className = {currentStyles.icon}/>

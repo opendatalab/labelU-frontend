@@ -145,7 +145,7 @@ const CreateTask = (props : any)=>{
     const nextWhen1 = async function(){
         let result = true;
         console.log(taskStatus);
-        if (newSamples.length === 0 && taskStatus === 'DRAFT') {
+        if (newSamples.length === 0 && (taskStatus === 'DRAFT' || taskStatus === 'IMPORTED' || !taskStatus)) {
             commonController.notificationWarnMessage({message : '请导入数据,再进行下一步操作'}, 1);
             return false;
         }
@@ -206,6 +206,9 @@ const CreateTask = (props : any)=>{
     let currentStatus = 1;
     if(searchString.indexOf('currentStatus=2') > -1){
         currentStatus = 2;
+    }
+    if(searchString.indexOf('currentStatus=3') > -1){
+        currentStatus = 3;
     }
     if(taskId > 0) {
       getTask(taskId).then((res:any)=>{

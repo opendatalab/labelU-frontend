@@ -54,11 +54,19 @@ const existTaskSlice = createSlice({
             state.haveConfigedStep = 1;
             state.configStep = -1;
           }
-          if (status === 'IMPORTED') {
+          if (status === 'IMPORTED' && currentStatus !== 3) {
             state.haveConfigedStep = 2;
             state.configStep = 0;
-            state.configStep = 1;
+            // state.configStep = 1;
           }
+          console.log(status)
+            console.log(currentStatus)
+            if (status === 'IMPORTED' && currentStatus === 3) {
+                state.haveConfigedStep = 2;
+                // state.configStep = 0;
+                state.configStep = 1;
+            }
+
             if (status === 'CONFIGURED' && currentStatus === 1) {
                 state.haveConfigedStep = 3;
                 state.configStep = 0;
