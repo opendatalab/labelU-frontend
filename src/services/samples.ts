@@ -53,7 +53,7 @@ const getSample = async function (taskId : number, sampleId : number) {
     return res;
 }
 
-const updateSampleState = async function (taskId : number, sampleId : number, data : any) {
+const updateSampleState = async function (taskId : number, sampleId : number, data : any, state ?: string) {
     let res = await axiosInstance({
         url : `/api/v1/tasks/${taskId}/samples/${sampleId}`,
         method : 'PATCH',
@@ -61,7 +61,7 @@ const updateSampleState = async function (taskId : number, sampleId : number, da
           sample_id : sampleId
         },
         data : {
-            state : "SKIPPED",
+            state : state,
             data
         }
     });
@@ -78,6 +78,8 @@ const updateSampleAnnotationResult = async function (taskId : number, sampleId :
         },
         data : {
             data : data.data,
+            state : data.state,
+            annotated_count : data.annotated_count
             // state : data.state
         }
     });

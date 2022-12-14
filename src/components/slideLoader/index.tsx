@@ -86,7 +86,11 @@ const SlideLoader = ()=>{
         let scrollHeight = e.target.scrollHeight;
         let scrollTop = e.target.scrollTop;
         let clientHeight = e.target.clientHeight;
-
+        console.log({
+            diff : scrollHeight - scrollTop,
+            clientHeight,
+            requestDownDoor
+        });
         if (scrollHeight - scrollTop == clientHeight  && requestDownDoor
         ) {
             requestPreview({
@@ -234,6 +238,22 @@ const SlideLoader = ()=>{
         }
     }
 
+    const updatePrevImageListStateForSkippedAndNew = async function (state : string){
+        // navigate(window.location.pathname+'?sampleId='+sampleId);
+
+        let temp : any= Object.assign([],prevImgList);
+        console.log(temp)
+        let nextPageId : any= null;
+        for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+            let prevImg : any= temp[prevImgIndex];
+            if (prevImg.id === sampleId) {
+                prevImg.state = state;
+                break;
+            }
+        }
+        setPrevImgList(temp);
+    }
+
     const updatePrevImgList = (prevImgList : any)=>{
         setPrevImgList(prevImgList)
     }
@@ -251,8 +271,14 @@ const SlideLoader = ()=>{
         if(search.indexOf('DONE') > -1){
             updatePrevImageListState('DONE');
         }
-        if(search.indexOf('SKIPPED') > -1){
-            updatePrevImageListState('SKIPPED');
+        if(search.indexOf('SKIPPED') > -1 ){
+            updatePrevImageListStateForSkippedAndNew('SKIPPED');
+        }
+        if(search.indexOf('NEW') > -1 ){
+            updatePrevImageListStateForSkippedAndNew('NEW');
+        }
+        if(search.indexOf('SKIPPEDDONE') > -1 ){
+            updatePrevImageListStateForSkippedAndNew('SKIPPED');
         }
     },[window.location.search]);
 

@@ -303,7 +303,7 @@ const Samples = (props : any)=>{
     e.preventDefault();
     setActiveTxt(value)
   }
-  const [sortGroup, setSortGroup] = useState({state : 'desc', 'annotated_count' : 'desc'});
+  // const [sortGroup, setSortGroup] = useState({state : 'desc', 'annotated_count' : 'desc'});
   const [currentPage, setCurrentPage]=useState(1);
   const [currentPageSize, setCurrentPageSize]=useState(10);
   const reactSorter = (p:any, f:any,s:any)=>{
@@ -321,9 +321,9 @@ const Samples = (props : any)=>{
         sortStr = 'desc';
         break;
     }
-    let newSortGroup = Object.assign({},sortGroup,{[field]:sortStr});
-    setSortGroup(newSortGroup);
-    let queryStr = `state:${newSortGroup['state']},annotated_count:${newSortGroup['annotated_count']}`;
+    let newSortGroup = Object.assign({},{[field]:sortStr});
+    // setSortGroup(newSortGroup);
+    let queryStr = `${field}:${newSortGroup[field]}`;
     getSamplesLocal({pageNo : currentPage - 1, pageSize : currentPageSize, sort : queryStr})
   }
   return (<div className={currentStyles.outerFrame}>
