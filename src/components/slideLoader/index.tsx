@@ -86,11 +86,11 @@ const SlideLoader = ()=>{
         let scrollHeight = e.target.scrollHeight;
         let scrollTop = e.target.scrollTop;
         let clientHeight = e.target.clientHeight;
-        console.log({
-            diff : scrollHeight - scrollTop,
-            clientHeight,
-            requestDownDoor
-        });
+        // console.log({
+        //     diff : scrollHeight - scrollTop,
+        //     clientHeight,
+        //     requestDownDoor
+        // });
         let diff = scrollHeight - scrollTop;
         let newDiff = Math.abs(diff - clientHeight);
         if ( newDiff <= 1  && requestDownDoor
