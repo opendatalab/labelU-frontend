@@ -17,12 +17,8 @@ import {updateAllConfig} from "../../stores/toolConfig.store";
 import commonController from "../../utils/common/common";
 const InputInfoConfig = ()=>{
     const dispatch = useDispatch();
-    // const [taskName, setTaskName] = useState('');
     let taskName = useSelector(state => state.existTask.taskName);
-    // const [taskDescription, setTaskDescription] = useState('');
     let taskDescription = useSelector(state => state.existTask.taskDescription);
-
-    // const [taskTips, setTaskTips] = useState('');
     let taskTips = useSelector(state => state.existTask.taskTips);
     const [isErrorShow, setIsErrorShow] = useState(false);
     const changeTaskNamme = (event : any)=>{
@@ -62,12 +58,13 @@ const InputInfoConfig = ()=>{
     }
   // useEffect(()=>{
   //   let taskId = parseInt(window.location.pathname.split('/')[2]);
-  //
   //   if(taskId > 0) {
-  //     getTask(taskId).then((res:any)=>{
+  //       console.log(11122121212121212)
+  //
+  //       getTask(taskId).then((res:any)=>{
   //       if (res.status === 200) {
   //         console.log(res.data.data);
-  //         dispatch(updateTask(res.data.data));
+  //         dispatch(updateTask({data:res.data.data}));
   //         if (res.data.data.config){
   //           dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
   //         }

@@ -6,9 +6,11 @@ import {getSamples, getTask, outputSamples} from "../../services/samples";
 import {useNavigate} from "react-router";
 import currentStyles1 from "../../pages/outputData/index.module.scss";
 import {Modal} from "antd";
-
+import { useDispatch } from 'react-redux';
+import {updateTask} from "../../stores/task.store";
+import {updateAllConfig} from "../../stores/toolConfig.store";
 const Statistical = ()=>{
-
+  const dispatch = useDispatch();
   const [statisticalDatas, setStatisticalDatas] = useState<any>({});
   let taskId = parseInt(window.location.pathname.split('/')[2]);
     const [taskStatus, setTaskStatus] = useState(undefined);
@@ -20,6 +22,10 @@ const Statistical = ()=>{
               // @ts-ignore
               setStatisticalDatas(res.data.data.stats);
               setTaskStatus(res.data.data.status)
+              dispatch(updateTask({data:res.data.data}));
+              if (res.data.data.config){
+                  dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
+              }
           }else{
               commonController.notificationErrorMessage({message : '请求任务数据出错'},1);
           }
@@ -53,6 +59,19 @@ const Statistical = ()=>{
     getSamplesLocal({pageNo : 0, pageSize : 10})
   }
   const turnToTaskConfig = ()=>{
+
+          //   getTask(taskId).then((res:any)=>{
+          //   if (res.status === 200) {
+          //     console.log(res.data.data);
+          //     dispatch(updateTask({data:res.data.data}));
+          //     if (res.data.data.config){
+          //       dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
+          //     }
+          //   }else{
+          //     commonController.notificationErrorMessage({message : '请求任务状态不是200'},1)
+          //   }
+          // }).catch(error=>commonController.notificationErrorMessage(error,1))
+
       if (taskStatus !== 'CONFIGURED') {
           navigate('/tasks/'+taskId+'/edit/config?currentStatus=2&noConfig=1');
       }else{
@@ -138,7 +157,9 @@ const Statistical = ()=>{
                       {activeTxt !== 'MASK' && <div className = {currentStyles1.button} onClick = {(e)=>confirmActiveTxt(e,'MASK')}>MASK</div>}
                   </div>
               </div>
-              <div className={currentStyles.bottom}>Label U 标准格式，包含任务id,标注结果、url、fileName字段</div>
+              {activeTxt === 'JSON' &&<div className={currentStyles.bottom}>Label U 标准格式，包含任务id,标注结果、url、fileName字段</div>}
+              {activeTxt === 'COCO' &&<div className={currentStyles.bottom}>COCO数据集标准格式，面向物体检测（拉框）和图像分割（多边形）任务</div>}
+              {activeTxt === 'MASK' &&<div className={currentStyles.bottom}>面向图像分割（多边形）任务</div>}
           </div>
       </Modal>
   </div>)

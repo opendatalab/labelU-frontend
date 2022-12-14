@@ -4,6 +4,7 @@ import {updateConfigStep, updateHaveConfigedStep, updateTask} from "../../stores
 import Constatns from "../../constants";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import { clearConfig } from '../../stores/toolConfig.store';
 const NullTask = ()=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -15,9 +16,10 @@ const NullTask = ()=>{
                 name : '',
                 tips : '',
                 description : '',
-                config : ''
+                // config : ''
             }
         }));
+        dispatch(clearConfig())
         navigate(Constatns.urlToCreateNewTask);
     }
     return (<div className = {currentStyles.outerFrame}>

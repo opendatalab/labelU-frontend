@@ -9,6 +9,7 @@ import CommonController from "../../utils/common/common";
 import { useDispatch } from "react-redux";
 import {updateConfigStep, updateHaveConfigedStep, updateTask} from '../../stores/task.store';
 import NullTask from "../nullTask";
+import { clearConfig } from '../../stores/toolConfig.store';
 const TaskList = ()=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ const TaskList = ()=>{
                 config : ''
             }
         }));
+        dispatch(clearConfig())
         navigate(Constatns.urlToCreateNewTask);
     };
     const [taskCards, setTaskCards] = useState<any>([]);

@@ -37,6 +37,7 @@ const existTaskSlice = createSlice({
 
         },
         updateTask(state : any, action : any){
+            console.log(action)
           let taskInfo = action.payload.data;
           let currentStatus = action.payload.configStatus;
           const {name , tips, description, config, status, id } = taskInfo;

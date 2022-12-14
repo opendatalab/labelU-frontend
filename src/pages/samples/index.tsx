@@ -116,7 +116,9 @@ const Samples = (props : any)=>{
           if(key.indexOf('Tool') > -1){
             let tool = resultJson[key];
             if (!tool.result) {
-              result = result + tool.length;
+              let temp = 0;
+              if(tool.length) {temp = tool.length}
+              result = result + temp;
             }else{
               result = result + tool.result.length;
             }
@@ -390,7 +392,9 @@ const Samples = (props : any)=>{
             {activeTxt !== 'MASK' && <div className = {currentStyles1.button} onClick = {(e)=>confirmActiveTxt(e,'MASK')}>MASK</div>}
           </div>
         </div>
-        <div className={currentStyles.bottom}>Label U 标准格式，包含任务id,标注结果、url、fileName字段</div>
+        {activeTxt === 'JSON' &&<div className={currentStyles.bottom}>Label U 标准格式，包含任务id,标注结果、url、fileName字段</div>}
+        {activeTxt === 'COCO' &&<div className={currentStyles.bottom}>COCO数据集标准格式，面向物体检测（拉框）和图像分割（多边形）任务</div>}
+        {activeTxt === 'MASK' &&<div className={currentStyles.bottom}>面向图像分割（多边形）任务</div>}
       </div>
     </Modal>
   </div>)

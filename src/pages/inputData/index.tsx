@@ -293,10 +293,10 @@ const InputInfoConfig = ()=>{
     }
 
     const deleteSingleFile = (itemIndex : number)=>{
-        console.log(itemIndex)
+
        const tempArr = Object.assign([],haveUploadFiles);
        tempArr.splice(itemIndex,1);
-       console.log(tempArr)
+       commonController.notificationSuccessMessage({message : '删除成功'},1)
        setHaveUploadFiles(tempArr);
     }
     const renewUpload = async function(item : any, itemIndex : number){
@@ -409,13 +409,13 @@ const InputInfoConfig = ()=>{
                 </div>
             </div>
             <div className={currentStyles.right}>
-                <div className={currentStyles.rightTitle}>
+                {haveUploadFiles.length > 0 && <div className={currentStyles.rightTitle}>
                     <div className = {currentStyles.rightTitleLeft}>上传列表</div>
                     {/*<div className = {currentStyles.rightTitleRight}>正在上传&nbsp;*/}
                     {/*    <div  className = {currentStyles.rightTitleRightHight}>10</div>*/}
                     {/*    /30&nbsp;个文件</div>*/}
                     <div>已上传
-                        { uploadedTotal }
+                        { haveUploadFiles.length }
                         个文件,</div>
                     <div>&nbsp;&nbsp;上传成功
                         <div style = {{display : 'inline-block',color : '#00B365'}}>{ uploadedSuccessful }</div>
@@ -423,7 +423,7 @@ const InputInfoConfig = ()=>{
                     <div>&nbsp;&nbsp;上传失败
                         <div style = {{display : 'inline-block',color : '#f5483B'}}>{ uploadedFailed }</div>
                         个</div>
-                </div>
+                </div>}
                 <div className={currentStyles.rightContent}>
                     <div className = {currentStyles.columnsName}>
                         <div className = {currentStyles.columnFileName}  style={{color : 'rgba(0, 0, 0, 0.6)'}}>文件名</div>
