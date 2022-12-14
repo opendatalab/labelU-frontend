@@ -91,7 +91,7 @@ const SlideLoader = ()=>{
             clientHeight,
             requestDownDoor
         });
-        if (scrollHeight - scrollTop == clientHeight  && requestDownDoor
+        if (scrollHeight - scrollTop >= clientHeight  && requestDownDoor
         ) {
             requestPreview({
                 after : prevImgList[prevImgList.length - 1]['id'],
