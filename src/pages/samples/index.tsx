@@ -115,7 +115,11 @@ const Samples = (props : any)=>{
         for (let key in resultJson) {
           if(key.indexOf('Tool') > -1){
             let tool = resultJson[key];
-            result = result + tool.result.length;
+            if (!tool.result) {
+              result = result + tool.length;
+            }else{
+              result = result + tool.result.length;
+            }
           }
         }
         return result;

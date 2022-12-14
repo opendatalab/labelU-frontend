@@ -74,7 +74,11 @@ const AnnotationRightCorner = ()=>{
                     for (let key in resultJson) {
                         if(key.indexOf('Tool') > -1){
                             let tool = resultJson[key];
-                            annotated_count = annotated_count + tool.result.length;
+                            if (!tool.result) {
+                                annotated_count = annotated_count + tool.length;
+                            }else{
+                                annotated_count = annotated_count + tool.result.length;
+                            }
                         }
                     }
                     console.log(annotated_count)
