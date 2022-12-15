@@ -230,6 +230,14 @@ const CreateTask = (props : any)=>{
       setIsShowCancelModal(true);
     }
 
+    const isNullToolConfig = ()=>{
+        let result = false;
+        if(!toolsConfig || !toolsConfig.tools || toolsConfig.tools.length === 0){
+            result = true;
+            commonController.notificationErrorMessage({message : '请选择工具'},1);
+        }
+        return result;
+    }
     const clickModalOk = async function (e : any){
         e.stopPropagation();
         e.nativeEvent.stopPropagation();
@@ -246,6 +254,10 @@ const CreateTask = (props : any)=>{
           if (!isSuccess1) return;
           break;
         case 1 :
+            console.log(toolsConfig);
+            return;
+          let isNullToolConfigResult = isNullToolConfig();
+          if(isNullToolConfigResult) {return;}
           let isSuccess2 = await finallySave();
           // if (!isSuccess2) return;
           break;
