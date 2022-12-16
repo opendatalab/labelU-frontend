@@ -7,6 +7,7 @@
   height : 56px;
   width : 100%;
   line-height: 56px;
+  overflow-y : visible;
 }
 
 
@@ -44,4 +45,22 @@
   font-weight: 400;
   font-size:14px;
   margin-right: 40px;
+  overflow-y:visible;
+  z-index : 10000;
+}
+.signOut{
+  //height: 100px;
+  //margin-top: 14px;
+}
+.signOutItem{
+  position : absolute;
+  top : 0;
+  right : 0;
+  border : 1px solid #cccccc;
+  background-color: #cccccc;
+  cursor:pointer;
+  color : #ffffff;
+  text-align: center;
+  //height : 20px;
+  z-index : 100000;
 }

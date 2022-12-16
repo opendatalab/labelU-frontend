@@ -297,6 +297,7 @@ const InputInfoConfig = ()=>{
        const tempArr = Object.assign([],haveUploadFiles);
        tempArr.splice(itemIndex,1);
        commonController.notificationSuccessMessage({message : '删除成功'},1)
+        setDeleteTag(true);
        setHaveUploadFiles(tempArr);
     }
     const renewUpload = async function(item : any, itemIndex : number){
@@ -333,8 +334,9 @@ const InputInfoConfig = ()=>{
         console.log(haveUploadFiles);
         updateUploadedFiles();
     },[haveUploadFiles]);
-
+    const [deleteTag, setDeleteTag] = useState(false);
     useEffect(()=>{
+        if(deleteTag) {setDeleteTag(false);return};
         let successfulFiles = 0;
         let failedFiles = 0;
         for (let haveUploadFile of haveUploadFiles) {

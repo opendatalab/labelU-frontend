@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import currentStyles from './index.module.scss';
 import { Breadcrumb } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import commonController from '../../utils/common/common';
 import constants from '../../constants';
 import AnnotationTips from '../../components/annotationTips';
 import { getTask } from '../../services/samples'
 import HelpTips from "../helpTips";
+import { UserOutlined } from '@ant-design/icons'
 const Homepage = (props : any)=>{
-
     // const username = useSelector(commonController.getUsername);
     let username = localStorage.getItem('username');
     const [isShowHelp, setIsShowHelp] = useState(false);
+    const navigate = useNavigate();
     let location  = useLocation();
     // const crumbs  : any = {
     //     '/tasks' : (<Breadcrumb.Item>
@@ -195,6 +196,15 @@ const Homepage = (props : any)=>{
         }
 
     },[location])
+    const [isShowSignOut, setIsShowSignOut] = useState(false);
+    const signOut = (e: any)=>{
+        e.stopPropagation();
+        e.nativeEvent.stopPropagation();
+        e.preventDefault();
+        localStorage.setItem('username','');
+        localStorage.setItem('token','');
+        navigate('/login')
+    }
     return (<div className={currentStyles.outerFrame}>
         <div className = {currentStyles.left}>
             <div className = {currentStyles.logo}>
@@ -210,8 +220,15 @@ const Homepage = (props : any)=>{
             {isShowHelp && <HelpTips taskTips = {taskTips}/>}
             {isShowAnnotationTips && <AnnotationTips />}
             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            {username}
+            <div
+                 onClick = {commonController.debounce(()=>{setIsShowSignOut(!isShowSignOut)}, 100)}
+
+            className = {currentStyles.signOut}>
+                <div>{username}&nbsp;&nbsp;<UserOutlined/> </div>
+            </div>
         </div>
+        {isShowSignOut && <div className = { currentStyles.signOutItem }
+                               onClick={signOut}>退出</div>}
     </div>)
 }
 export  default Homepage;

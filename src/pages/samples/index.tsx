@@ -78,6 +78,9 @@ const Samples = (props : any)=>{
       key: 'packageID',
       width: 80,
       render:(text : string)=>{
+        if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
+          return '';
+        }
         let result = undefined;
         switch(text){
           case 'DONE' :
@@ -135,6 +138,9 @@ const Samples = (props : any)=>{
       dataIndex: 'created_by',
       key: 'created_by',
       render:(created_by: any)=>{
+        if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
+          return '';
+        }
         return created_by.username;
       }
     },
@@ -144,6 +150,9 @@ const Samples = (props : any)=>{
       key: 'updated_at',
       // width : 310,
       render : (updated_at : any, record : any)=>{
+        if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
+          return '';
+        }
         return moment(updated_at).format('YYYY-MM-DD HH:MM')
       }
     },

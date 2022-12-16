@@ -23,8 +23,8 @@ const NullTask = ()=>{
         navigate(Constatns.urlToCreateNewTask);
     }
     return (<div className = {currentStyles.outerFrame}>
-        <div className = {currentStyles.container}>
-            <div className = {currentStyles.createTaskIcon} onClick = {createTask}></div>
+        <div className = {currentStyles.container}  onClick = {createTask}>
+            <div className = {currentStyles.createTaskIcon}></div>
             <div className = {currentStyles.createTask}
                  >
                 新建任务

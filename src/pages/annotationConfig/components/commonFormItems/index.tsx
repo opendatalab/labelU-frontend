@@ -1,7 +1,7 @@
 import { Attribute } from '@label-u/annotation';
 import { Form, Switch } from 'antd';
 import { delayTime } from '../../formConfig/constants';
-import React, { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { MapStateJSONTab } from '../AttributeConfig';
 import TextConfigurable from '../TextConfigurable';
 
@@ -86,7 +86,9 @@ const CommonFormItem: FC<CommonFormConf & { name: string; toolName: string; isSh
             name="commonAttributeConfigurable"
             initialValue={initVal.commonAttributeConfigurable}
           >
-            <Switch disabled={isAllReadOnly} />
+            <Switch disabled={isAllReadOnly} onChange={e => {
+              form.submit();
+            }} />
           </Form.Item>
 
           <Form.Item noStyle shouldUpdate>

@@ -96,9 +96,9 @@ const FormEngine: FC<FormEngineProps> = props => {
             okButtonProps={{ loading: confirmLoading }}
             onCancel={handleCancel}
           >
-            {!(window.location.search.indexOf('noConfig=1') > -1) && <span onClick={showPopconfirm} className="deleteTab">
+            <span onClick={showPopconfirm} className="deleteTab">
               删除工具
-            </span>}
+            </span>
           </Popconfirm>
         </ConfigTool>
       )}
