@@ -124,7 +124,7 @@ const AnnotationConfig: FC = () => {
             }}
           >
             <Tabs.TabPane tab="YAML" key="1">
-              <div className="leftPane" style = {{ pointerEvents : 'none' }}>
+              <div className="leftPane">
                 <YamlConfig toolsConfigState={confitState} doSetImg={doSetImage} key={force} />
               </div>
             </Tabs.TabPane>

@@ -141,7 +141,8 @@ const YamlConfig: FC<YamlConfigProps> = props => {
           enableLiveAutocompletion: true,
           enableSnippets: true,
           showLineNumbers: true,
-          tabSize: 2
+          tabSize: 2,
+          readOnly : true
         }}
       />
     </>
