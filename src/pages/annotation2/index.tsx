@@ -157,6 +157,7 @@ const AnnotationPage = ()=>{
                 tools={taskConfig.tools}
                 exportData = {exportData}
                 onSubmit = {onSubmit}
+                commonAttributeConfigurable = {taskConfig.commonAttributeConfigurable}
             />
         )}
     </div>;

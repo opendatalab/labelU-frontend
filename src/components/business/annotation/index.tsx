@@ -23,10 +23,11 @@ const Annotation = (props: {
   onSubmit?:any;
   exportData?:any;
   annotationRef ?: any;
+  commonAttributeConfigurable?:boolean;
 }) => {
   const { fileList, goBack, tools, tagList, attribute, textConfig, isPreview, leftSiderContent, topActionContent,
   exportData, onSubmit,
-  annotationRef} = props;
+  annotationRef, commonAttributeConfigurable} = props;
   // const exportData = (data: any) => {
   //   // console.log('exportData', data);
   // };
@@ -53,11 +54,12 @@ const Annotation = (props: {
         exportData={exportData}
         onSubmit={onSubmit}
         imgList={fileList}
-        attributeList={attribute}
+        attributeList={commonAttributeConfigurable?attribute:[]}
         tagConfigList={tagList}
         toolsBasicConfig={tools}
         textConfig={textConfig}
         isShowOrder={false}
+          // commonAttributeConfigurable ={co}
       />
     </div>
   );

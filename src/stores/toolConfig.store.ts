@@ -65,6 +65,7 @@ const toolsConfigSlice = createSlice({
       state.attribute = [];
       state.textConfig = [];
       state.fileInfo = {} as FileInfo;
+      state.commonAttributeConfigurable = true;
     },
     // 更新全部配置
     updateAllConfig(state, action: PayloadAction<ToolsConfigState>) {
@@ -76,6 +77,7 @@ const toolsConfigSlice = createSlice({
 
       state.textConfig = action.payload.textConfig;
       state.fileInfo = action.payload.fileInfo;
+      state.commonAttributeConfigurable = action.payload.commonAttributeConfigurable;
     }
   }
 });
