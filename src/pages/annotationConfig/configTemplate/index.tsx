@@ -29,7 +29,7 @@ const ConfigTemplate: FC = () => {
   ]);
   const [isShowChoose, setIsShowChoose] = useState(true);
 
-  // const dispatch = useDispatch();
+  // const dispatch = useDispatch();//
   useEffect(() => {
 
     new Promise(async (resolve, reject) => {
