@@ -182,15 +182,22 @@ const commonController = {
     for (let sampleId in data.urls) {
       url = data.urls[sampleId];
     }
+    console.log(data.result);
     // delete
     // let url = 'http://localhost:8000/src/img/example/bear1.webp'
-    let result : any = '';
-    if(data.result && !commonController.isNullObject(data.result)) {result = JSON.parse(data.result)}else{
-      result = [];
+    let newResult : any = '';
+    if(data.result && !commonController.isNullObject(data.result)) {
+      newResult = data.result;
+    }else{
+      newResult = '{}';
     };
-    return [{
-      id,url,result : JSON.stringify(result)
-    }]
+    console.log(newResult);
+    let finalResult = [{
+      id,url,result : newResult
+    }];
+    console.log(finalResult);
+
+    return finalResult;
   },
   drawImg (divId : number, src : string) {
     console.log(divId + '')
