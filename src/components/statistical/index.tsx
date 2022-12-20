@@ -7,7 +7,7 @@ import {useNavigate} from "react-router";
 import currentStyles1 from "../../pages/outputData/index.module.scss";
 import {Modal} from "antd";
 import { useDispatch } from 'react-redux';
-import {updateTask} from "../../stores/task.store";
+import {updateTask, updateStatus} from "../../stores/task.store";
 import {updateAllConfig} from "../../stores/toolConfig.store";
 const Statistical = ()=>{
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const Statistical = ()=>{
               setStatisticalDatas(res.data.data.stats);
               setTaskStatus(res.data.data.status)
               dispatch(updateTask({data:res.data.data}));
+              dispatch(updateStatus(res.data.data.status));
               if (res.data.data.config){
                   dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
               }
@@ -71,7 +72,7 @@ const Statistical = ()=>{
           //     commonController.notificationErrorMessage({message : '请求任务状态不是200'},1)
           //   }
           // }).catch(error=>commonController.notificationErrorMessage(error,1))
-
+      dispatch(updateStatus(taskStatus));
       if (taskStatus !== 'CONFIGURED') {
           navigate('/tasks/'+taskId+'/edit/config?currentStatus=2&noConfig=1');
       }else{
@@ -79,6 +80,7 @@ const Statistical = ()=>{
       }
   }
   const turnToInputData = ()=>{
+    dispatch(updateStatus(taskStatus))
     navigate('/tasks/'+taskId+'/edit/upload?currentStatus=1')
   }
     const [activeTxt, setActiveTxt] = useState('JSON');

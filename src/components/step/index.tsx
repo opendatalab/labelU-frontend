@@ -13,10 +13,12 @@ const Step = (props : any)=>{
     const { title, ordinalNumber, contentUrl } = props;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const taskStatus = useSelector(state=>state.existTask.status);
     const turnToOutlet = ()=>{
-        console.log(haveConfigedStep)
-        console.log(configStep)
-        console.log(ordinalNumber)
+      console.log(taskStatus)
+        // console.log(haveConfigedStep)
+        // console.log(configStep)
+        // console.log(ordinalNumber)
       if (configStep !== ordinalNumber - 2
           && haveConfigedStep < ordinalNumber && haveConfigedStep !== 2) {
           commonController.notificationWarnMessage({message : '请先完成上一步配置，再进行下一步操作'}, 1);

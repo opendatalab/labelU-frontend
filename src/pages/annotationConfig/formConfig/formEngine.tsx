@@ -1,5 +1,5 @@
 import { BasicConfig } from '@label-u/components';
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useMemo, useState, useEffect } from 'react';
 import RectConfigForm from './templates/rectConfigForm';
 import LineConfigForm from './templates/lineConfigForm';
 import PointConfigForm from './templates/pointConfigForm';
@@ -12,6 +12,8 @@ import { EToolName } from '@label-u/annotation';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTagConfigList, updateTextConfig, updateToolsConfig } from '../../../stores/toolConfig.store';
 import { Popconfirm } from 'antd';
+import { useLocation } from 'react-router-dom';
+import { updateStatus } from '../../../stores/task.store'
 // import Dynamic from 'components/basic/dynamic';
 interface FormEngineProps {
   toolname: string;
@@ -19,7 +21,9 @@ interface FormEngineProps {
 }
 
 const FormEngine: FC<FormEngineProps> = props => {
+  let location = useLocation();
   const { tagList, textConfig, tools } = useSelector(state => state.toolsConfig);
+  let taskStatus = useSelector(state=>state.existTask.status);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -82,7 +86,18 @@ const FormEngine: FC<FormEngineProps> = props => {
   const handleCancel = () => {
     setOpen(false);
   };
-
+  const [isShowDelete, setIsShowDelete] = useState(true);
+  useEffect(()=>{
+    console.log(taskStatus);
+    if (!taskStatus) {
+      dispatch(updateStatus('IMPORTED'));
+      setIsShowDelete(true);
+    }else{
+      if(taskStatus !== 'DRAFT' && taskStatus !== 'IMPORTED' && taskStatus !== 'CONFIGURED'){
+        setIsShowDelete(false);
+      }
+    }
+  },[window.location.pathname]);
   return (
     <div>
       {ConfigTool && (
@@ -96,9 +111,9 @@ const FormEngine: FC<FormEngineProps> = props => {
             okButtonProps={{ loading: confirmLoading }}
             onCancel={handleCancel}
           >
-            <span onClick={showPopconfirm} className="deleteTab">
+            {isShowDelete && <span onClick={showPopconfirm} className="deleteTab">
               删除工具
-            </span>
+            </span>}
           </Popconfirm>
         </ConfigTool>
       )}

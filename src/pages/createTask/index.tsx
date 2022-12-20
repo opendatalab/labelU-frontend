@@ -12,7 +12,7 @@ import {connect, useSelector, useDispatch} from 'react-redux';
 import { updateHaveConfigedStep, updateTask } from '../../stores/task.store'
 import commonController from '../../utils/common/common';
 
-import { updateConfigStep, updateTaskId } from '../../stores/task.store';
+import { updateConfigStep, updateTaskId, updateStatus } from '../../stores/task.store';
 import { createSamples, getTask } from '../../services/samples';
 import { updateAllConfig } from '../../stores/toolConfig.store'
 import {findNewAnchor} from "yaml/dist/doc/anchors";
@@ -60,6 +60,10 @@ const CreateTask = (props : any)=>{
     const tempBao = true;
 
     const finallySave = async function(){
+        if ((toolsConfig && toolsConfig.tools && toolsConfig.tools.length === 0)) {
+          commonController.notificationErrorMessage({message : '请选择工具'}, 1);
+          return;
+        }
         let res = await updateTaskConfig(taskId, {
             'config' : JSON.stringify(toolsConfig),
             'media_type' : 'IMAGE'
@@ -157,9 +161,9 @@ const CreateTask = (props : any)=>{
         try{
             let res : any= await createSamples(taskId,newSamples)
             if (res.status === 201) {
-                // const { status, id } = res.data.data;
+                const { status, id } = res.data.data;
                 updateStep('IMPORTED');
-                // updateTaskIdLocal(id);
+                dispatch(updateStatus(status));
             }else{
                 result = false;
                 commonController.notificationErrorMessage(res.data,1);
@@ -189,7 +193,7 @@ const CreateTask = (props : any)=>{
                 if (!isSuccess1) return;
                 currentStep = 1;
                 childOutlet = `/tasks/${taskId}/edit/config`;
-                break;
+              break;
           case 1 :
 
             break;

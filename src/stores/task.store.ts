@@ -14,6 +14,9 @@ const existTaskSlice = createSlice({
         config : ''
     },
     reducers : {
+        updateStatus : (state : any, action : any)=>{
+          state.status = action.payload;
+        },
         updateConfigStep : (state : any, action : any)=>{
             state.configStep = action.payload;
         },
@@ -60,8 +63,8 @@ const existTaskSlice = createSlice({
             state.configStep = 0;
             // state.configStep = 1;
           }
-          console.log(status)
-            console.log(currentStatus)
+          // console.log(status)
+          //   console.log(currentStatus)
             if (status === 'IMPORTED' && currentStatus === 3) {
                 state.haveConfigedStep = 2;
                 // state.configStep = 0;
@@ -85,7 +88,8 @@ const existTaskSlice = createSlice({
                 state.configStep = 1;
             }
         },
-    }
+    },
+
 });
 
 export const {
@@ -95,7 +99,8 @@ export const {
     updateTaskTips,
     updateConfigStep,
     updateHaveConfigedStep,
-    updateTask
+    updateTask,
+    updateStatus
 } = existTaskSlice.actions;
 
 export default existTaskSlice.reducer;

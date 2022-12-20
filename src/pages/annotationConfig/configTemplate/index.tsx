@@ -4,6 +4,11 @@ import DrageModel from '../../../components/basic/modal';
 import './index.less';
 import { imgLebalConfig, getLabelConfig } from './config';
 import TmplateBox from './tmplateBox';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { getTask  } from '../../../services/samples';
+import { updateStatus } from '../../../stores/task.store'
+import commonController from "../../../utils/common/common";
 type TabPosition = 'left' | 'right' | 'top' | 'bottom';
 
 interface LabelType {
@@ -13,8 +18,8 @@ interface LabelType {
 }
 
 const ConfigTemplate: FC = () => {
+  const location = useLocation();
   const modalRef = useRef<any>();
-
   const [labelTypes, setLabelTypes] = useState<LabelType[]>([
     {
       label: '图片',
@@ -22,8 +27,12 @@ const ConfigTemplate: FC = () => {
       children: <></>
     }
   ]);
-
+  const [isShowChoose, setIsShowChoose] = useState(true);
+  let taskId = useSelector(state=>{state.existTask.taskId});
+  let taskStatus = useSelector(state=>{state.existTask.status});
+  const dispatch = useDispatch();
   useEffect(() => {
+
     new Promise(async (resolve, reject) => {
       const result = await getLabelConfig(imgLebalConfig);
       const neLabelTypes = labelTypes.map((item, index) => {
@@ -45,7 +54,28 @@ const ConfigTemplate: FC = () => {
       setLabelTypes(neLabelTypes);
     });
   }, []);
-
+  useEffect(()=>{
+    // console.log(taskStatus);
+    // // @ts-ignore
+    // if (!taskStatus && !(window.location.search.indexOf('noConfig=1')>-1)) {
+    //   dispatch(updateStatus('IMPORTED'));
+    //   setIsShowChoose(true);
+    // }else{
+    //   // @ts-ignore
+    //   if(taskStatus !== 'DRAFT' && taskStatus !== 'IMPORTED' && taskStatus !== 'CONFIGURED'){
+    //     setIsShowChoose(false);
+    //   }
+    // }
+    let taskId = parseInt(window.location.pathname.split('/')[2]);
+    getTask(taskId).then((res : any)=>{
+      if (res.status === 200) {
+        let newTaskStatus = res.data.data.status;
+        if(newTaskStatus !== 'DRAFT' && newTaskStatus !== 'IMPORTED' && newTaskStatus !== 'CONFIGURED'){
+          setIsShowChoose(false);
+        }
+      }
+    }).catch(error=>commonController.notificationErrorMessage(error,1));
+  },[window.location.pathname]);
   const content = () => {
     const tabPosition: TabPosition = 'left';
     return (
@@ -62,7 +92,7 @@ const ConfigTemplate: FC = () => {
   const titleNode = <div className="templateHeaderSpan">预设模板</div>;
   return (
     <div>
-      {!(window.location.search.indexOf('onConfig=1') > -1) &&
+      {isShowChoose &&
       <React.Fragment>
         <Button onClick={shwoModal} className="rightTabContent" type="primary">
           选择模板
