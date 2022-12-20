@@ -17,6 +17,7 @@ interface LabelType {
   children: React.ReactNode;
 }
 
+// test
 const ConfigTemplate: FC = () => {
   const location = useLocation();
   const modalRef = useRef<any>();
