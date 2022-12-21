@@ -14,7 +14,7 @@ import AnnotationRightCorner from "../../components/annotationRightCorner";
 import { updateAnnotationDatas } from '../../stores/annotation.store'
 import { useLocation } from "react-router";
 
-import TF from './tF';
+// import TF from './tF';
 export let annotationRef = createRef();
 
 // @ts-ignore
