@@ -92,8 +92,11 @@ const TaskCard = (props : any)=>{
         e.nativeEvent.stopPropagation();
         e.preventDefault();
     }
+    const [isShowTwoButtons, setIsShowTwoButtons] = useState(0);
     return (<div className = {currentStyles.outerFrame}
     onClick = {turnToAnnotation}
+                 onMouseOver={()=>{setIsShowTwoButtons(id)}}
+                 onMouseLeave = {()=>{setIsShowTwoButtons(0)}}
     >
         <div className={currentStyles.item}>
             <div className={currentStyles.itemLeft}>
@@ -114,7 +117,7 @@ const TaskCard = (props : any)=>{
                 </div>
             }
             </div>
-            <div className = {currentStyles.icons2}>
+          {isShowTwoButtons === id && <div className = {currentStyles.icons2}>
               <div className = {currentStyles.upload}
               onClick = {(e:any)=>{
                   e.nativeEvent.stopImmediatePropagation();
@@ -133,7 +136,7 @@ const TaskCard = (props : any)=>{
                   <DeleteOutlined/>
                   </Tooltip>
               </div>}
-            </div>
+            </div>}
         </div>
         <div className={currentStyles.item} style = {{marginTop : '8px'}}>{cardInfo.created_by?.username}</div>
         <div className={currentStyles.item} style = {{marginTop : '8px'}}>{moment(cardInfo.created_at).format('YYYY-MM-DD HH:MM')}</div>

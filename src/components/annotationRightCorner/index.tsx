@@ -72,7 +72,7 @@ const AnnotationRightCorner = ()=>{
                     let resultJson = JSON.parse(dataParam.result);
                     // console.log(resultJson)
                     for (let key in resultJson) {
-                        if(key.indexOf('Tool') > -1 && key !== 'textTool'){
+                        if(key.indexOf('Tool') > -1 && key !== 'textTool' && key !== 'tagTool'){
                             let tool = resultJson[key];
                             if (!tool.result) {
                                 let temp = 0;

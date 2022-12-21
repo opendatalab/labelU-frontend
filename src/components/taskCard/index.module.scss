@@ -17,6 +17,9 @@
   padding-left : 20px;
   cursor : pointer;
 }
+.outerFrame:hover{
+  border : 1px solid #1B67ff;
+}
 .item{
   width : 100%;
   @extend .displayFlex;
@@ -36,6 +39,8 @@
   margin-right : 12px;
   //max-width : calc(100% - 52px - 2rem);
   max-width : 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .mediaType{
@@ -106,6 +111,7 @@
   align-items: center;
   width : 60px;
   //margin-left:140px;
+  margin-right : 24px;
 }
 .upload{
   margin-right : 10px;
