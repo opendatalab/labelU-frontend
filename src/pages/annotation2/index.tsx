@@ -14,6 +14,7 @@ import AnnotationRightCorner from "../../components/annotationRightCorner";
 import { updateAnnotationDatas } from '../../stores/annotation.store'
 import { useLocation } from "react-router";
 
+import TF from './tF';
 export let annotationRef = createRef();
 
 // @ts-ignore
@@ -31,11 +32,12 @@ const AnnotationPage = ()=>{
     const [taskConfig, setTaskConfig] = useState<any>({});
     const [taskSample, setTaskSample] = useState<any>([]);
     const getDatas = async function (taskId : number, sampleId : number) {
+        // console.trace();
         try{
             let taskRes = await getTask(taskId);
             // @ts-ignore
             if (taskRes.status === 200) {
-                console.log(taskRes);
+                // console.log(taskRes);
                 // taskRes.data.data.config = {
                 //     "tools": [
                 //         {
@@ -80,7 +82,7 @@ const AnnotationPage = ()=>{
                 //     }
                 // }
                 // @ts-ignore
-                console.log(taskRes?.data.data.config);
+                // console.log(taskRes?.data.data.config);
                 // @ts-ignore
                 setTaskConfig(JSON.parse(taskRes?.data.data.config));
                 // setTaskConfig(JSON.parse(taskRes.data.data.config));
@@ -89,10 +91,11 @@ const AnnotationPage = ()=>{
                 return;
             }
             let sampleRes = await getSample(taskId, sampleId);
+            console.log(sampleRes);
             if (sampleRes.status === 200) {
-                console.log(sampleRes);
+                // console.log(sampleRes);
                 let newSample = commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
-                console.log(newSample);
+                // console.log(newSample);
                 setTaskSample(newSample);
             }else{
                 commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
@@ -103,12 +106,18 @@ const AnnotationPage = ()=>{
     }
 
     useEffect(()=>{
-        console.log(window.location.pathname)
+        // console.log(window.location.pathname)
         let taskId = parseInt(window.location.pathname.split('/')[2]);
         let sampleId = parseInt(window.location.pathname.split('/')[4]);
         getDatas(taskId, sampleId).then(()=>console.log('ok')).catch(err=>console.log(err));
         dispatch(updateCurrentSampleId(sampleId));
     },[ location ]);
+
+  useEffect(()=>{
+    console.log('hhhhhhhhhhhhhhhhhh')
+    console.log(taskSample);
+    console.trace();
+  },[ taskSample ]);
 
     useEffect(()=>{
         getDatas(taskId, sampleId).then(()=>console.log('ok')).catch(err=>console.log(err));
@@ -140,10 +149,12 @@ const AnnotationPage = ()=>{
         console.log(annotationRef?.current?.getResult());
     }
 
-
+    // const [t, setT] = useState([{name : 1, result : 'aa,bb'}]);
 
 
     return <div className={currentStyles.annotationPage}>
+      {/*{ t[0].result }*/}
+      {/*  <TF t1 = {t} rf = {annotationRef}/>*/}
         {taskSample && taskSample.length > 0 && taskConfig.tools && taskConfig.tools.length > 0 && (
             <Annotation
                 leftSiderContent = { leftSiderContent }
@@ -155,8 +166,8 @@ const AnnotationPage = ()=>{
                 textConfig={taskConfig.textConfig}
                 goBack={goBack}
                 tools={taskConfig.tools}
-                exportData = {exportData}
-                onSubmit = {onSubmit}
+                // exportData = {exportData}
+                // onSubmit = {onSubmit}
                 commonAttributeConfigurable = {taskConfig.commonAttributeConfigurable}
             />
         )}

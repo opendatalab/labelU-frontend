@@ -209,7 +209,7 @@ const Homepage = (props : any)=>{
         <div className = {currentStyles.left}>
             <div className = {currentStyles.logo}>
             </div>
-            <div className = {currentStyles.shortCutButton}></div>
+            {/*<div className = {currentStyles.shortCutButton}></div>*/}
             <div className = {currentStyles.breadcrumb}>
                 <Breadcrumb>
                     {breadcrumbItems}

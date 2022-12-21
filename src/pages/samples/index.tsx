@@ -116,7 +116,7 @@ const Samples = (props : any)=>{
         let resultJson = JSON.parse(record.data.result);
         // console.log(resultJson)
         for (let key in resultJson) {
-          if(key.indexOf('Tool') > -1){
+          if(key.indexOf('Tool') > -1 && key !== 'textTool'){
             let tool = resultJson[key];
             if (!tool.result) {
               let temp = 0;

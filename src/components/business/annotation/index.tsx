@@ -51,8 +51,8 @@ const Annotation = (props: {
 
         ref = { annotationRef }
         isPreview = {isPreview}
-        exportData={exportData}
-        onSubmit={onSubmit}
+        // exportData={exportData}
+        // onSubmit={onSubmit}
         imgList={fileList}
         attributeList={commonAttributeConfigurable?attribute:[]}
         tagConfigList={tagList}

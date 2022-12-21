@@ -170,13 +170,13 @@ const TaskList = ()=>{
             })}
         </div>
         <div className = {currentStyles.pagination}>
-            <Pagination
-                defaultCurrent={ 1 }
-                total={ taskTotal }
-                pageSize = { 16 }
-                onChange = { changeCurrentPage }
-            />
-        </div>
+              <Pagination
+                  defaultCurrent={ 1 }
+                  total={ taskTotal }
+                  pageSize = { 16 }
+                  onChange = { changeCurrentPage }
+              />
+          </div>
 
     </div>}
             {

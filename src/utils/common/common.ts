@@ -182,7 +182,7 @@ const commonController = {
     for (let sampleId in data.urls) {
       url = data.urls[sampleId];
     }
-    console.log(data.result);
+    // console.log(data.result);
     // delete
     // let url = 'http://localhost:8000/src/img/example/bear1.webp'
     let newResult : any = '';
@@ -191,11 +191,11 @@ const commonController = {
     }else{
       newResult = '{}';
     };
-    console.log(newResult);
+    // console.log(newResult);
     let finalResult = [{
       id,url,result : newResult
     }];
-    console.log(finalResult);
+    // console.log(finalResult);
 
     return finalResult;
   },
