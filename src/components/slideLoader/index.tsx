@@ -303,9 +303,9 @@ const SlideLoader = ()=>{
     onScroll={lazyLoading}>
         {upNoneTipShow && <div className={currentStyles.tips}>已到第一张</div>}
         {
-            prevImgList.map((item : any)=>{
+            prevImgList.map((item : any, itemIndex : number)=>{
                 return (
-                  <SliderCard cardInfo = {item} />
+                  <SliderCard cardInfo = {item} key = {new Date().getTime() + itemIndex}/>
                 )
             })
         }

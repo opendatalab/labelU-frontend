@@ -109,21 +109,32 @@ const AnnotationPage = ()=>{
         // console.log(window.location.pathname)
         let taskId = parseInt(window.location.pathname.split('/')[2]);
         let sampleId = parseInt(window.location.pathname.split('/')[4]);
+        // console.log(taskSample)
+        // console.log(taskSample.length>0)
+        // console.log( taskSample.length>0 && sampleId === taskSample[0].id)
+        // if(taskSample && taskSample.length > 0 && sampleId === taskSample[0].id) {
+        //
+        //   return;
+        // }
+        // if (taskSample.length === 0) return;
         getDatas(taskId, sampleId).then(()=>console.log('ok')).catch(err=>console.log(err));
         dispatch(updateCurrentSampleId(sampleId));
     },[ location ]);
 
-  useEffect(()=>{
-    console.log('hhhhhhhhhhhhhhhhhh')
-    console.log(taskSample);
-    // console.trace();
-  },[ taskSample ]);
+  // const [taskSampleC, setTaskSampleC] = useState(0);
 
-    useEffect(()=>{
-        getDatas(taskId, sampleId).then(()=>console.log('ok')).catch(err=>console.log(err));
-        dispatch(updateCurrentSampleId(sampleId));
-        // dispatch(updateAnnotationDatas(annotationRefNew))
-    },[]);
+  // useEffect(()=>{
+  //   console.log('hhhhhhhhhhhhhhhhhh')
+  //   console.log(taskSample);
+  //   setTaskSampleC(taskSampleC + 1)
+  //   // console.trace();
+  // },[ taskSample ]);
+
+    // useEffect(()=>{
+    //     getDatas(taskId, sampleId).then(()=>console.log('ok')).catch(err=>console.log(err));
+    //     dispatch(updateCurrentSampleId(sampleId));
+    //     // dispatch(updateAnnotationDatas(annotationRefNew))
+    // },[]);
     const goBack = (data: any) => {
         console.log('goBack', data);
     };
@@ -141,7 +152,6 @@ const AnnotationPage = ()=>{
     const onSubmit = (data : any)=>{
         // console.log(data)
         dispatch(updateAnnotationDatas(data[0].result));
-
     }
 
     const testGet = ()=>{
@@ -149,12 +159,11 @@ const AnnotationPage = ()=>{
         console.log(annotationRef?.current?.getResult());
     }
 
-    // const [t, setT] = useState([{name : 1, result : 'aa,bb'}]);
-
-
+    console.log(taskSample);
     return <div className={currentStyles.annotationPage}>
       {/*{ t[0].result }*/}
-      {/*  <TF t1 = {t} rf = {annotationRef}/>*/}
+      {/*  <TF t1 = {t} />*/}
+      {/*  <div>{taskSampleC}</div>*/}
         {taskSample && taskSample.length > 0 && taskConfig.tools && taskConfig.tools.length > 0 && (
             <Annotation
                 leftSiderContent = { leftSiderContent }
@@ -162,7 +171,7 @@ const AnnotationPage = ()=>{
                 annotationRef = { annotationRef }
                 attribute={taskConfig.attribute}
                 tagList={taskConfig.tagList}
-                fileList={taskSample}
+                fileList={[{...taskSample[0]}]}
                 textConfig={taskConfig.textConfig}
                 goBack={goBack}
                 tools={taskConfig.tools}

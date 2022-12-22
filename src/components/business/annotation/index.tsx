@@ -3,7 +3,7 @@ import AnnotationOperation, { TextConfig } from '@label-u/components';
 import '@label-u/components/dist/index.css';
 // import LeftSider from './leftSider';
 import { BasicConfig, Attribute, OneTag } from 'interface/toolConfig';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 // import tagConfigList from '../../../config/tagConfigList.json';
 // import attributeList from '../../../config/attributeList.json';
 import { createRef } from 'react'
@@ -41,7 +41,7 @@ const Annotation = (props: {
   // const topActionContent = ()=>{
   //   return <div>test action</div>
   // };
-  console.log(props);
+  // console.log(props);
   // @ts-ignore
   return (
     <div style = {{width : '100vw'}}>
