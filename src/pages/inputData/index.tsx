@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import currentStyles from './index.module.scss';
-import { Upload, Form } from 'antd';
+import {Upload, Form, Table} from 'antd';
 import type { UploadProps } from 'antd';
 import { FileAddOutlined, FolderOpenOutlined, PictureOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
@@ -356,7 +356,47 @@ const InputInfoConfig = ()=>{
         setUploadedFailed(failedFiles);
     },[haveUploadFiles]);
 
-
+    const columns = [
+      {
+        title: '文件名',
+        dataIndex: 'name',
+        key: 'name',
+        // className : currentStyles.tableColumn
+        // width: 80,
+      },
+      {
+        title: '地址',
+        dataIndex: 'params',
+        key: 'address',
+        render : (params : any)=>{
+          return params.path;
+        }
+      },
+      {
+        title: '状态',
+        dataIndex: 'hasUploaded',
+        key: 'hasUploaded',
+        render : (hasUploaded : any)=>{
+          return hasUploaded ?
+            (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
+            (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)
+        }
+      },
+      {
+        title: '操作',
+        dataIndex: 'hasUploaded',
+        key: 'option',
+        render : (hasUploaded : any, record : any, index : any)=>{
+          console.log(index);
+          return <React.Fragment>{!hasUploaded && <div className = {currentStyles.columnOption1}
+                                            onClick = {()=>renewUpload(record, index)}> 重新上传 </div>}
+          <div className = {currentStyles.columnOption}
+               onClick = { ()=>deleteSingleFile(index) }
+          >删除</div>
+          </React.Fragment>
+        }
+      },
+    ]
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.title}>
             <div className={currentStyles.icon}></div>
@@ -427,6 +467,16 @@ const InputInfoConfig = ()=>{
                         个</div>
                 </div>}
                 <div className={currentStyles.rightContent}>
+                  {/*<Table columns = {columns}*/}
+                  {/*       dataSource={haveUploadFiles ? haveUploadFiles: []}*/}
+                  {/*       pagination={false}*/}
+                  {/*       // loading = {dataLoading}*/}
+                  {/*       // rowKey = {record=>record.id}*/}
+                  {/*       // rowSelection = { rowSelection }*/}
+                  {/*       // onRow = {onRow}*/}
+                  {/*       // onChange={reactSorter}*/}
+                  {/*></Table>*/}
+
                     <div className = {currentStyles.columnsName}>
                         <div className = {currentStyles.columnFileName}  style={{color : 'rgba(0, 0, 0, 0.6)'}}>文件名</div>
                         <div className = {currentStyles.columnFileName}  style={{color : 'rgba(0, 0, 0, 0.6)'}}>地址</div>
@@ -469,6 +519,7 @@ const InputInfoConfig = ()=>{
 
                         })}
                     </div>
+
                 </div>
             </div>
         </div>

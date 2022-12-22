@@ -103,6 +103,8 @@ const FormConfig: FC = props => {
           return tool !== EToolName.Text;
         });
       }
+      console.log(newTools);
+      console.log(selectTools)
       setSelectTools(newTools);
       // setCurrentTool(newTools[newTools.length - 1]);
     }

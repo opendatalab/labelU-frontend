@@ -10,6 +10,6 @@ const HelpTips = (props : any)=>{
         })
     }
 
-    return (<div onClick = {()=>clickShowModal()}><BellOutlined />&nbsp;帮助文档</div>)
+    return (<div onClick = {()=>clickShowModal()}>帮助文档&nbsp;&nbsp;<BellOutlined /></div>)
 }
 export default HelpTips;

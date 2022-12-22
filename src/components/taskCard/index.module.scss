@@ -26,6 +26,10 @@
   @extend .flexDirectionRow;
   justify-content: space-between;
   //justify-content: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.72);
 }
 .itemLeft{
   @extend .displayFlex;
@@ -50,7 +54,7 @@
   background: rgba(27,103,255,0.1);
   border-radius: 4px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
   @extend .displayFlex;
   @extend .flexDirectionRow;
@@ -62,7 +66,7 @@
   width: 40px;
   height: 22px;
   background: rgba(255, 136, 0, 0.2);
-  border: 1px solid #FF8800;
+  //border: 1px solid #FF8800;
   border-radius: 4px;
   @extend .displayFlex;
   @extend .flexDirectionRow;

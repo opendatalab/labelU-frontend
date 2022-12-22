@@ -1,0 +1,477 @@
+{
+  "width": 1816,
+  "height": 942,
+  "valid": true,
+  "rotate": 0,
+  "rectTool": {
+    "toolName": "rectTool",
+    "result": [
+      {
+        "x": 169.63452970108577,
+        "y": 215.69197159578303,
+        "width": 180.85684701009578,
+        "height": 111.76546725342997,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "n6wKLXTt",
+        "sourceID": "",
+        "textAttribute": "",
+        "order": 1
+      },
+      {
+        "x": 470.3852415830428,
+        "y": 205.53147457274395,
+        "width": 101.60497023039089,
+        "height": 107.70126844421435,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "MxpC0CR3",
+        "sourceID": "",
+        "textAttribute": "",
+        "order": 2
+      },
+      {
+        "x": 809.7458421525483,
+        "y": 203.49937516813614,
+        "width": 119.89386487186125,
+        "height": 95.50867201656744,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "wUHRV033",
+        "sourceID": "",
+        "textAttribute": "",
+        "order": 3
+      },
+      {
+        "x": 441.93584991853334,
+        "y": 382.3241227736241,
+        "width": 377.9704892570541,
+        "height": 69.0913797566658,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "Vwmuxj5x",
+        "sourceID": "",
+        "textAttribute": "",
+        "order": 4
+      },
+      {
+        "x": 169.63452970108577,
+        "y": 215.69197159578303,
+        "width": 180.85684701009578,
+        "height": 111.76546725342997,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "n6wKLXTt",
+        "textAttribute": "",
+        "order": 1
+      },
+      {
+        "x": 470.3852415830428,
+        "y": 205.53147457274395,
+        "width": 101.60497023039089,
+        "height": 107.70126844421435,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "MxpC0CR3",
+        "textAttribute": "",
+        "order": 2
+      },
+      {
+        "x": 809.7458421525483,
+        "y": 203.49937516813614,
+        "width": 119.89386487186125,
+        "height": 95.50867201656744,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "wUHRV033",
+        "textAttribute": "",
+        "order": 3
+      },
+      {
+        "x": 441.93584991853334,
+        "y": 382.3241227736241,
+        "width": 377.9704892570541,
+        "height": 69.0913797566658,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "Vwmuxj5x",
+        "textAttribute": "",
+        "order": 4
+      },
+      {
+        "x": 169.63452970108577,
+        "y": 215.69197159578303,
+        "width": 180.85684701009578,
+        "height": 111.76546725342997,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "n6wKLXTt",
+        "textAttribute": "",
+        "order": 1
+      },
+      {
+        "x": 470.3852415830428,
+        "y": 205.53147457274395,
+        "width": 101.60497023039089,
+        "height": 107.70126844421435,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "MxpC0CR3",
+        "textAttribute": "",
+        "order": 2
+      },
+      {
+        "x": 809.7458421525483,
+        "y": 203.49937516813614,
+        "width": 119.89386487186125,
+        "height": 95.50867201656744,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "wUHRV033",
+        "textAttribute": "",
+        "order": 3
+      },
+      {
+        "x": 441.93584991853334,
+        "y": 382.3241227736241,
+        "width": 377.9704892570541,
+        "height": 69.0913797566658,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "Vwmuxj5x",
+        "textAttribute": "",
+        "order": 4
+      },
+      {
+        "x": 169.63452970108577,
+        "y": 215.69197159578303,
+        "width": 180.85684701009578,
+        "height": 111.76546725342997,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "n6wKLXTt",
+        "textAttribute": "",
+        "order": 1
+      },
+      {
+        "x": 470.3852415830428,
+        "y": 205.53147457274395,
+        "width": 101.60497023039089,
+        "height": 107.70126844421435,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "MxpC0CR3",
+        "textAttribute": "",
+        "order": 2
+      },
+      {
+        "x": 809.7458421525483,
+        "y": 203.49937516813614,
+        "width": 119.89386487186125,
+        "height": 95.50867201656744,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "wUHRV033",
+        "textAttribute": "",
+        "order": 3
+      },
+      {
+        "x": 441.93584991853334,
+        "y": 382.3241227736241,
+        "width": 377.9704892570541,
+        "height": 69.0913797566658,
+        "attribute": "rectTool",
+        "valid": true,
+        "isVisible": true,
+        "id": "Vwmuxj5x",
+        "textAttribute": "",
+        "order": 4
+      }
+    ]
+  },
+  "pointTool": {
+    "toolName": "pointTool",
+    "result": [
+      {
+        "x": 179.79502672412485,
+        "y": 498.1537888362697,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "4DktKS2z",
+        "textAttribute": "",
+        "order": 5
+      },
+      {
+        "x": 360.65187373422066,
+        "y": 579.4377650205824,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "yi6RcsM9",
+        "textAttribute": "",
+        "order": 6
+      },
+      {
+        "x": 143.21723744118412,
+        "y": 613.9834548989153,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "XScI1UsM",
+        "textAttribute": "",
+        "order": 7
+      },
+      {
+        "x": 340.33087968814243,
+        "y": 666.8180394187186,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "WWIw2j2t",
+        "textAttribute": "",
+        "order": 8
+      },
+      {
+        "x": 622.7926969286291,
+        "y": 581.4698644251903,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "9XkDG3wF",
+        "textAttribute": "",
+        "order": 9
+      },
+      {
+        "x": 600.4396034779431,
+        "y": 636.3365483496013,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "IC4xoAXi",
+        "textAttribute": "",
+        "order": 10
+      },
+      {
+        "x": 563.8618141950025,
+        "y": 713.5563257246985,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "twVMJhdf",
+        "textAttribute": "",
+        "order": 11
+      },
+      {
+        "x": 720.3334683498044,
+        "y": 697.2995304878359,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "G1u5iwqZ",
+        "textAttribute": "",
+        "order": 12
+      },
+      {
+        "x": 738.6223629912747,
+        "y": 546.9241745468573,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "q2P2t1nH",
+        "textAttribute": "",
+        "order": 13
+      },
+      {
+        "x": 880.869321313822,
+        "y": 595.694560257445,
+        "isVisible": true,
+        "attribute": "类别Gw",
+        "valid": true,
+        "id": "Ck4HnKTC",
+        "textAttribute": "",
+        "order": 14
+      }
+    ]
+  },
+  "polygonTool": {
+    "toolName": "polygonTool",
+    "result": [
+      {
+        "id": "G1l3mYsK",
+        "valid": true,
+        "isVisible": true,
+        "textAttribute": "",
+        "pointList": [
+          {
+            "x": 945.8965022612723,
+            "y": 398.5809180104867
+          },
+          {
+            "x": 854.4520290539205,
+            "y": 451.4155025302899
+          },
+          {
+            "x": 927.6076076198019,
+            "y": 553.0204727606808
+          },
+          {
+            "x": 1088.1434605838194,
+            "y": 571.3093674021512
+          },
+          {
+            "x": 1193.8126296234261,
+            "y": 555.0525721652887
+          },
+          {
+            "x": 1177.5558343865634,
+            "y": 357.9389299183303
+          },
+          {
+            "x": 1155.2027409358775,
+            "y": 331.5216376584287
+          },
+          {
+            "x": 1047.5014724916632,
+            "y": 471.73649657636815
+          },
+          {
+            "x": 1027.1804784455849,
+            "y": 502.2179876454854
+          },
+          {
+            "x": 1061.7261683239178,
+            "y": 349.810532299899
+          },
+          {
+            "x": 1067.8224665377413,
+            "y": 337.61793587225213
+          },
+          {
+            "x": 984.5063909488208,
+            "y": 370.13152634597725
+          },
+          {
+            "x": 931.6718064290176,
+            "y": 376.2278245598007
+          },
+          {
+            "x": 939.8002040474488,
+            "y": 398.5809180104867
+          }
+        ],
+        "attribute": "类别1S",
+        "order": 15
+      }
+    ]
+  },
+  "lineTool": {
+    "toolName": "lineTool",
+    "result": [
+      {
+        "pointList": [
+          {
+            "x": 291.5604939775548,
+            "y": 784.6798048859721,
+            "id": "myd7shHk"
+          },
+          {
+            "x": 116.7999451812825,
+            "y": 782.6477054813643,
+            "id": "9QZ2aRLJ"
+          },
+          {
+            "x": 100.54314994441995,
+            "y": 813.1291965504815,
+            "id": "xRwR1d8N"
+          },
+          {
+            "x": 212.30861719784994,
+            "y": 855.8032840472457,
+            "id": "9Fagykt7"
+          },
+          {
+            "x": 401.293861826377,
+            "y": 872.0600792841082,
+            "id": "edQJ3ZiD"
+          },
+          {
+            "x": 464.28894336921934,
+            "y": 849.7069858334222,
+            "id": "ZBXrH1tp"
+          },
+          {
+            "x": 458.1926451553959,
+            "y": 788.7440036951876,
+            "id": "NOjXYqcC"
+          },
+          {
+            "x": 389.1012653987301,
+            "y": 788.7440036951876,
+            "id": "9gjrla8t"
+          },
+          {
+            "x": 336.2666808789268,
+            "y": 841.578588214991,
+            "id": "6JHtcCmZ"
+          },
+          {
+            "x": 332.2024820697112,
+            "y": 849.7069858334222,
+            "id": "loIoDkFI"
+          },
+          {
+            "x": 360.65187373422066,
+            "y": 762.326711435286,
+            "id": "vv3zbjw3"
+          },
+          {
+            "x": 391.1333648033379,
+            "y": 760.2946120306782,
+            "id": "cPU3cDwj"
+          },
+          {
+            "x": 378.940768375691,
+            "y": 764.3588108398939,
+            "id": "9vuAsCod"
+          },
+          {
+            "x": 246.85430707618283,
+            "y": 792.8082025044033,
+            "id": "aAMdigie"
+          },
+          {
+            "x": 200.11602077020302,
+            "y": 809.0649977412659,
+            "id": "SkySbAuR"
+          },
+          {
+            "x": 224.50121362549683,
+            "y": 829.385991787344,
+            "id": "40sgoUBp"
+          }
+        ],
+        "id": "PnEeblbx",
+        "valid": true,
+        "order": 16,
+        "isVisible": true,
+        "attribute": "类别md"
+      }
+    ]
+  }
+}
