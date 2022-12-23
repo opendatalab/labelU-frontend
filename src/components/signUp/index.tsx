@@ -97,7 +97,9 @@ const SignUp = (props : any)=>{
             <Input
                 placeholder = '请输入邮箱'
                 prefix = {
-                    <IdcardOutlined/>
+                    // <IdcardOutlined/>
+                  <img src="/src/icons/email.svg" alt=""/>
+
                 }
                 onBlur = {CommonController.debounce(CommonController.checkEmail, 500)}
                 onChange = {changeEmail}
@@ -110,7 +112,8 @@ const SignUp = (props : any)=>{
                 onChange = { changePassword }
                 onBlur = {CommonController.debounce(CommonController.checkPassword, 500)}
                 prefix = {
-                    <LockOutlined/>
+                    // <LockOutlined/>
+                  <img src="/src/icons/password.svg" alt=""/>
                 }
                 visibilityToggle={false}
             />
@@ -123,7 +126,9 @@ const SignUp = (props : any)=>{
                 onBlur = { CommonController.debounce(checkRepeatPassword,500)}
                 visibilityToggle={false}
                 prefix = {
-                    <LockOutlined/>
+                    // <LockOutlined/>
+                  <img src="/src/icons/password.svg" alt=""/>
+
                 }/>
         </div>
 

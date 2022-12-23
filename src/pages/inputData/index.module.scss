@@ -80,8 +80,11 @@
   height : 354px;
 }
 .survey{
-  background-image: url('../../assets/png/uploadSurvey.png');
+  //background-image: url('../../assets/png/uploadSurvey.png');
+  background-image: url('../../assets/svg/上传.svg');
+  background-position: 0 0;
   width : 245px;
+  width : 100%;
   height : 179px;
 }
 .uploadIcon{
@@ -255,6 +258,8 @@
   width: 96px;
   @extend .displayFlex;
   @extend .flexDirectionRow;
+  justify-content: flex-end;
+  align-items: center;
 }
 .columnOption1{
   width: 56px;
@@ -281,6 +286,7 @@
   @extend .flexDirectionRow;
   justify-content: center;
   align-items: center;
+  margin-top:24px;
 }
 .uploadFileButton{
   width: 112px;
@@ -343,6 +349,7 @@
   @extend .displayFlex;
   @extend .flexDirectionRow;
   align-items: center;
+  margin-left:30px;
 }
 
 .greenCircle{

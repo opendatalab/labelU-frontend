@@ -501,8 +501,8 @@ const InputInfoConfig = ()=>{
                                 </div>)
                             }else{
                                 return (<div className = {currentStyles.item}>
-                                    <div className = {currentStyles.columnFileName}><img src='/src/icons/picture.png' />&nbsp;&nbsp;{item.name}</div>
-                                    <div className = {currentStyles.columnFileName}>{item.params.path}</div>
+                                    <div className = {currentStyles.columnFileName}><img src='/src/icons/file.svg' />{item.name}</div>
+                                    <div className = {currentStyles.columnFileName}>&nbsp;&nbsp;&nbsp;&nbsp;{item.params.path}</div>
                                     <div className = {currentStyles.columnStatus}>{item.hasUploaded ?
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>

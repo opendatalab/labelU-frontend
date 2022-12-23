@@ -5,16 +5,16 @@
   justify-content: flex-start;
   align-items: center;
   //min-width : 336px;
-  width : calc((100vw - 48px - 40px - 10px)/4);
+  width : calc((100vw - 48px - 96px - 10px)/4);
   //flex : 1;
   //width : 20%;
   height : 159px;
   background-color : #FFFFFF;
   border-radius: 8px;
-  margin-right : 10px;
-  margin-bottom: 20px;
+  margin-right : 24px;
+  margin-bottom: 24px;
   padding-top : 20px;
-  padding-left : 20px;
+  padding-left : 24px;
   cursor : pointer;
 }
 .outerFrame:hover{
@@ -34,6 +34,8 @@
 .itemLeft{
   @extend .displayFlex;
   @extend .flexDirectionRow;
+  justify-content: flex-start;
+  align-items: center;
 }
 .itemTaskName{
   font-weight: 500;
@@ -102,10 +104,11 @@
   justify-content: flex-start;
   align-items: center;
   margin-top:10px;
-
+  padding-right : 24px;
 }
 .item42Left{
   width : 242px;
+  width : 100%;
 }
 
 .icons2{
@@ -120,6 +123,7 @@
 .upload{
   margin-right : 10px;
 }
+
 .upload:hover{
   color : #1b67ff;
   cursor : pointer;
@@ -128,7 +132,6 @@
 .delete:hover{
   color : #1b67ff;
   cursor : pointer;
-
 }
 
 .deleteWarnInfo{

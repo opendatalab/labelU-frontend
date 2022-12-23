@@ -93,6 +93,7 @@ const TaskCard = (props : any)=>{
         e.preventDefault();
     }
     const [isShowTwoButtons, setIsShowTwoButtons] = useState(0);
+    const [isShowBlue, setIsShowBlue] = useState('');
     return (<div className = {currentStyles.outerFrame}
     onClick = {turnToAnnotation}
                  onMouseOver={()=>{setIsShowTwoButtons(id)}}
@@ -126,14 +127,27 @@ const TaskCard = (props : any)=>{
                   setIsShowModal(true)}}
               >
                   <Tooltip placement={'top'} title = {'数据导出'}>
-                      <UploadOutlined />
+                    {isShowBlue !== 'outputData' && <img src="/src/icons/outputData.svg" onMouseOver = {()=>{setIsShowBlue('outputData')}}
+                                                         onMouseLeave =  {()=>{setIsShowBlue('')}}
+                                                         alt=""/>}
+                    {isShowBlue === 'outputData' && <img src="/src/icons/outputDataBlue.svg" onMouseOver = {()=>{setIsShowBlue('outputData')}}
+                                                         onMouseLeave =  {()=>{setIsShowBlue('')}}
+                                                         alt=""/>}
+                      {/*<UploadOutlined />*/}
                   </Tooltip>
                   </div>
               {localUserEmail === cardInfo.created_by.username && <div
                   onClick={deleteTaskLocal}
                   className = {currentStyles.delete}>
                   <Tooltip title = {'删除项目'} placement={'top'}>
-                  <DeleteOutlined/>
+                    {isShowBlue !== 'delete' && <img src="/src/icons/delete.svg"
+                                                     onMouseOver =  {()=>{setIsShowBlue('delete')}}
+                                                     onMouseLeave =  {()=>{setIsShowBlue('')}}
+                                                     alt=""/>}
+                    {isShowBlue === 'delete' && <img src="/src/icons/deleteBlue.svg"
+                                                     onMouseOver =  {()=>{setIsShowBlue('delete')}}
+                                                     onMouseLeave =  {()=>{setIsShowBlue('')}}alt=""/>}
+                  {/*<DeleteOutlined/>*/}
                   </Tooltip>
               </div>}
             </div>}
@@ -143,7 +157,8 @@ const TaskCard = (props : any)=>{
         {
             ((doneSample === total) &&  status !== 'DRAFT' && status !== 'IMPORTED') && <div className = {currentStyles.item41}>
               <div className = {currentStyles.item41Left}>{total}/{total} </div>
-              <div className = {currentStyles.item41Right}><CheckCircleOutlined style ={{color : '#00B365'}}/>&nbsp;已完成</div>
+              {/*<div className = {currentStyles.item41Right}><CheckCircleOutlined style ={{color : '#00B365'}}/>&nbsp;已完成</div>*/}
+              <div className = {currentStyles.item41Right}><img src = '/src/icons/finished.svg'/>&nbsp;已完成</div>
             </div>
         }
         {

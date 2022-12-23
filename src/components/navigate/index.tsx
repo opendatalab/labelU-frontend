@@ -224,7 +224,7 @@ const Homepage = (props : any)=>{
                  onClick = {commonController.debounce(()=>{setIsShowSignOut(!isShowSignOut)}, 100)}
 
             className = {currentStyles.signOut}>
-                <div>{username}&nbsp;&nbsp;<UserOutlined/> </div>
+                <div>{username}&nbsp;&nbsp;<img src='/src/icons/personal.svg' /> </div>
             </div>
         </div>
         {isShowSignOut && <div className = { currentStyles.signOutItem }

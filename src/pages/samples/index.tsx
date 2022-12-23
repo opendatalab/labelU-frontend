@@ -76,7 +76,7 @@ const Samples = (props : any)=>{
       title: '标注情况',
       dataIndex: 'state',
       key: 'packageID',
-      width: 80,
+      // width: 120,
       render:(text : string)=>{
         if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
           return '';

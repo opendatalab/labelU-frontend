@@ -5,9 +5,11 @@
   justify-content: flex-start;
   align-items: center;
   height : calc(100vh - 56px);
+  height : calc(100vh + 56px);
   width : 100%;
   padding-left : 24px;
   padding-right : 24px;
+  background-color : #f4f5f7;
 }
 .createTaskButtonRow {
   width : 100%;
@@ -35,6 +37,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
+  background-color: #f4f5f7;
 }
 
 .stationSymbol{
@@ -49,5 +52,14 @@
   align-items : center;
   width : 100%;
   //width : 1393px;
+  margin-bottom : 32px;
+  background-color : #f4f5f7;
+  :global{
+    .ant-pagination{
+      background-color : #f4f5f7;
+      //margin-top : 24px;
+      margin-bottom : 32px;
+    }
+  }
 }
 

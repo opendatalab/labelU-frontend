@@ -74,7 +74,8 @@ const Login = (props : any)=>{
             placeholder = '邮箱'
             onChange = {changeEmail}
             prefix = {
-                <IdcardOutlined/>
+                // <IdcardOutlined/>
+              <img src="/src/icons/email.svg" alt=""/>
             }
             className = {'email'}
             onBlur = {CommonController.debounce(CommonController.checkEmail, 500)}
@@ -90,7 +91,8 @@ const Login = (props : any)=>{
                 placeholder = '密码'
                 onChange = { changePassword }
                 prefix = {
-                    <LockOutlined/>
+                    // <LockOutlined/>
+                  <img src="/src/icons/password.svg" alt=""/>
                 }
                 visibilityToggle = {false}
                 onBlur = {CommonController.debounce(CommonController.checkPassword, 500)}

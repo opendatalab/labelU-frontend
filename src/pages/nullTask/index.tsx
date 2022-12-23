@@ -24,7 +24,8 @@ const NullTask = ()=>{
     }
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.container}  onClick = {createTask}>
-            <div className = {currentStyles.createTaskIcon}></div>
+            {/*<div className = {currentStyles.createTaskIcon}></div>*/}
+            <div className = {currentStyles.createTaskIcon}><img src="/src/icons/createTask.svg" alt=""/></div>
             <div className = {currentStyles.createTask}
                  >
                 新建任务
