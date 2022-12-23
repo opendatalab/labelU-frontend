@@ -127,7 +127,11 @@ const routeList: RouteObject[] = [
   {
     path : 'output',
     element : <OutputData />
-  }
+  },
+  // {
+  //   path : *,
+  //   element :
+  // }
 
 
   // {
