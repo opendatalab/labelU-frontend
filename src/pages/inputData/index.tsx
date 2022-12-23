@@ -419,8 +419,11 @@ const InputInfoConfig = ()=>{
                                 showUploadList = {false}
                                 customRequest={ newCustomRequest }
                             >
-                                <FileAddOutlined style={{color : '#FFFFFF'}} />
+                                {/*<FileAddOutlined style={{color : '#FFFFFF'}} />*/}
+                                <div className={currentStyles.buttonDiv}>
+                              <img src="/src/icons/uploadFile.svg" alt=""/>
                                 <div style = {{display : 'inline-block', color : '#FFFFFF'}}>上传文件</div>
+                                </div>
                             </Upload>
                         </div>
                         <div className = { currentStyles.uploadFolderButton }>
@@ -438,8 +441,13 @@ const InputInfoConfig = ()=>{
                                     showUploadList = { false }
                                     customRequest={ newCustomRequest }
                             >
-                                <FolderOpenOutlined style = {{color : '#1b67ff'}}/>
-                                <div style = {{display : 'inline-block', color : '#1b67ff'}}>上传文件夹</div>
+                                {/*<FolderOpenOutlined style = {{color : '#1b67ff'}}/>*/}
+                              <div className={currentStyles.buttonDiv}>
+                              <img src="/src/icons/uploadFolder.svg" alt=""/>
+
+                              <div style = {{display : 'inline-block', color : '#1b67ff'}}>上传文件夹</div>
+                              </div>
+
                             </Upload>
                         </div>
                     </div>
@@ -501,9 +509,9 @@ const InputInfoConfig = ()=>{
                                 </div>)
                             }else{
                                 return (<div className = {currentStyles.item}>
-                                    <div className = {currentStyles.columnFileName}><img src='/src/icons/file.svg' />{item.name}</div>
+                                    <div className = {currentStyles.columnFileName}><img src='/src/icons/file.svg' />&nbsp;&nbsp;{item.name}</div>
                                     <div className = {currentStyles.columnFileName}>&nbsp;&nbsp;&nbsp;&nbsp;{item.params.path}</div>
-                                    <div className = {currentStyles.columnStatus}>{item.hasUploaded ?
+                                    <div className = {currentStyles.columnStatus}>&nbsp;&nbsp;{item.hasUploaded ?
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
                                         (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
                                     <div className = {currentStyles.columnOptionButtons}>

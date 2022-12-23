@@ -244,6 +244,7 @@
   width: 349px;
   flex : 1;
   margin-left:46px;
+  margin-left:24px;
   word-break: break-all;
 }
 .columnStatus{
@@ -289,7 +290,7 @@
   margin-top:24px;
 }
 .uploadFileButton{
-  width: 112px;
+  width: 120px;
   height: 36px;
   line-height: 36px;
   text-align: center;
@@ -300,7 +301,7 @@
 }
 
 .uploadFolderButton{
-  width: 112px;
+  width: 120px;
   height: 36px;
   line-height: 36px;
   text-align: center;
@@ -367,4 +368,11 @@
   background-color:#F5483B;
   margin-right : 5px;
 
+}
+.buttonDiv{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  align-items: center;
+  justify-content: flex-start;
+  height : 36px;
 }
