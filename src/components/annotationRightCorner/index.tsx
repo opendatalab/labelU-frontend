@@ -96,7 +96,7 @@ const AnnotationRightCorner = ()=>{
                         commonController.notificationErrorMessage(error,1);
                     })
                 }else{
-                    navigate(window.location.pathname + '?SKIPPEDDONE' + new Date().getTime());
+                    navigate(window.location.pathname + '?JUMPDOWN' + new Date().getTime());
                 }
             }else{
 
@@ -106,6 +106,59 @@ const AnnotationRightCorner = ()=>{
         })
 
     }
+
+    const prevPage = ()=>{
+        console.log('llllllllll')
+        // @ts-ignore
+        // console.log(annotationDatas)
+        getSample(taskId, sampleId)
+            .then((res)=>{
+            if(res.status === 200){
+                let sampleResData = res.data.data.data;
+                let annotated_count = 0;
+                // @ts-ignore
+                let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+                if (res.data.data.state !== 'SKIPPED') {
+                    console.log(dataParam)
+                    // console.log(record)
+                    let resultJson = JSON.parse(dataParam.result);
+                    // console.log(resultJson)
+                    for (let key in resultJson) {
+                        if(key.indexOf('Tool') > -1 && key !== 'textTool' && key !== 'tagTool'){
+                            let tool = resultJson[key];
+                            if (!tool.result) {
+                                let temp = 0;
+                                if(tool.length){ temp = tool.length}
+                                annotated_count = annotated_count + temp;
+                            }else{
+                                annotated_count = annotated_count + tool.result.length;
+                            }
+                        }
+                    }
+                    console.log(annotated_count)
+                    // @ts-ignore
+                    updateSampleAnnotationResult(taskId, sampleId, {annotated_count,state : 'DONE',data : dataParam }).then(res=>{
+                        if(res.status === 200) {
+                            // Ob.nextPageS.next('DONE');
+                            navigate(window.location.pathname + '?PREV' + new Date().getTime());
+                        }else{
+                            commonController.notificationErrorMessage({message : '请求保存失败'},1);
+                        }
+                    }).catch(error=>{
+                        commonController.notificationErrorMessage(error,1);
+                    })
+                }else{
+                    navigate(window.location.pathname + '?JUMPUP' + new Date().getTime());
+                }
+            }else{
+
+            }
+        }).catch(error=>{
+            commonController.notificationErrorMessage(error, 1)
+        })
+
+    }
+
     useEffect(()=>{
         getSample(taskId, sampleId).then((sampleRes : any)=>{
             console.log(sampleRes)
@@ -120,7 +173,27 @@ const AnnotationRightCorner = ()=>{
             }
         }).catch(error=>commonController.notificationSuccessMessage(error,1))
     },[window.location.pathname]);
+
+
+    const onKeyDown = (e:any)=>{
+        let keyCode = e.keyCode;
+        if (keyCode === 38) {
+
+        }
+        if (keyCode === 40) {
+
+        }
+    }
+
+    useEffect(()=>{
+        window.addEventListener('keyup', onKeyDown);
+    },[])
+
     return (<div className={ currentStyles.outerFrame }>
+        <div className={currentStyles.right}
+             id = {'nextPage'}
+             onClick = { commonController.debounce(prevPage, 100) }
+        >上一页</div>
         {isSkippedShow !== 'SKIPPED' && <div className={currentStyles.left} id = {'skipped'}
         onClick = { commonController.debounce(skipSample, 100) }>跳过</div>}
         {isSkippedShow === 'SKIPPED' && <div className={currentStyles.left}

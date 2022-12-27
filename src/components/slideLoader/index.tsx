@@ -198,11 +198,29 @@ const SlideLoader = ()=>{
                 return undefined;
             }
     }
+    const getBeforeSampleId = async function (params : any) {
+        let samplesRes =  await getPrevSamples(taskId,params);
+        if (samplesRes.status === 200) {
+            let newPrevImgList : any[] = [];
+            for (let prevImg of samplesRes.data.data) {
+                let transformedPrevImg : any = commonController.transformFileList(prevImg.data, prevImg.id);
+                //delete
+                transformedPrevImg[transformedPrevImg.length - 1].state = prevImg.state;
+                newPrevImgList.push(transformedPrevImg[transformedPrevImg.length - 1]);
+            }
+            if(newPrevImgList.length === 0) {
+                return undefined;
+            }else{
+                return newPrevImgList;
+            }
+        }else{
+            commonController.notificationErrorMessage({message : '请求samples数据问题'}, 1);
+            return undefined;
+        }
+    }
     const updatePrevImageListState = async function (state : string){
-        // navigate(window.location.pathname+'?sampleId='+sampleId);
-
         let temp : any= Object.assign([],prevImgList);
-        console.log(temp)
+        console.log(temp);
         let nextPageId : any= null;
         for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
             let prevImg : any= temp[prevImgIndex];
@@ -236,6 +254,46 @@ const SlideLoader = ()=>{
             currentPathname.pop();
             currentPathname.push('finished')
             navigate(currentPathname.join('/')+'?sampleId='+temp[temp.length - 1]?.id);
+            // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
+        }
+    }
+    const updatePrevImageListStatePrev = async function (state : string){
+        let temp : any= Object.assign([],prevImgList);
+        console.log(temp);
+        let prevPageId : any= null;
+        for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+            let prevImg : any= temp[prevImgIndex];
+            if (prevImg.id === sampleId) {
+                prevImg.state = state;
+                if (temp[prevImgIndex - 1]) {
+                    // @ts-ignore
+                    prevPageId = temp[prevImgIndex - 1].id;
+                }else{
+                    prevPageId = await getBeforeSampleId({
+                        before : prevImgList[0]['id'],
+                        pageSize : 10
+                    })
+                }
+                break;
+            }
+        }
+        console.log(prevPageId);
+        if(prevPageId || prevPageId === 0){
+            let pathnames = window.location.pathname.split('/');
+            if (typeof prevPageId !== 'number') {
+                setPrevImgList(prevPageId.concat(temp));
+                pathnames.splice(4,1,prevPageId[0].id);
+            }else{
+                // @ts-ignore
+                pathnames.splice(4,1,prevPageId);
+            }
+            navigate(pathnames.join('/'));
+        }else{
+            setPrevImgList(temp);
+            // let currentPathname = window.location.pathname.split('/');
+            // currentPathname.pop();
+            // currentPathname.push('finished')
+            // navigate(currentPathname.join('/')+'?sampleId='+temp[temp.length - 1]?.id);
             // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
         }
     }
@@ -279,8 +337,15 @@ const SlideLoader = ()=>{
         if(search.indexOf('NEW') > -1 ){
             updatePrevImageListStateForSkippedAndNew('NEW');
         }
-        if(search.indexOf('SKIPPEDDONE') > -1 ){
+        if(search.indexOf('JUMPDOWN') > -1 ){
             updatePrevImageListStateForSkippedAndNew('SKIPPED');
+            // updatePrevImageListState('DONE');
+        }
+        if(search.indexOf('JUMPUP') > -1 ){
+            updatePrevImageListStatePrev('DONE');
+        }
+        if(search.indexOf('PREV') > -1 ){
+            updatePrevImageListStatePrev('DONE');
         }
     },[window.location.search]);
 

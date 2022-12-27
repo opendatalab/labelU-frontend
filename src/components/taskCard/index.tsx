@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import currentStyles from './index.module.scss';
 import {Modal, Pagination} from 'antd';
 import { useNavigate } from "react-router";
@@ -6,8 +6,11 @@ import moment from "moment";
 import { Progress, Tooltip } from "antd";
 import commonController from '../../utils/common/common'
 import { outputSamples } from "../../services/samples";
-import {CheckCircleOutlined, UploadOutlined, DeleteOutlined,
-ExclamationOutlined
+import {
+    CheckCircleOutlined,
+    UploadOutlined,
+    DeleteOutlined,
+    ExclamationOutlined
 } from '@ant-design/icons';
 import { deleteTask } from "../../services/createTask";
 import currentStyles1 from "../../pages/outputData/index.module.scss";
@@ -94,6 +97,9 @@ const TaskCard = (props : any)=>{
     }
     const [isShowTwoButtons, setIsShowTwoButtons] = useState(0);
     const [isShowBlue, setIsShowBlue] = useState('');
+
+
+
     return (<div className = {currentStyles.outerFrame}
     onClick = {turnToAnnotation}
                  onMouseOver={()=>{setIsShowTwoButtons(id)}}
