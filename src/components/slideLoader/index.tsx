@@ -338,11 +338,11 @@ const SlideLoader = ()=>{
             updatePrevImageListStateForSkippedAndNew('NEW');
         }
         if(search.indexOf('JUMPDOWN') > -1 ){
-            updatePrevImageListStateForSkippedAndNew('SKIPPED');
+          updatePrevImageListState('SKIPPED');
             // updatePrevImageListState('DONE');
         }
         if(search.indexOf('JUMPUP') > -1 ){
-            updatePrevImageListStatePrev('DONE');
+            updatePrevImageListStatePrev('SKIPPED');
         }
         if(search.indexOf('PREV') > -1 ){
             updatePrevImageListStatePrev('DONE');
@@ -363,9 +363,10 @@ const SlideLoader = ()=>{
     },[initTime]);
 
     return (
-        <Provider store = {store}>
+        <Provider store = {store} >
         <div className = { currentStyles.leftBar }
-    onScroll={lazyLoading}>
+    onScroll={lazyLoading}
+        >
         {upNoneTipShow && <div className={currentStyles.tips}>已到第一张</div>}
         {
             prevImgList.map((item : any, itemIndex : number)=>{

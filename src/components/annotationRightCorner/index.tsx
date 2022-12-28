@@ -108,7 +108,7 @@ const AnnotationRightCorner = ()=>{
     }
 
     const prevPage = ()=>{
-        console.log('llllllllll')
+        // console.log('llllllllll')
         // @ts-ignore
         // console.log(annotationDatas)
         getSample(taskId, sampleId)
@@ -174,14 +174,26 @@ const AnnotationRightCorner = ()=>{
         }).catch(error=>commonController.notificationSuccessMessage(error,1))
     },[window.location.pathname]);
 
-
+    let timestamp = new Date().getTime();
     const onKeyDown = (e:any)=>{
+      // e.nativeEvent.stopPropagation();
+      // e.stopPropagation();
+      // e.preventDefault();
+      if (new Date().getTime() - timestamp <= 1000) {
+        timestamp = new Date().getTime();
+        return;
+      }
+      timestamp = new Date().getTime();
+      console.log(e);
         let keyCode = e.keyCode;
-        if (keyCode === 38) {
-
+        if (keyCode === 65) {
+          // console.log(111111111111)
+          // prevPage();
+          // commonController.debounce(prevPage, 100)('');
         }
-        if (keyCode === 40) {
-
+        if (keyCode === 68) {
+          // console.log(2222222222222)
+          // commonController.debounce(nextPage, 100)('');
         }
     }
 
@@ -190,10 +202,10 @@ const AnnotationRightCorner = ()=>{
     },[])
 
     return (<div className={ currentStyles.outerFrame }>
-        <div className={currentStyles.right}
-             id = {'nextPage'}
-             onClick = { commonController.debounce(prevPage, 100) }
-        >上一页</div>
+        {/*<div className={currentStyles.right}*/}
+        {/*     id = {'nextPage'}*/}
+        {/*     onClick = { commonController.debounce(prevPage, 100) }*/}
+        {/*>上一页</div>*/}
         {isSkippedShow !== 'SKIPPED' && <div className={currentStyles.left} id = {'skipped'}
         onClick = { commonController.debounce(skipSample, 100) }>跳过</div>}
         {isSkippedShow === 'SKIPPED' && <div className={currentStyles.left}
