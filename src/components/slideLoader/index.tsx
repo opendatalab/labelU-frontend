@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback, useMemo} from 'react';
 import SliderCard from './components/sliderCard';
-import {getPrevSamples, getSample} from '../../services/samples';
+import {getPrevSamples, getSample,  getPreSample} from '../../services/samples';
 import commonController from '../../utils/common/common';
 import currentStyles from './index.module.scss';
 import Ob from '../../utils/Observable'
@@ -114,11 +114,6 @@ const SlideLoader = ()=>{
             // console.log(sampleRes);
             let newSample : any= commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
             newSample[0].state = sampleRes.data.data.state;
-            // console.log(newSample);
-            // await requestPreview({
-            //     after : sampleId
-            //     ,pageSize : 10
-            // }, newSample[0]);
             await getSampleLocalNew();
         }else{
             commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
@@ -257,6 +252,31 @@ const SlideLoader = ()=>{
             // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
         }
     }
+    const updatePrevImageListResult = async function (){
+      let temp : any= Object.assign([],prevImgList);
+      let taskId = parseInt(window.location.pathname.split('/')[2]);
+      let sampleId = parseInt(window.location.pathname.split('/')[4]);
+      console.log({
+        taskId,
+        sampleId
+      })
+      getPreSample(taskId, sampleId).then((res:any)=>{
+        if (res.status === 200){
+          let result = res.data.data.data.result;
+          for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+            let prevImg : any= temp[prevImgIndex];
+            if (prevImg.id === sampleId) {
+              prevImg.result = result;
+              break;
+            }
+          }
+          setPrevImgList(temp);
+        }else{
+          commonController.notificationErrorMessage({message : '请求数据错误'},1);
+        }
+      }).catch(error=>commonController.notificationErrorMessage(error,1))
+
+    }
     const updatePrevImageListStatePrev = async function (state : string){
         let temp : any= Object.assign([],prevImgList);
         console.log(temp);
@@ -290,11 +310,6 @@ const SlideLoader = ()=>{
             navigate(pathnames.join('/'));
         }else{
             setPrevImgList(temp);
-            // let currentPathname = window.location.pathname.split('/');
-            // currentPathname.pop();
-            // currentPathname.push('finished')
-            // navigate(currentPathname.join('/')+'?sampleId='+temp[temp.length - 1]?.id);
-            // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
         }
     }
 
@@ -394,24 +409,28 @@ const SlideLoader = ()=>{
         if(search.indexOf('DONE') > -1){
             updatePrevImageListState('DONE');
         }
+      if(search.indexOf('JUMPDOWN') > -1 ){
+        updatePrevImageListState('SKIPPED');
+        // updatePrevImageListState('DONE');
+      }
         if(search.indexOf('SKIPPED') > -1 ){
             updatePrevImageListStateForSkippedAndNew('SKIPPED');
         }
         if(search.indexOf('NEW') > -1 ){
             updatePrevImageListStateForSkippedAndNew('NEW');
         }
-        if(search.indexOf('JUMPDOWN') > -1 ){
-          updatePrevImageListState('SKIPPED');
-            // updatePrevImageListState('DONE');
-        }
+
+      if(search.indexOf('PREV') > -1 ){
+        updatePrevImageListStatePrev('DONE');
+      }
         if(search.indexOf('JUMPUP') > -1 ){
             updatePrevImageListStatePrev('SKIPPED');
         }
-        if(search.indexOf('PREV') > -1 ){
-            updatePrevImageListStatePrev('DONE');
-        }
       if(search.indexOf('POINTER') > -1 ){
         updatePrevImageListStatePointer('DONE');
+      }
+      if(search.indexOf('COPYPRE') > -1 ){
+        updatePrevImageListResult();
       }
     },[window.location.search]);
 

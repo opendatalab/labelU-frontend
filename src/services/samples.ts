@@ -188,6 +188,14 @@ const deleteSamples = async function(taskId : number, sampleIds : number[]){
   return res;
 }
 
+const getPreSample = async function (taskId : number, sampleId : number) {
+  let res = await axiosInstance({
+    url : `/api/v1/tasks/${taskId}/samples/${sampleId}/pre`,
+    method : 'GET'
+  })
+  return res;
+}
+
 export {
     createSamples,
     getTask,
@@ -198,5 +206,6 @@ export {
     updateSampleAnnotationResult,
     outputSample,
     outputSamples,
-    deleteSamples
+    deleteSamples,
+    getPreSample
 };
