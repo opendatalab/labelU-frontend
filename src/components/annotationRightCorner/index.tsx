@@ -294,10 +294,10 @@ const AnnotationRightCorner = ()=>{
     },[])
 
     return (<div className={ currentStyles.outerFrame } id = 'rightCorner'>
-      <div className={currentStyles.right}
-           id = {'copyPre'}
-           onClick = { commonController.debounce(copyPre, 100) }
-      >复制上一页</div>
+      {/*<div className={currentStyles.right}*/}
+      {/*     id = {'copyPre'}*/}
+      {/*     onClick = { commonController.debounce(copyPre, 100) }*/}
+      {/*>复制上一页</div>*/}
         {/*<div className={currentStyles.right}*/}
         {/*     id = {'nextPage'}*/}
         {/*     onClick = { commonController.debounce(prevPage, 100) }*/}
