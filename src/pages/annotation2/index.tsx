@@ -2,7 +2,7 @@ import React, {useState, useEffect, memo, createRef} from 'react';
 // import Annotation from '../annotation/index';
 import Annotation from '../../components/business/annotation';
 import './index.module.scss';
-import { getTask, getSample } from '../../services/samples';
+import {getTask, getSample, getPreSample} from '../../services/samples';
 import classnames from 'classnames';
 import commonController from '../../utils/common/common'
 import SlideLoader from "../../components/slideLoader";
@@ -160,6 +160,34 @@ const AnnotationPage = ()=>{
     }
 
     console.log(taskSample);
+  const updatePrevImageListResult = async function (){
+    // let temp : any= Object.assign([],prevImgList);
+    let taskId = parseInt(window.location.pathname.split('/')[2]);
+    let sampleId = parseInt(window.location.pathname.split('/')[4]);
+    // console.log({
+    //   taskId,
+    //   sampleId
+    // })
+    getPreSample(taskId, sampleId).then((res:any)=>{
+      if (res.status === 200){
+        let result = res.data.data.data.result;
+        let newTaskSample = [{...taskSample[0],result}]
+        setTaskSample(newTaskSample);
+      }else{
+        commonController.notificationErrorMessage({message : '请求数据错误'},1);
+      }
+    }).catch(error=>commonController.notificationErrorMessage(error,1))
+
+  }
+  useEffect(()=>{
+    // console.log(5555555555)
+    // console.log(window.location.search);
+    let search = window.location.search;
+    if(search.indexOf('COPYPRE') > -1 ){
+      updatePrevImageListResult();
+    }
+  },[window.location.search]);
+
     return <div className={currentStyles.annotationPage}>
       {/*{ t[0].result }*/}
       {/*  <TF t1 = {t} />*/}

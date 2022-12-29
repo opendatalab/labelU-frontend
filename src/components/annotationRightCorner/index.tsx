@@ -103,7 +103,8 @@ const AnnotationRightCorner = ()=>{
                 // @ts-ignore
               console.log(annotationRef?.current?.getResult()[0]);
                 // @ts-ignore
-                let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+                // @ts-ignore
+              let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
                 if (res.data.data.state !== 'SKIPPED') {
                     console.log(dataParam)
                     // console.log(record)
@@ -213,20 +214,7 @@ const AnnotationRightCorner = ()=>{
 
     }
   const copyPre = ()=>{
-    // let taskId = parseInt(window.location.pathname.split('/')[2]);
-    // let sampleId = parseInt(window.location.pathname.split('/')[4]);
-    // console.log({
-    //   taskId,
-    //   sampleId
-    // })
-    // getPreSample(taskId, sampleId).then((res:any)=>{
-    //   if (res.status === 200){
-    //     let result = res.data.data.data.result;
-    //   }else{
-    //     commonController.notificationErrorMessage({message : '请求数据错误'},1);
-    //   }
-    // }).catch(error=>commonController.notificationErrorMessage(error,1))
-
+    // console.log(22222)
     navigate(window.location.pathname + '?COPYPRE' + new Date().getTime());
   }
     useEffect(()=>{
@@ -250,13 +238,13 @@ const AnnotationRightCorner = ()=>{
     console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrr')
     const onKeyDown = (e:any)=>{
       // console.log(e)
-      console.log(count);
-      count = count + 1;
+      // console.log(count);
+      // count = count + 1;
 
-      console.trace();
+      // console.trace();
       // e.nativeEvent.stopPropagation();
       // e.stopPropagation();
-      e.preventDefault();
+      // e.preventDefault();
       // console.log('zzzzzzzzzzzzzzzzzzzzzz1');
       timestampNew = new Date().getTime();
       console.log({
@@ -294,23 +282,25 @@ const AnnotationRightCorner = ()=>{
     },[])
 
     return (<div className={ currentStyles.outerFrame } id = 'rightCorner'>
-      {/*<div className={currentStyles.right}*/}
-      {/*     id = {'copyPre'}*/}
-      {/*     onClick = { commonController.debounce(copyPre, 100) }*/}
-      {/*>复制上一页</div>*/}
+      <div className={currentStyles.left}
+           id = {'copyPre'}
+           onClick = { commonController.debounce(copyPre, 100) }
+      >复制上一页</div>
         {/*<div className={currentStyles.right}*/}
         {/*     id = {'nextPage'}*/}
         {/*     onClick = { commonController.debounce(prevPage, 100) }*/}
         {/*>上一页</div>*/}
-        {isSkippedShow !== 'SKIPPED' && <div className={currentStyles.left} id = {'skipped'}
-        onClick = { commonController.debounce(skipSample, 100) }>跳过</div>}
-        {isSkippedShow === 'SKIPPED' && <div className={currentStyles.left}
-                                id = {'skipped'}
-        onClick = { commonController.debounce(cancelSkipSample, 100) }>取消跳过</div>}
-        <div className={currentStyles.right}
-        id = {'nextPage'}
-             onClick = { commonController.debounce(nextPage, 100) }
-        >下一页</div>
+        <div className={currentStyles.right}>
+          {isSkippedShow !== 'SKIPPED' && <div className={currentStyles.rightLeft} id = {'skipped'}
+          onClick = { commonController.debounce(skipSample, 100) }>跳过</div>}
+          {isSkippedShow === 'SKIPPED' && <div className={currentStyles.rightLeft}
+                                  id = {'skipped'}
+          onClick = { commonController.debounce(cancelSkipSample, 100) }>取消跳过</div>}
+          <div className={currentStyles.rightRight}
+          id = {'nextPage'}
+               onClick = { commonController.debounce(nextPage, 100) }
+          >下一页</div>
+        </div>
     </div>)
 }
 export default AnnotationRightCorner;

@@ -252,31 +252,7 @@ const SlideLoader = ()=>{
             // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
         }
     }
-    const updatePrevImageListResult = async function (){
-      let temp : any= Object.assign([],prevImgList);
-      let taskId = parseInt(window.location.pathname.split('/')[2]);
-      let sampleId = parseInt(window.location.pathname.split('/')[4]);
-      console.log({
-        taskId,
-        sampleId
-      })
-      getPreSample(taskId, sampleId).then((res:any)=>{
-        if (res.status === 200){
-          let result = res.data.data.data.result;
-          for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
-            let prevImg : any= temp[prevImgIndex];
-            if (prevImg.id === sampleId) {
-              prevImg.result = result;
-              break;
-            }
-          }
-          setPrevImgList(temp);
-        }else{
-          commonController.notificationErrorMessage({message : '请求数据错误'},1);
-        }
-      }).catch(error=>commonController.notificationErrorMessage(error,1))
 
-    }
     const updatePrevImageListStatePrev = async function (state : string){
         let temp : any= Object.assign([],prevImgList);
         console.log(temp);
@@ -404,7 +380,6 @@ const SlideLoader = ()=>{
 
 
     useEffect(()=>{
-        // console.log(window.location.search);
         let search = window.location.search;
         if(search.indexOf('DONE') > -1){
             updatePrevImageListState('DONE');
@@ -429,9 +404,9 @@ const SlideLoader = ()=>{
       if(search.indexOf('POINTER') > -1 ){
         updatePrevImageListStatePointer('DONE');
       }
-      if(search.indexOf('COPYPRE') > -1 ){
-        updatePrevImageListResult();
-      }
+      // if(search.indexOf('COPYPRE') > -1 ){
+      //   updatePrevImageListResult();
+      // }
     },[window.location.search]);
 
     const [initTime, setInitTime] = useState<any>(0);
