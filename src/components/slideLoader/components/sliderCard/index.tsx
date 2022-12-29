@@ -1,25 +1,86 @@
 import React, {useState, useEffect } from 'react';
 import currentStyles from './index.module.scss';
 import commonController from '../../../../utils/common/common'
-import { getSample } from '../../../../services/samples'
+import {getSample, updateSampleAnnotationResult} from '../../../../services/samples'
 
 import { useSelector, useDispatch, connect } from 'react-redux';
 
 import { updateCurrentSampleId } from '../../../../stores/sample.store';
 import otherStore from "../../../../stores/other";
 import { useNavigate} from "react-router";
+import {annotationRef} from "../../../../pages/annotation2";
 
 const SliderCard = (props : any)=>{
     const {id, state, url} = props.cardInfo;
     const [currentSampleId, setCurrentSampleId] = useState(parseInt(window.location.pathname.split('/')[4]));
     const navigate = useNavigate();
     const clickSample = ()=>{
+      let taskId = parseInt(window.location.pathname.split('/')[2]);
+      let sampleId = parseInt(window.location.pathname.split('/')[4]);
+      // console.log(111111111111111111111111)
+      // console.log({
+      //   taskId,
+      //   sampleId
+      // })
+      getSample(taskId, sampleId).then((res)=>{
+        // console.log(res);
+        if(res.status === 200){
+          let sampleResData = res.data.data.data;
+          let annotated_count = 0;
+          // @ts-ignore
+          let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+          if (res.data.data.state !== 'SKIPPED') {
+            console.log(dataParam)
+            // console.log(record)
+            let resultJson = JSON.parse(dataParam.result);
+            // console.log(resultJson)
+            for (let key in resultJson) {
+              if(key.indexOf('Tool') > -1 && key !== 'textTool' && key !== 'tagTool'){
+                let tool = resultJson[key];
+                if (!tool.result) {
+                  let temp = 0;
+                  if(tool.length){ temp = tool.length}
+                  annotated_count = annotated_count + temp;
+                }else{
+                  annotated_count = annotated_count + tool.result.length;
+                }
+              }
+            }
+            console.log(annotated_count)
+            // @ts-ignore
+            updateSampleAnnotationResult(taskId, sampleId, {annotated_count,state : 'DONE',data : dataParam }).then(res=>{
+              if(res.status === 200) {
+                // Ob.nextPageS.next('DONE');
 
-        let location = window.location.pathname.split('/');
-        location.pop();
-        location.push(id)
-        let newPathname = location.join('/');
-        navigate(newPathname);
+                // let location = window.location.pathname.split('/');
+                // location.pop();
+                // location.push(id)
+                // let newPathname = location.join('/');
+                // navigate(newPathname);
+
+                navigate(window.location.pathname + '?' + 'POINTER' + new Date().getTime() + '&id='+id);
+              }else{
+                commonController.notificationErrorMessage({message : '请求保存失败'},1);
+              }
+            }).catch(error=>{
+              commonController.notificationErrorMessage(error,1);
+            })
+          }else{
+            navigate(window.location.pathname + '?' + 'POINTER' + new Date().getTime() + '&id='+id);
+
+          }
+        }else{
+          // console.log('3333333333333333333')
+          // navigate(window.location.pathname + '?' + 'POINTER' + new Date().getTime() + '&id='+id);
+
+          commonController.notificationErrorMessage({message : '获取数据信息有误'}, 1)
+        }
+      }).catch(error=>{
+        commonController.notificationErrorMessage(error, 1)
+      })
+
+
+
     }
     useEffect(()=>{
         setCurrentSampleId(parseInt(window.location.pathname.split('/')[4]));

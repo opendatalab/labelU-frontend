@@ -55,12 +55,30 @@ const AnnotationRightCorner = ()=>{
             }
         }).catch(error=>commonController.notificationErrorMessage(error, 1));
     }
-    // @ts-ignore
+  // let timestamp = new Date().getTime();
+    const [timestamp, setTimestamp] = useState(new Date().getTime());
+  // console.log(123456678);
+  // @ts-ignore
     const nextPage = ()=>{
-        // @ts-ignore
+      console.log(timestamp);
+      console.log(new Date().getTime());
+      console.log(new Date().getTime() - timestamp)
+      if (new Date().getTime() - timestamp <= 2000) {
+        setTimestamp(new Date().getTime());
+        return;
+      }
+      setTimestamp(new Date().getTime());
+      console.log('llllllllll')
+
+      // @ts-ignore
         // console.log(annotationDatas)
         // console.log(1)
-        getSample(taskId, sampleId).then((res)=>{
+        // console.log({sampleId});
+      let sampleId = parseInt(window.location.pathname.split('/')[4]);
+
+      console.log({sampleId});
+      getSample(taskId, sampleId).then((res)=>{
+          // console.log(res);
             if(res.status === 200){
                 let sampleResData = res.data.data.data;
                 let annotated_count = 0;
@@ -108,18 +126,27 @@ const AnnotationRightCorner = ()=>{
     }
 
     const prevPage = ()=>{
-        // console.log('llllllllll')
+      if (new Date().getTime() - timestamp <= 2000) {
+        setTimestamp(new Date().getTime());
+        return;
+      }
+      setTimestamp(new Date().getTime());
+      // console.log('tttttttttttttt')
         // @ts-ignore
         // console.log(annotationDatas)
+      let sampleId = parseInt(window.location.pathname.split('/')[4]);
+      // console.log(newSampleId);
+      // console.log({sampleId})
         getSample(taskId, sampleId)
             .then((res)=>{
+              // console.log(res)
             if(res.status === 200){
                 let sampleResData = res.data.data.data;
                 let annotated_count = 0;
                 // @ts-ignore
                 let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
                 if (res.data.data.state !== 'SKIPPED') {
-                    console.log(dataParam)
+                    // console.log(dataParam)
                     // console.log(record)
                     let resultJson = JSON.parse(dataParam.result);
                     // console.log(resultJson)
@@ -174,26 +201,25 @@ const AnnotationRightCorner = ()=>{
         }).catch(error=>commonController.notificationSuccessMessage(error,1))
     },[window.location.pathname]);
 
-    let timestamp = new Date().getTime();
     const onKeyDown = (e:any)=>{
       // e.nativeEvent.stopPropagation();
       // e.stopPropagation();
       // e.preventDefault();
-      if (new Date().getTime() - timestamp <= 1000) {
-        timestamp = new Date().getTime();
-        return;
-      }
-      timestamp = new Date().getTime();
+      // if (new Date().getTime() - timestamp <= 1000) {
+      //   setTimestamp(new Date().getTime());
+      //   return;
+      // }
+      // setTimestamp(new Date().getTime());
       console.log(e);
         let keyCode = e.keyCode;
         if (keyCode === 65) {
-          // console.log(111111111111)
+          // console.log(111111111111);
           // prevPage();
-          // commonController.debounce(prevPage, 100)('');
+          commonController.debounce(prevPage, 1000)('');
         }
         if (keyCode === 68) {
-          // console.log(2222222222222)
-          // commonController.debounce(nextPage, 100)('');
+          // console.log(2222222222222);
+          commonController.debounce(nextPage, 1000)('');
         }
     }
 

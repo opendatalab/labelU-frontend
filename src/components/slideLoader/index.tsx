@@ -298,6 +298,69 @@ const SlideLoader = ()=>{
         }
     }
 
+  const updatePrevImageListStatePointer = async function (state : string){
+    // let temp : any= Object.assign([],prevImgList);
+    // console.log(temp);
+    // let prevPageId : any= null;
+    // for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+    //   let prevImg : any= temp[prevImgIndex];
+    //   if (prevImg.id === sampleId) {
+    //     prevImg.state = state;
+    //     if (temp[prevImgIndex - 1]) {
+    //       // @ts-ignore
+    //       prevPageId = temp[prevImgIndex - 1].id;
+    //     }else{
+    //       prevPageId = await getBeforeSampleId({
+    //         before : prevImgList[0]['id'],
+    //         pageSize : 10
+    //       })
+    //     }
+    //     break;
+    //   }
+    // }
+    // console.log(prevPageId);
+    // if(prevPageId || prevPageId === 0){
+    //   let pathnames = window.location.pathname.split('/');
+    //   if (typeof prevPageId !== 'number') {
+    //     setPrevImgList(prevPageId.concat(temp));
+    //     pathnames.splice(4,1,prevPageId[0].id);
+    //   }else{
+    //     // @ts-ignore
+    //     pathnames.splice(4,1,prevPageId);
+    //   }
+    //   navigate(pathnames.join('/'));
+    // }else{
+    //   setPrevImgList(temp);
+    //   // let currentPathname = window.location.pathname.split('/');
+    //   // currentPathname.pop();
+    //   // currentPathname.push('finished')
+    //   // navigate(currentPathname.join('/')+'?sampleId='+temp[temp.length - 1]?.id);
+    //   // commonController.notificationInfoMessage({message : '已经是最后一张'}, 1);
+    // }
+    let temp : any= Object.assign([],prevImgList);
+    for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
+      let prevImg : any= temp[prevImgIndex];
+      if (prevImg.id === sampleId) {
+        if (prevImg.state !== 'SKIPPED'){
+          prevImg.state = state;
+          break;
+        }
+      }
+    }
+    console.log(temp);
+    setPrevImgList(temp);
+    let ids = window.location.search.split('&').pop();
+    console.log(ids)
+    // @ts-ignore
+    let id = parseInt(ids?.split('=').pop());
+    let location = window.location.pathname.split('/');
+    location.pop();
+    // @ts-ignore
+    location.push(id)
+    let newPathname = location.join('/');
+    navigate(newPathname);
+  }
+
     const updatePrevImageListStateForSkippedAndNew = async function (state : string){
         // navigate(window.location.pathname+'?sampleId='+sampleId);
 
@@ -347,6 +410,9 @@ const SlideLoader = ()=>{
         if(search.indexOf('PREV') > -1 ){
             updatePrevImageListStatePrev('DONE');
         }
+      if(search.indexOf('POINTER') > -1 ){
+        updatePrevImageListStatePointer('DONE');
+      }
     },[window.location.search]);
 
     const [initTime, setInitTime] = useState<any>(0);
