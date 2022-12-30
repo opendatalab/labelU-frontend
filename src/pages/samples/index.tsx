@@ -47,7 +47,7 @@ const Samples = (props : any)=>{
     setDeleteSampleIds(sampleIds);
     setIsModalShow(true);
   }
-  const columns = [
+  const columns : any= [
     {
       title: '数据ID',
       dataIndex: 'id',
@@ -353,6 +353,7 @@ const Samples = (props : any)=>{
     let queryStr = `${field}:${newSortGroup[field]}`;
     getSamplesLocal({pageNo : currentPage - 1, pageSize : currentPageSize, sort : queryStr})
   }
+  // @ts-ignore
   return (<div className={currentStyles.outerFrame}>
     <div className = {currentStyles.stepsRow}>
       {(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') && <GoToEditTask taskStatus = {taskStatus}/>}
