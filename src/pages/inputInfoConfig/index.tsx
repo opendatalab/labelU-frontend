@@ -27,7 +27,7 @@ const InputInfoConfig = ()=>{
         if(!isNull){
             setIsErrorShow(false);
             let isOver = commonController.isOverFontCount(targetValue, 50);
-            // if(isOver){return;}
+            if(isOver){return;}
             dispatch(updateTaskName(targetValue));
             // if(isOver) return;
             // setTaskDescription(targetValue);
@@ -41,24 +41,26 @@ const InputInfoConfig = ()=>{
         let isNull = CommonController.isInputValueNull(targetValue);
         if(!isNull){
             let isOver = commonController.isOverFontCount(targetValue, 500);
-            // if(isOver){return;}
+            if(isOver){return;}
 
-            dispatch(updateTaskDescription(targetValue));
             // if(isOver) return;
 
         }
+      dispatch(updateTaskDescription(targetValue));
+
     }
     const changeTaskTips = (event : any)=>{
         let targetValue = event.target.value;
         let isNull = CommonController.isInputValueNull(targetValue);
         if(!isNull){
             let isOver = commonController.isOverFontCount(targetValue, 1000);
-            // if(isOver){return;}
+            if(isOver){return;}
 
-            dispatch(updateTaskTips(targetValue));
             // if(isOver) return;
 
         }
+      dispatch(updateTaskTips(targetValue));
+
     }
   // useEffect(()=>{
   //   let taskId = parseInt(window.location.pathname.split('/')[2]);
@@ -103,7 +105,7 @@ const InputInfoConfig = ()=>{
                     任务名称</div>
                 <div className = { currentStyles.itemInput}>
                   {<Input placeholder = '请输入50字以内的任务名称' onChange = {changeTaskNamme} defaultValue = {taskName}
-                  // value = { taskName }
+                  value = { taskName }
                   />}
                   {/*{!taskName && <Input placeholder = '请输入50字以内的任务名称' onChange = {changeTaskNamme}/>}*/}
                     {isErrorShow && <div style = {{color : "red"}}>请输入内容</div>}
@@ -116,7 +118,7 @@ const InputInfoConfig = ()=>{
                                     onChange = { changeTaskDescription }
                            autoSize = {{minRows : 6, maxRows : 10}}
                   defaultValue = {taskDescription}
-                                    // value = {taskDescription}
+                                    value = {taskDescription}
                   />
                 </div>
             </div>
@@ -127,7 +129,7 @@ const InputInfoConfig = ()=>{
                                     onChange = { changeTaskTips }
                                     autoSize = {{minRows : 6, maxRows : 10}}
                   defaultValue ={ taskTips}
-                                  // value = {taskTips}
+                                  value = {taskTips}
                   />
                 </div>
 
