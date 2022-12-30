@@ -22,8 +22,8 @@ const NullTask = ()=>{
         dispatch(clearConfig())
         navigate(Constatns.urlToCreateNewTask);
     }
-    return (<div className = {currentStyles.outerFrame}>
-        <div className = {currentStyles.container}  onClick = {createTask}>
+    return (<div className = {currentStyles.outerFrame}   onClick = {createTask}>
+        <div className = {currentStyles.container}>
             {/*<div className = {currentStyles.createTaskIcon}></div>*/}
             <div className = {currentStyles.createTaskIcon}><img src="/src/icons/createTask.svg" alt=""/></div>
             <div className = {currentStyles.createTask}

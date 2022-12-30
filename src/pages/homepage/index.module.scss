@@ -20,3 +20,9 @@
     background-color: #F4F5F7;
     //background: #F4F5F7;
 }
+:global{
+  .ant-modal-footer{
+    padding-top:24px;
+    padding-bottom:24px;
+  }
+}

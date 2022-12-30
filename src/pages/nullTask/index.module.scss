@@ -12,6 +12,7 @@
 
   justify-content: center;
   align-items: center;
+  cursor:pointer;
 }
 
 .container{
@@ -21,7 +22,7 @@
   height : 100px;
   align-items: center;
   justify-content: space-between;
-
+  cursor :pointer;
 }
 
 .createTaskIcon{
@@ -42,4 +43,5 @@
   font-weight : 400;
   background-color : #1b67ff;
   border-radius: 3px;
+  cursor : pointer;
 }
