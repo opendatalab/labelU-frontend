@@ -206,6 +206,10 @@ const Samples = (props : any)=>{
     setIsModalShow(false);
   }
   const rowSelection = {
+    // renderCell : ()=>{
+    //
+    // },
+    columnWidth : 58,
     onChange : (selectedKeys : any, selectedRows : any)=>{
       console.log(selectedKeys)
       setDeleteSampleIds(Object.assign([],deleteSampleIds,selectedKeys));
