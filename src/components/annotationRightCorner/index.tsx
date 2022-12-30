@@ -63,7 +63,7 @@ const AnnotationRightCorner = ()=>{
     const [oldCurrentSampleId, setOldCurrentSampleId] = useState(0);
   // console.log(123456678);
   // @ts-ignore
-    const nextPage = ()=>{
+    const nextPage = async function (){
       // console.trace();
       // console.log(timestamp);
       // console.log(new Date().getTime());
@@ -89,6 +89,10 @@ const AnnotationRightCorner = ()=>{
       // }
       // setOldCurrentSampleId(sampleId);
       // currentSampleId = sampleId;
+      // @ts-ignore
+      let cResult = await annotationRef?.current?.getResult();
+      let rResult = cResult[0].result;
+      console.log(rResult);
       getSample(taskId, sampleId).then((res)=>{
         // console.log({
         //   oldCurrentSampleId,
@@ -102,9 +106,11 @@ const AnnotationRightCorner = ()=>{
                 let annotated_count = 0;
                 // @ts-ignore
               console.log(annotationRef?.current?.getResult()[0]);
+
                 // @ts-ignore
                 // @ts-ignore
-              let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+              // let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+              let  dataParam = Object.assign({},sampleResData,{ result :  rResult});
                 if (res.data.data.state !== 'SKIPPED') {
                     console.log(dataParam)
                     // console.log(record)
@@ -153,7 +159,7 @@ const AnnotationRightCorner = ()=>{
 
     }
 
-    const prevPage = ()=>{
+    const prevPage = async function () {
       if (new Date().getTime() - timestamp <= 2000) {
         setTimestamp(new Date().getTime());
         return;
@@ -165,6 +171,11 @@ const AnnotationRightCorner = ()=>{
       let sampleId = parseInt(window.location.pathname.split('/')[4]);
       // console.log(newSampleId);
       // console.log({sampleId})
+      // @ts-ignore
+      let cResult = await annotationRef?.current?.getResult();
+      let rResult = cResult[0].result;
+      console.log(rResult);
+
         getSample(taskId, sampleId)
             .then((res)=>{
               // console.log(res)
@@ -172,7 +183,8 @@ const AnnotationRightCorner = ()=>{
                 let sampleResData = res.data.data.data;
                 let annotated_count = 0;
                 // @ts-ignore
-                let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+                // let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+                let  dataParam = Object.assign({},sampleResData,{ result :  rResult });
                 if (res.data.data.state !== 'SKIPPED') {
                     // console.log(dataParam)
                     // console.log(record)

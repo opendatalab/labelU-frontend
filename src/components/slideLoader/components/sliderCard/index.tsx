@@ -14,7 +14,7 @@ const SliderCard = (props : any)=>{
     const {id, state, url} = props.cardInfo;
     const [currentSampleId, setCurrentSampleId] = useState(parseInt(window.location.pathname.split('/')[4]));
     const navigate = useNavigate();
-    const clickSample = ()=>{
+    const clickSample = async function(){
       let taskId = parseInt(window.location.pathname.split('/')[2]);
       let sampleId = parseInt(window.location.pathname.split('/')[4]);
       // console.log(111111111111111111111111)
@@ -22,13 +22,19 @@ const SliderCard = (props : any)=>{
       //   taskId,
       //   sampleId
       // })
+      // @ts-ignore
+      let cResult = await annotationRef?.current?.getResult();
+      let rResult = cResult[0].result;
+      console.log(rResult);
+
       getSample(taskId, sampleId).then((res)=>{
         // console.log(res);
         if(res.status === 200){
           let sampleResData = res.data.data.data;
           let annotated_count = 0;
           // @ts-ignore
-          let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+          // let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
+          let  dataParam = Object.assign({},sampleResData,{ result :  rResult});
           if (res.data.data.state !== 'SKIPPED') {
             console.log(dataParam)
             // console.log(record)
