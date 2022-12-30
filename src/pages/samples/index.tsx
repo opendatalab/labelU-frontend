@@ -52,6 +52,7 @@ const Samples = (props : any)=>{
       title: '数据ID',
       dataIndex: 'id',
       key: 'id',
+      align : 'left'
       // className : currentStyles.tableColumn
       // width: 80,
     },
@@ -59,6 +60,7 @@ const Samples = (props : any)=>{
       title: '数据预览',
       dataIndex: 'data',
       key: 'packageID',
+      align : 'left',
       render:(data : any)=> {
         let url = '';
         // if(!data.urls){
@@ -76,6 +78,8 @@ const Samples = (props : any)=>{
       title: '标注情况',
       dataIndex: 'state',
       key: 'packageID',
+      align : 'left',
+
       // width: 120,
       render:(text : string)=>{
         if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
@@ -110,6 +114,8 @@ const Samples = (props : any)=>{
       title: '标注数',
       dataIndex: 'annotated_count',
       key: 'annotated_count',
+      align : 'left',
+
       render:(temp : any, record : any)=>{
         let result = 0;
         // console.log(record)
@@ -137,6 +143,8 @@ const Samples = (props : any)=>{
       title: '标注者',
       dataIndex: 'created_by',
       key: 'created_by',
+      align : 'left',
+
       render:(created_by: any)=>{
         if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
           return '';
@@ -148,6 +156,8 @@ const Samples = (props : any)=>{
       title: '上次标注时间',
       dataIndex: 'updated_at',
       key: 'updated_at',
+      align : 'left',
+
       // width : 310,
       render : (updated_at : any, record : any)=>{
         if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
@@ -161,6 +171,8 @@ const Samples = (props : any)=>{
       dataIndex: 'option',
       key: 'option',
       width: 180,
+      align : 'left',
+
       render:(x : any, record : any)=>{
         return (<React.Fragment>
           {

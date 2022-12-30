@@ -1,22 +1,108 @@
 @import "../../utils/common/common.module";
-.outerFrame{
-  @extend .displayFlex;
-  @extend .flexDirectionColumn;
-  justify-content: flex-start;
-  align-items: center;
-  //min-width : 336px;
-  width : calc((100vw - 48px - 96px - 10px)/4);
-  //flex : 1;
-  //width : 20%;
-  height : 159px;
-  background-color : #FFFFFF;
-  border-radius: 8px;
-  margin-right : 24px;
-  margin-bottom: 24px;
-  padding-top : 20px;
-  padding-left : 24px;
-  cursor : pointer;
+
+
+@media all and (max-width: 1600px){
+  .outerFrame{
+    display:flex;
+    display:-moz-flex;
+    display:-webkit-flex;
+    display:-ms-flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    //min-width : 336px;
+    width : calc((100vw - 48px - 96px - 10px)/4);
+    //flex : 1;
+    //width : 20%;
+    height : 159px;
+    background-color : #FFFFFF;
+    border-radius: 8px;
+    margin-right : 24px;
+    margin-bottom: 24px;
+    padding-top : 20px;
+    padding-left : 24px;
+    cursor : pointer;
+  }
 }
+@media all and (min-width:1601px) and (max-width: 2500px){
+  .outerFrame{
+    display:flex;
+    display:-moz-flex;
+    display:-webkit-flex;
+    display:-ms-flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    //min-width : 336px;
+    width : calc((100vw - 48px - 120px - 10px)/5);
+    //flex : 1;
+    //width : 20%;
+    height : 159px;
+    background-color : #FFFFFF;
+    border-radius: 8px;
+    margin-right : 24px;
+    margin-bottom: 24px;
+    padding-top : 20px;
+    padding-left : 24px;
+    cursor : pointer;
+  }
+}
+@media all and (min-width:2501px) and (max-width: 2600px){
+  .outerFrame{
+    display:flex;
+    display:-moz-flex;
+    display:-webkit-flex;
+    display:-ms-flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    //min-width : 336px;
+    width : calc((100vw - 48px - 144px - 10px)/6);
+    //flex : 1;
+    //width : 20%;
+    height : 159px;
+    background-color : #FFFFFF;
+    border-radius: 8px;
+    margin-right : 24px;
+    margin-bottom: 24px;
+    padding-top : 20px;
+    padding-left : 24px;
+    cursor : pointer;
+  }
+}
+
+@media all and (min-width:2601px){
+  .outerFrame{
+    display:flex;
+    display:-moz-flex;
+    display:-webkit-flex;
+    display:-ms-flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    //min-width : 336px;
+    width : calc((100vw - 48px - 192px - 10px)/8);
+    //flex : 1;
+    //width : 20%;
+    height : 159px;
+    background-color : #FFFFFF;
+    border-radius: 8px;
+    margin-right : 24px;
+    margin-bottom: 24px;
+    padding-top : 20px;
+    padding-left : 24px;
+    cursor : pointer;
+  }
+}
+
 .outerFrame:hover{
   border : 1px solid #1B67ff;
 }
@@ -47,6 +133,7 @@
   max-width : 200px;
   text-overflow: ellipsis;
   overflow: hidden;
+  max-height: 40px;
 }
 
 .mediaType{

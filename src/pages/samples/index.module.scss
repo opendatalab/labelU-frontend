@@ -127,6 +127,7 @@
 .optionItem{
   @extend .displayFlex;
   @extend .flexDirectionRow;
+  justify-content: flex-end;
 }
 .optionItemEnter{
   align-items: center;
