@@ -133,7 +133,7 @@ const TaskCard = (props : any)=>{
                   setIsShowModal(true)}}
               >
                   <Tooltip placement={'top'} title = {'数据导出'}>
-                    {isShowBlue !== 'outputData' && <img src="/src/icons/outputData.svg" onMouseOver = {()=>{setIsShowBlue('outputData')}}
+                    {isShowBlue !== 'outputData' && <img src="/src/icons/outputData1.svg" onMouseOver = {()=>{setIsShowBlue('outputData')}}
                                                          onMouseLeave =  {()=>{setIsShowBlue('')}}
                                                          alt=""/>}
                     {isShowBlue === 'outputData' && <img src="/src/icons/outputDataBlue.svg" onMouseOver = {()=>{setIsShowBlue('outputData')}}
