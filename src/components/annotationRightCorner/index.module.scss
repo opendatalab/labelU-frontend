@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   width : calc(100vw - 560px);
+  width : 100%;
 }
 .left{
 
@@ -19,6 +20,8 @@
   cursor: pointer;
   //color: #ffffff;
   color : black;
+  //width : 100%;
+  margin-right:40px;
 }
 
 .right{

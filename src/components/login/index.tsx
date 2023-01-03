@@ -1,4 +1,4 @@
-import React, { useState  } from 'react';
+import React, { useState, useEffect  } from 'react';
 import currentStyles from './index.module.scss';
 import commonStyles from '../../utils/common/common.module.scss';
 import { IdcardOutlined, LockOutlined } from '@ant-design/icons';
@@ -9,6 +9,7 @@ import { login as loginService } from '../../services/general';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '../../stores/user.store';
+import intl from 'react-intl-universal';
 const Login = (props : any)=>{
     const { turnToSignUp, turnToTaskList } = props;
     const [checkMessage, setCheckMessage] = useState<any>({});
@@ -67,6 +68,13 @@ const Login = (props : any)=>{
 
 
     }
+
+    useEffect(()=>{
+      console.log(navigator.language);
+      // @ts-ignore
+      console.log(navigator?.browserLanguage);
+    },[]);
+
     return (<div className = { currentStyles.outerFrame } >
         <div className = {currentStyles.title} >登录</div>
         <div className = {currentStyles.email_m} >

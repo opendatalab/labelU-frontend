@@ -297,7 +297,7 @@ const AnnotationRightCorner = ()=>{
       <div className={currentStyles.left}
            id = {'copyPre'}
            onClick = { commonController.debounce(copyPre, 100) }
-      >复制上一页</div>
+      >复制上张</div>
         {/*<div className={currentStyles.right}*/}
         {/*     id = {'nextPage'}*/}
         {/*     onClick = { commonController.debounce(prevPage, 100) }*/}
