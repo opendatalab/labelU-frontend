@@ -43,7 +43,7 @@ const OutputData = (props : any)=>{
                     {activeTxt !== 'MASK' && <div className = {currentStyles.button} onClick = {()=>highLight('MASK')}>MASK</div>}
                 </div>
             </div>
-            <div className={currentStyles.bottom}>Label U 标准格式，包含任务id,标注结果、url、fileName字段</div>
+            <div className={currentStyles.bottom}>Label U 标准格式，包含任务id、标注结果、url、fileName字段</div>
         </div>
     </Modal>)
 }
