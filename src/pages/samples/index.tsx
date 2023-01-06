@@ -377,11 +377,24 @@ const Samples = (props : any)=>{
       ></Table>
       <div className = { currentStyles.pagination }>
         <div className = { currentStyles.dataProcess}>
-          <div className = { currentStyles.dataProcessDelete } onClick = {()=>{setIsModalShow(true)}}>批量删除</div>
-          <div className = { currentStyles.dataProcessOutput } onClick = {(e:any)=>{
+          <div className = { currentStyles.dataProcessDelete } onClick = {(e:any)=>{
             e.stopPropagation();
             e.preventDefault();
             e.nativeEvent.stopPropagation();
+            if (deleteSampleIds.length === 0) {
+              commonController.notificationErrorMessage({message : '请先勾选需要删除的数据'}, 1);
+              return;
+            }
+            ;setIsModalShow(true)}}>批量删除</div>
+          <div className = { currentStyles.dataProcessOutput } onClick = {(e:any)=>{
+
+            e.stopPropagation();
+            e.preventDefault();
+            e.nativeEvent.stopPropagation();
+            if (deleteSampleIds.length === 0) {
+              commonController.notificationErrorMessage({message : '请先勾选需要导出的数据'}, 1);
+              return;
+            }
           setIsShowModal1(true)}}>批量数据导出</div>
         </div>
         <Pagination

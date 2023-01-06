@@ -122,7 +122,7 @@ const TagInput = (props: IProps) => {
                 <div
                   className={`
                         $"star}
-                        ${subInfo.isDefault ? 'starSelected' : 'starUnselected'} 
+                        ${subInfo.isDefault ? 'starSelected' : 'starUnselected'}
                       `}
                   onClick={e => !isAllReadOnly && changeInputInfo(e, 'isDefault', inputIndex, j)}
                 >
