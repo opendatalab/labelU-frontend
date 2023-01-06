@@ -157,7 +157,7 @@ const Homepage = (props : any)=>{
                                 <Link to = {constants.urlToTasks}>任务列表</Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>
-                                <Link to = {`/tasks/${pathnames[2]}`}>任务{pathnames[2]}</Link>
+                                <Link to = {`/tasks/${pathnames[2]}`}>{taskName}</Link>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>
                                 开始标注
