@@ -8,7 +8,6 @@ import { enUS_dashboard } from './dashboard';
 import { enUS_guide } from './guide';
 import { en_US_documentation } from './documentation';
 import LoginAndUp from './LoginAndUp';
-console.log(LoginAndUp)
 const en_US = {
   ...enUS_account,
   ...enUS_avatorDropMenu,

@@ -4,6 +4,11 @@ const LoginAndUp = {
   'login123' : 'Login',
   'email' : 'email',
   'password' : 'password',
-  'signUp' :'signUp'
+  'signUp' :'signUp',
+  'signUpButton' : 'signUp',
+  'hasAccount' : 'has registered',
+  'requestRepeatPassword' : 'Please input password more than 6 words again',
+  'requestPassword' : 'Please input password more than 6 words',
+  'requestEmail' : 'Please input email'
 }
 export default LoginAndUp;

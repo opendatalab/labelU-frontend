@@ -6,12 +6,32 @@ import { IdcardOutlined, LockOutlined } from '@ant-design/icons';
 import CommonController from "../../utils/common/common";
 import {login as loginService, signUp} from '../../services/general';
 import { useNavigate } from 'react-router-dom';
+import intl from 'react-intl-universal';
+import enUS1 from "../../locales/en-US";
+import zhCN1 from "../../locales/zh-CN";
 const SignUp = (props : any)=>{
     const { turnToLogin } = props;
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
     const navigate = useNavigate();
+    if ((navigator.language.indexOf('zh-CN') > -1)) {
+        intl.init({
+            currentLocale : 'zh-CN',
+            locales : {
+                'en-US' : enUS1,
+                'zh-CN' : zhCN1
+            }
+        })
+    }else{
+        intl.init({
+            currentLocale : 'en-US',
+            locales : {
+                'en-US' : enUS1,
+                'zh-CN' : zhCN1
+            }
+        })
+    }
     const changeEmail = (event : any)=>{
       let targetValue = event.target.value;
       let isNull = CommonController.isInputValueNull(event);
@@ -92,10 +112,11 @@ const SignUp = (props : any)=>{
     }
 
     return (<div className = { currentStyles.outerFrame } >
-        <div className = {currentStyles.title} >注册</div>
+        <div className = {currentStyles.title} >{intl.get('signUp')}</div>
         <div className = {currentStyles.email_m} >
             <Input
-                placeholder = '请输入邮箱'
+                // placeholder = '请输入邮箱'
+                placeholder = { intl.get('requestEmail') }
                 prefix = {
                     // <IdcardOutlined/>
                   <img src="/src/icons/email.svg" alt=""/>
@@ -108,7 +129,9 @@ const SignUp = (props : any)=>{
 
         <div className = {currentStyles.email_m} >
             <Input.Password
-                placeholder = '请输入不少于6位数的密码'
+                // placeholder = '请输入不少于6位数的密码'
+                placeholder = { intl.get('requestPassword') }
+
                 onChange = { changePassword }
                 onBlur = {CommonController.debounce(CommonController.checkPassword, 500)}
                 prefix = {
@@ -121,7 +144,8 @@ const SignUp = (props : any)=>{
 
         <div className = {currentStyles.email_m} >
             <Input.Password
-                placeholder = '请再次输入不少于6位数的密码'
+                // placeholder = '请再次输入不少于6位数的密码'
+                placeholder = { intl.get('requestRepeatPassword') }
                 onChange = { changeRepeatPassword }
                 onBlur = { CommonController.debounce(checkRepeatPassword,500)}
                 visibilityToggle={false}
@@ -134,10 +158,10 @@ const SignUp = (props : any)=>{
 
         <div className = { currentStyles.loginButton }
         onClick = { register }
-        >注册</div>
+        >{intl.get('signUpButton')}</div>
         <div className = { currentStyles.signUpButton }
         >
-            已有账号？<Link to = {'/'}>登录</Link></div>
+            {intl.get('hasAccount')}？<Link to = {'/'}>{intl.get('login123')}</Link></div>
     </div>)
 }
 export default SignUp;
