@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '../../stores/user.store';
 import intl from 'react-intl-universal';
+import enUS1 from '../../locales/en-US';
+import zhCN1 from '../../locales/zh-CN';
 const Login = (props : any)=>{
     const { turnToSignUp, turnToTaskList } = props;
     const [checkMessage, setCheckMessage] = useState<any>({});
@@ -69,17 +71,44 @@ const Login = (props : any)=>{
 
     }
 
+    if ((navigator.language.indexOf('zh-CN') > -1)) {
+        intl.init({
+            currentLocale : 'zh-CN',
+            locales : {
+                'en-US' : enUS1,
+                'zh-CN' : zhCN1
+            }
+        })
+    }else{
+        intl.init({
+            currentLocale : 'en-US',
+            locales : {
+                'en-US' : enUS1,
+                'zh-CN' : zhCN1
+            }
+        })
+    }
+
+    // let loginText = ()=>intl.get('login123');
     useEffect(()=>{
       console.log(navigator.language);
       // @ts-ignore
       console.log(navigator?.browserLanguage);
+      // intl.load({
+      //     'zh-CN' : zhCN1,
+      //     'en-US': enUS1
+      // });
+
+
     },[]);
 
     return (<div className = { currentStyles.outerFrame } >
-        <div className = {currentStyles.title} >登录</div>
+        {/*<div className = {currentStyles.title} >登录</div>*/}
+        {/*<div className = {currentStyles.title} >{loginText()}</div>*/}
+        <div className = {currentStyles.title} >{intl.get('login123')}</div>
         <div className = {currentStyles.email_m} >
             <Input
-            placeholder = '邮箱'
+            placeholder = {intl.get('email')}
             onChange = {changeEmail}
             prefix = {
                 // <IdcardOutlined/>
@@ -96,7 +125,7 @@ const Login = (props : any)=>{
 
         <div className = {currentStyles.email_m} >
             <Input.Password
-                placeholder = '密码'
+                placeholder = {intl.get('password')}
                 onChange = { changePassword }
                 prefix = {
                     // <LockOutlined/>
@@ -112,10 +141,10 @@ const Login = (props : any)=>{
 
         <div className = { currentStyles.loginButton }
         onClick = {CommonController.debounce(loginController, 500)}
-        >登录</div>
+        >{intl.get('login123')}</div>
         <div className = { currentStyles.signUpButton }
         >
-            <Link to = {turnToSignUp}>注册</Link></div>
+            <Link to = {turnToSignUp}>{intl.get('signUp')}</Link></div>
     </div>)
 }
 export default Login;

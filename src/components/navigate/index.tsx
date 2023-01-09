@@ -8,7 +8,7 @@ import constants from '../../constants';
 import AnnotationTips from '../../components/annotationTips';
 import { getTask } from '../../services/samples'
 import HelpTips from "../helpTips";
-import { UserOutlined } from '@ant-design/icons'
+import { UserOutlined, PoweroffOutlined } from '@ant-design/icons'
 const Homepage = (props : any)=>{
     // const username = useSelector(commonController.getUsername);
     let username = localStorage.getItem('username');
@@ -221,14 +221,22 @@ const Homepage = (props : any)=>{
             {isShowAnnotationTips && <AnnotationTips />}
             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <div
-                 onClick = {commonController.debounce(()=>{setIsShowSignOut(!isShowSignOut)}, 100)}
+                 // onClick = {commonController.debounce(()=>{setIsShowSignOut(!isShowSignOut)}, 100)}
 
-            className = {currentStyles.signOut}>
-                <div>{username}&nbsp;&nbsp;<img src='/src/icons/personal.svg' /> </div>
+            className = {currentStyles.signOut}
+            onMouseOver={()=>setIsShowSignOut(true)}
+            onMouseLeave={()=>setIsShowSignOut(false)}
+            >
+                <div  className = {currentStyles.username}>{username}&nbsp;&nbsp;<img src='/src/icons/personal.svg' /> </div>
+                {isShowSignOut && <div className = {currentStyles.quit}
+                     onMouseOver={()=>setIsShowSignOut(true)}
+                     onMouseLeave={()=>setIsShowSignOut(false)}
+                                       onClick={signOut}
+                >退出登录&nbsp;&nbsp;<PoweroffOutlined /></div>}
             </div>
         </div>
-        {isShowSignOut && <div className = { currentStyles.signOutItem }
-                               onClick={signOut}>退出</div>}
+        {/*{isShowSignOut && <div className = { currentStyles.signOutItem }*/}
+        {/*                       onClick={signOut}>退出</div>}*/}
     </div>)
 }
 export  default Homepage;

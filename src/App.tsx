@@ -4,12 +4,16 @@ import { localeConfig } from './locales';
 import { ConfigProvider } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import zhCN from 'antd/es/locale/zh_CN';
+
+import enUS1 from './locales/en-US';
+import zhCN1 from './locales/zh-CN';
+
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import RenderRouter from './routes';
 import { useSelector } from 'react-redux';
 import { history, HistoryRouter } from './routes/history';
-
+import intl from 'react-intl-universal';
 const App: React.FC = () => {
   const { locale } = useSelector(state => state.user);
 
@@ -35,6 +39,25 @@ const App: React.FC = () => {
     }
   };
 
+  useEffect(()=>{
+    if ((navigator.language.indexOf('zh-CN') > -1)) {
+      intl.init({
+        currentLocale : 'zh-CN',
+        locales : {
+          'en-US' : enUS1,
+          'zh-CN' : zhCN1
+        }
+      })
+    }else{
+      intl.init({
+        currentLocale : 'en-US',
+        locales : {
+          'en-US' : enUS1,
+          'zh-CN' : zhCN1
+        }
+      })
+    }
+  },[])
 
   return (
     <ConfigProvider locale={getAntdLocale()} componentSize="middle">

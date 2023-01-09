@@ -1,4 +1,9 @@
 const LoginAndUp = {
-  'login' : 'Login'
+  'loginTitle1' : 'Uniform, Unlimited, Universal and Unbelievable',
+  'loginTitle2' : 'Annotation Toolbox',
+  'login123' : 'Login',
+  'email' : 'email',
+  'password' : 'password',
+  'signUp' :'signUp'
 }
 export default LoginAndUp;

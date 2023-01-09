@@ -341,7 +341,7 @@ const SlideLoader = ()=>{
     console.log(temp);
     setPrevImgList(temp);
     let ids = window.location.search.split('&').pop();
-    console.log(ids)
+    console.log(ids);
     // @ts-ignore
     let id = parseInt(ids?.split('=').pop());
     let location = window.location.pathname.split('/');
