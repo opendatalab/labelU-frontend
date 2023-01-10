@@ -115,25 +115,33 @@ const AnnotationConfig: FC = () => {
       {/*</div>*/}
       <div className="configBox">
         <div className="leftSider" id="lefeSiderId">
-          <Tabs
-            defaultActiveKey="1"
-            tabBarExtraContent={extraContent}
-            type="card"
-            onChange={e => {
-              forceSet(new Date().getTime());
-            }}
-          >
-            {/*<Tabs.TabPane tab="YAML" key="1">*/}
-            {/*  <div className="leftPane">*/}
-            {/*    <YamlConfig toolsConfigState={confitState} doSetImg={doSetImage} key={force} />*/}
-            {/*  </div>*/}
-            {/*</Tabs.TabPane>*/}
-            <Tabs.TabPane tab="可视化" key="2" forceRender={true}>
-              <div className="leftPane">
-                <FormConfig key={force} />
-              </div>
-            </Tabs.TabPane>
-          </Tabs>
+          <div className="leftSiderTitle">
+            <span className="leftTabContent">标注配置</span>
+          </div>
+          <div className="leftPane">
+            <FormConfig key={force} />
+          </div>
+
+          {/*<Tabs*/}
+          {/*  defaultActiveKey="2"*/}
+          {/*  tabBarExtraContent={extraContent}*/}
+          {/*  type="card"*/}
+          {/*  onChange={e => {*/}
+          {/*    forceSet(new Date().getTime());*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  /!*<Tabs.TabPane tab="YAML" key="1">*!/*/}
+          {/*  /!*  <div className="leftPane">*!/*/}
+          {/*  /!*    <YamlConfig toolsConfigState={confitState} doSetImg={doSetImage} key={force} />*!/*/}
+          {/*  /!*  </div>*!/*/}
+          {/*  /!*</Tabs.TabPane>*!/*/}
+          {/*  <Tabs.TabPane tab="可视化" key="2" forceRender={true}>*/}
+          {/*    <div className="leftPane">*/}
+          {/*      <FormConfig key={force} />*/}
+          {/*    </div>*/}
+          {/*  </Tabs.TabPane>*/}
+          {/*</Tabs>*/}
+
         </div>
         <div className="rightSider">
           {((fileList && fileList.length > 0 && tools && tools.length > 0) || !rightImg) && !isConfigError ? (
