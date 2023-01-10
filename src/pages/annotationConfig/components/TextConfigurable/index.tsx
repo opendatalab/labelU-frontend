@@ -76,6 +76,7 @@ const TextConfigurable: React.FC<IProps> = ({ value = {}, onChange }) => {
         <Switch checked={value.textConfigurable} onChange={onSwitchChange} />
       </div>
       {(value.textConfigurable || textConfigurable) && (
+        <>
         <SenseSelect
           style={{ width: '100%', marginTop: '24px' }}
           value={~~(value.textCheckType ?? ETextType.AnyString) as ETextType}
@@ -90,14 +91,16 @@ const TextConfigurable: React.FC<IProps> = ({ value = {}, onChange }) => {
             </Select.Option>
           ))}
         </SenseSelect>
-      )}
-      {(value.textCheckType || textCheckType) === ETextType.CustomFormat && (
-        <SenseInput
-          placeholder="请输入正则表达式"
-          style={{ width: '100%', marginTop: '24px' }}
-          value={value.customFormat ?? customFormat}
-          onChange={onInputChange}
-        />
+
+        {(value.textCheckType || textCheckType) === ETextType.CustomFormat && (
+          <SenseInput
+            placeholder="请输入正则表达式"
+            style={{ width: '100%', marginTop: '24px' }}
+            value={value.customFormat ?? customFormat}
+            onChange={onInputChange}
+          />
+        )}
+        </>
       )}
     </>
   );
