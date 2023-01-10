@@ -120,6 +120,7 @@ const AnnotationConfig: FC = () => {
             <ConfigTemplate />
           </div>
           <div className="leftPane">
+            {/* TODO: key=force seems useless */}
             <FormConfig key={force} />
           </div>
 
