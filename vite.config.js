@@ -19,6 +19,7 @@ export default defineConfig({
   //     changeOrigin: true
   //   }
   // },
+
   server: {
     host: "0.0.0.0",
     proxy: {
@@ -28,6 +29,7 @@ export default defineConfig({
       },
     },
   },
+
   plugins: [
     react()
     // createSvgIconsPlugin({
