@@ -7,7 +7,7 @@ import { zhCN_permissionRole } from './permission/role';
 import { zhCN_dashboard } from './dashboard';
 import { zhCN_guide } from './guide';
 import { zhCN_documentation } from './documentation';
-import { LoginAndUp } from "./LoginAndUp";
+import LoginAndUp from "./LoginAndUp";
 console.log(LoginAndUp)
 const zh_CN = {
   ...zhCN_account,
