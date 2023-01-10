@@ -117,6 +117,7 @@ const AnnotationConfig: FC = () => {
         <div className="leftSider" id="lefeSiderId">
           <div className="leftSiderTitle">
             <span className="leftTabContent">标注配置</span>
+            <ConfigTemplate />
           </div>
           <div className="leftPane">
             <FormConfig key={force} />

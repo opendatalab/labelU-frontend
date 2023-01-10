@@ -26,23 +26,6 @@
           "isDefault": false
         }
       ]
-    },
-    {
-      "key": "类别2",
-      "value": "class2",
-      "isMulti": true,
-      "subSelected": [
-        {
-          "key": "a选项1",
-          "value": "aoption1",
-          "isDefault": true
-        },
-        {
-          "key": "a选项2",
-          "value": "aoption2",
-          "isDefault": false
-        }
-      ]
     }
   ],
   "tools": [
