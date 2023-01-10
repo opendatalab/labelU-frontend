@@ -23,13 +23,13 @@
         "lineType": 0,
         "lineColor": 0,
         "drawOutsideTarget": false,
-        "edgeAdsorption": true,
+        "edgeAdsorption": false,
         "copyBackwardResult": false,
         "attributeConfigurable": true,
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": "",
-        "attributeList": [{ "key": "polygonTool", "value": "polygonTool" }]
+        "attributeList": [{ "key": "", "value": "" }]
       }
     }
   ]

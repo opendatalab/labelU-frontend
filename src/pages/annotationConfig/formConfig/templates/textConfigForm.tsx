@@ -32,8 +32,8 @@ const TextConfigForm: FC<TextConfigProp & { name: string }> = props => {
 
   const [initVal, setInitVal] = useState<TextConfig>([
     {
-      label: '文本',
-      key: 'text',
+      label: '文本1',
+      key: 'text1',
       required: false,
       default: '',
       maxLength: 1000
@@ -54,8 +54,8 @@ const TextConfigForm: FC<TextConfigProp & { name: string }> = props => {
             props.textConfig
           : [
               {
-                label: '文本',
-                key: 'text',
+                label: '文本1',
+                key: 'text1',
                 required: false,
                 default: '',
                 maxLength: 1000

@@ -66,6 +66,7 @@ const JSONTab = (props: IJsonTabProps) => {
   // }, [value]);
 
   const addInputInfo = () => {
+    console.log(123)
     onChange?.(addInputList(value, EDIT_SUBSELECTED));
     onSubmitAction?.();
   };
@@ -107,7 +108,7 @@ const JSONTab = (props: IJsonTabProps) => {
               <SenseInput
                 className={`sensebee-input`}
                 value={info.key}
-                placeholder={t('Type')}
+                placeholder={t('中文（前端显示）')}
                 onChange={(e: any) => changeInputInfo(e, 'key', i)}
                 disabled={readonly}
                 // addonBefore={isAttributeList && <ColorTag color={COLORS_ARRAY[i % 8]} />}
@@ -115,7 +116,7 @@ const JSONTab = (props: IJsonTabProps) => {
               <SenseInput
                 className={'sensebee-input'}
                 value={info.value}
-                placeholder={t('Value')}
+                placeholder={t('英文（保存结果）')}
                 onChange={(e: any) => changeInputInfo(e, 'value', i)}
                 disabled={readonly}
               />

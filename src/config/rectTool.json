@@ -10,7 +10,7 @@
     "minWidth": 1,
     "minHeight": 1,
     "attributeConfigurable": true,
-    "textConfigurable": true,
+    "textConfigurable": false,
     "textCheckType": 4,
     "customFormat": ""
   }

@@ -51,8 +51,10 @@ export const addInputList = (
     const len = inputList.length + 1;
     const id = uuid(2, 62);
     const newData = {
-      key: `${baseClassName}${id}`,
-      value: `class-${id}`
+      // key: `${baseClassName}${id}`,
+      // value: `class-${id}`
+      key: ``,
+      value: ``
     };
 
     if (specialState?.isMulti === true) {
@@ -70,6 +72,14 @@ export const addInputList = (
     }
     inputList.push(newData);
   }
+  for (let inputListIndex = 0; inputListIndex < inputList.length; inputListIndex++) {
+    let unit = inputList[inputListIndex];
+    if (unit.subSelected && unit.subSelected.length > 0) {
+      unit.key = unit.subSelected[0].key.split('-')[0];
+      unit.value = unit.subSelected[0].value.split('-')[0];
+    }
+  }
+  // console.log(inputList);
   return inputList;
 };
 

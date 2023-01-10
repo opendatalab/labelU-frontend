@@ -16,13 +16,8 @@
       "isMulti": true,
       "subSelected": [
         {
-          "key": "选项1",
-          "value": "option1",
-          "isDefault": true
-        },
-        {
-          "key": "选项2",
-          "value": "option2",
+          "key": "选项1-1",
+          "value": "option1-1",
           "isDefault": false
         }
       ]

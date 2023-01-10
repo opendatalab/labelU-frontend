@@ -7,6 +7,7 @@ import { AttributeItem } from './rectConfigForm';
 import { useForm } from 'antd/es/form/Form';
 // const { Option } = Select;
 import { delayTime } from '../constants';
+import commonController from "../../../../utils/common/common";
 interface FormPointConfig {
   upperLimit: number;
   attributeList: AttributeItem[];
@@ -35,7 +36,6 @@ const PointConfigForm: FC<BasicConfig & { name: string }> = props => {
   };
   const { children } = props;
   const [initVal, setInitVal] = useState<FormPointConfig>({
-    upperLimit: 10,
     attributeList: [
       {
         key: 'pointTool',
@@ -46,9 +46,11 @@ const PointConfigForm: FC<BasicConfig & { name: string }> = props => {
 
   useMemo(() => {
     if (props.config) {
-      let initV = {
+      let initV : any = {
         // @ts-ignore
-        upperLimit: props.config.upperLimit ? props.config.upperLimit : 10,
+        // upperLimit: props.config.upperLimit ? props.config.upperLimit : 10,
+        upperLimit: props.config.upperLimit ? props.config.upperLimit : null,
+        // upperLimit: null,
         // @ts-ignore
         attributeList: props.config.attributeList
           ? // @ts-ignore
@@ -70,12 +72,30 @@ const PointConfigForm: FC<BasicConfig & { name: string }> = props => {
     form.submit();
   }, delayTime);
 
+  const changeUpperLimit = (e : any)=>{
+    console.log(e.target.value);
+    let value = parseInt(e.target.value);
+    if (isNaN(value)) {
+      commonController.notificationErrorMessage({message : '请输入数字'},1);
+    }else{
+      if (value === 0) {
+        commonController.notificationErrorMessage({message : '请输入有效数字'},1);
+      }else{
+        setInitVal({
+            ...initVal,
+           upperLimit : value
+        })
+      }
+    }
+
+  }
+
   return (
     <div>
       <div className="selectedMain">
         <Form {...formItemLayout} name={props.name} form={form} onChange={formSubmitThrottle}>
           <Form.Item name="upperLimit" label="上限点数" initialValue={initVal.upperLimit}>
-            <Input />
+            <Input/>
           </Form.Item>
 
           <Form.Item label="标签配置" name="attributeList" initialValue={initVal.attributeList}>

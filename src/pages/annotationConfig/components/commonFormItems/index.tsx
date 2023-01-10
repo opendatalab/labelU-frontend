@@ -4,6 +4,7 @@ import { delayTime } from '../../formConfig/constants';
 import { FC, useMemo, useState } from 'react';
 import { MapStateJSONTab } from '../AttributeConfig';
 import TextConfigurable from '../TextConfigurable';
+import currentStyles  from './index.module.scss';
 
 interface CommonFormConf {
   attribute: Attribute[];
@@ -88,14 +89,18 @@ const CommonFormItem: FC<CommonFormConf & { name: string; toolName: string; isSh
           >
             <Switch disabled={isAllReadOnly} onChange={e => {
               form.submit();
-            }} />
+            }}
+            // defaultChecked={false}
+            />
           </Form.Item>
 
           <Form.Item noStyle shouldUpdate>
             {() => {
               return (
-                form?.getFieldValue('commonAttributeConfigurable') && (
-                  <Form.Item label=" " name="attribute" initialValue={initVal.attribute}>
+                form?.getFieldValue('commonAttributeConfigurable') && (<div className={
+                  currentStyles.commonTag
+                    }>
+                  <Form.Item label="" name="attribute" initialValue={initVal.attribute}>
                     <MapStateJSONTab
                       onSubmitAction={() => {
                         form.submit();
@@ -107,6 +112,7 @@ const CommonFormItem: FC<CommonFormConf & { name: string; toolName: string; isSh
                       readonly={isAllReadOnly}
                     />
                   </Form.Item>
+                    </div>
                 )
               );
             }}

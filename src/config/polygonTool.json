@@ -5,9 +5,9 @@
   "config": {
     "lineType": 0,
     "lineColor": 0,
-    "edgeAdsorption": true,
+    "edgeAdsorption": false,
     "attributeConfigurable": true,
-    "textConfigurable": true,
+    "textConfigurable": false,
     "textCheckType": 0,
     "customFormat": ""
   }

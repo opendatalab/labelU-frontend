@@ -18,7 +18,7 @@ const rectToolConfig = {
     { key: '纸巾', value: 'tissue' },
     { key: '水壶', value: 'kettle' }
   ], //拉框标签配置选项
-  textConfigurable: true, //拉框标签是否可配置
+  textConfigurable: false, //拉框标签是否可配置
   textCheckType: 4, //拉框标签检查输入类型配置 1 为数字 2 为英文 3为数字 4 为任意字符
   customFormat: '' // 无效配置
 };
@@ -70,7 +70,7 @@ const tagToolConfig = {
 const lineToolConfig = {
   lineType: 0, // 配置拉线类型 0 为普通拉线，2为贝塞尔曲线
   lineColor: 1, // 配置拉线颜色，0为单一色，1 为多色（暂未生效）
-  edgeAdsorption: true, //多线条情况下是否支持 点吸附
+  edgeAdsorption: false, //多线条情况下是否支持 点吸附
   outOfTarget: true,
   copyBackwardResult: false, //无效配置
   attributeConfigurable: true, //是否显示划线标签配置选项
@@ -85,11 +85,11 @@ const lineToolConfig = {
     { key: '类别Zb', value: 'class-Zb' },
     { key: '类别zi', value: 'class-zi' }
   ], //划线标签配置选项
-  textConfigurable: true, //划线标签是否可配置
+  textConfigurable: false, //划线标签是否可配置
   textCheckType: 4, //划线标签检查输入类型配置 1 为数字 2 为英文 3为数字 4 为任意字符(配合customFormat 使用)
   customFormat: '^[\\s\\S]{1,3}$', //划线标签检查输入格式正则
   showConfirm: true, //无效配置
-  lowerLimitPointNum: 4, // 最少定点数
+  lowerLimitPointNum: 2, // 最少定点数
   upperLimitPointNum: '', // 最多顶点数
   preReferenceStep: 0, // 无效配置
   skipWhileNoDependencies: false, // 无效配置
@@ -102,7 +102,7 @@ const textToolConfig = {
   enableTextRecognition: true,
   recognitionMode: 'general',
   configList: [
-    { label: '文本', key: 'text', required: false, default: 'default1', maxLength: 1000 },
+    { label: '文本1', key: 'text1', required: false, default: 'default1', maxLength: 1000 },
     { label: '文本2', key: 'text2', required: true, default: 'default2', maxLength: 1000 },
     { label: '文本3', key: 'text3', required: true, default: 'default3', maxLength: 1000 }
   ],
@@ -112,7 +112,7 @@ const textToolConfig = {
 const polygonConfig = {
   lineType: 0, // 配置拉线类型 0 为普通拉线，2为贝塞尔曲线
   lineColor: 0, // 配置拉线颜色，0为单一色，1 为多色（暂未生效）
-  edgeAdsorption: true, //多线条情况下是否支持 点吸附
+  edgeAdsorption: false, //多线条情况下是否支持 点吸附
   drawOutsideTarget: false, // 无效配置
   copyBackwardResult: false, //无效配置
   attributeConfigurable: true, //是否显示分割标签配置选项
@@ -124,7 +124,7 @@ const polygonConfig = {
     { key: '纸巾', value: 'tissue' },
     { key: '水壶', value: 'kettle' }
   ], //分割标签配置选项
-  textConfigurable: true, //分割标签是否可配置
+  textConfigurable: false, //分割标签是否可配置
   textCheckType: 0, //分割标签检查输入类型配置 1 为数字 2 为英文 3为数字 4 为任意字符(配合customFormat 使用)
   customFormat: '' ///分割标签检查输入格式正则
 };

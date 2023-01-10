@@ -64,6 +64,19 @@ const CreateTask = (props : any)=>{
           commonController.notificationErrorMessage({message : '请选择工具'}, 1);
           return;
         }
+        if ((toolsConfig && toolsConfig.tools && toolsConfig.tools.length > 0)) {
+            let currentTools = toolsConfig.tools;
+            for (let toolIndex = 0; toolIndex < currentTools.length; toolIndex++) {
+              let currentConfig = currentTools[toolIndex];
+              if (currentConfig.tool === 'pointTool') {
+                  // @ts-ignore
+                  if (!currentConfig?.config?.upperLimit) {
+                      commonController.notificationErrorMessage({message : '请输入上限点数'},1)
+                      return;
+                  }
+              }
+            }
+        }
         let res = await updateTaskConfig(taskId, {
             'config' : JSON.stringify(toolsConfig),
             'media_type' : 'IMAGE'

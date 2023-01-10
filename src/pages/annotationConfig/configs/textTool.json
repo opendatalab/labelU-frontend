@@ -11,15 +11,15 @@
   },
   "textConfig": [
     {
-      "label": "我的描述",
-      "key": "描述的关键",
+      "label": "文本1",
+      "key": "text1",
       "required": true,
       "default": "",
       "maxLength": 200
     },
     {
-      "label": "我的描述1",
-      "key": "描述的关键1",
+      "label": "文本2",
+      "key": "text2",
       "required": true,
       "default": "",
       "maxLength": 200

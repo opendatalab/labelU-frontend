@@ -4,7 +4,7 @@
   "tool": "pointTool",
   "config": {
     "attributeConfigurable": true,
-    "textConfigurable": true,
+    "textConfigurable": false,
     "textCheckType": 0,
     "customFormat": ""
   }

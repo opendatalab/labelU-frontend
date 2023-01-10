@@ -22,13 +22,13 @@
         "copyBackwardResult": true,
         "minWidth": 1,
         "attributeConfigurable": true,
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": "",
         "attributeList": [
           {
-            "key": "rectTool",
-            "value": "rectTool"
+            "key": "",
+            "value": ""
           }
         ]
       }
@@ -40,16 +40,16 @@
         "lineType": 0,
         "lineColor": 0,
         "drawOutsideTarget": false,
-        "edgeAdsorption": true,
+        "edgeAdsorption": false,
         "copyBackwardResult": true,
         "attributeConfigurable": true,
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": "",
         "attributeList": [
           {
-            "key": "polygonTool",
-            "value": "polygonTool"
+            "key": "",
+            "value": ""
           }
         ]
       }
@@ -57,11 +57,10 @@
     {
       "tool": "pointTool",
       "config": {
-        "upperLimit": 10,
         "isShowCursor": false,
         "attributeConfigurable": true,
         "copyBackwardResult": true,
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": "",
         "attributeList": [
@@ -95,7 +94,7 @@
     {
       "tool": "tagTool",
       "config": {
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": ""
       }
@@ -106,14 +105,14 @@
         "isShowCursor": false,
         "lineType": 0,
         "lineColor": 1,
-        "edgeAdsorption": true,
+        "edgeAdsorption": false,
         "outOfTarget": true,
         "copyBackwardResult": true,
         "attributeConfigurable": true,
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": "",
-        "lowerLimitPointNum": 4,
+        "lowerLimitPointNum": 2,
         "upperLimitPointNum": "",
         "attributeList": [
           {
@@ -126,7 +125,7 @@
     {
       "tool": "textTool",
       "config": {
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": ""
       }
@@ -170,8 +169,8 @@
   ],
   "attribute": [
     {
-      "key": "PPPP",
-      "value": "PPPP"
+      "key": "",
+      "value": ""
     },
     {
       "key": "类别bA",
@@ -208,15 +207,15 @@
   ],
   "textConfig": [
     {
-      "label": "我的描述",
-      "key": "描述的关键",
+      "label": "文本1",
+      "key": "text1",
       "required": true,
       "default": "",
       "maxLength": 200
     },
     {
-      "label": "我的描述1",
-      "key": "描述的关键1",
+      "label": "文本2",
+      "key": "text2",
       "required": true,
       "default": "",
       "maxLength": 200

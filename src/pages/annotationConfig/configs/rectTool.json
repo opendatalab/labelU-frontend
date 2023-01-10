@@ -11,8 +11,8 @@
   },
   "attribute": [
     {
-      "key": "RT",
-      "value": "RT"
+      "key": "",
+      "value": ""
     }
   ],
   "tools": [
@@ -26,10 +26,10 @@
         "copyBackwardResult": false,
         "minWidth": 1,
         "attributeConfigurable": true,
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 4,
         "customFormat": "",
-        "attributeList": [{ "key": "rectTool", "value": "rectTool" }]
+        "attributeList": [{ "key": "", "value": "" }]
       }
     }
   ]

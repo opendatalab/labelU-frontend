@@ -223,7 +223,7 @@ const FormConfig: FC = props => {
                 drawOutsideTarget: false,
                 textCheckType: 1,
                 customFormat: '',
-                textConfigurable: true
+                textConfigurable: false
               };
 
               if (noCommonConfigTools.indexOf(_) >= 0) {

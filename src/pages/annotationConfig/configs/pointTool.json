@@ -11,22 +11,21 @@
   },
   "attribute": [
     {
-      "key": "PPPP",
-      "value": "PPPP"
+      "key": "",
+      "value": ""
     }
   ],
   "tools": [
     {
       "tool": "pointTool",
       "config": {
-        "upperLimit": 10,
         "isShowCursor": false,
         "attributeConfigurable": true,
         "copyBackwardResult": false,
-        "textConfigurable": true,
+        "textConfigurable": false,
         "textCheckType": 0,
         "customFormat": "",
-        "attributeList": [{ "key": "pointTool", "value": "pointTool" }]
+        "attributeList": [{ "key": "", "value": "" }]
       }
     }
   ]

@@ -36,8 +36,8 @@ const RectConfigForm: FC<BasicConfig & { name: string }> = props => {
     }
   };
   const [initVal, setInitVal] = useState<FormRectConfig>({
-    minWidth: 10,
-    minHeight: 10,
+    minWidth: 1,
+    minHeight: 1,
     attributeList: [
       {
         key: 'rectTool',
@@ -50,9 +50,9 @@ const RectConfigForm: FC<BasicConfig & { name: string }> = props => {
     if (props.config) {
       let initV = {
         // @ts-ignore
-        minWidth: props.config.minWidth ? props.config.minWidth : 10,
+        minWidth: props.config.minWidth ? props.config.minWidth : 1,
         // @ts-ignore
-        minHeight: props.config.minHeight ? props.config.minHeight : 10,
+        minHeight: props.config.minHeight ? props.config.minHeight : 1,
         // @ts-ignore
         attributeList: props.config.attributeList
           ? // @ts-ignore

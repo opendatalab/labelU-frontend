@@ -8,7 +8,7 @@ const initialState: ToolsConfigState = {
   attribute: [],
   textConfig: [],
   fileInfo: {} as FileInfo,
-  commonAttributeConfigurable:true,
+  commonAttributeConfigurable:false,
 };
 
 const toolsConfigSlice = createSlice({
@@ -65,7 +65,7 @@ const toolsConfigSlice = createSlice({
       state.attribute = [];
       state.textConfig = [];
       state.fileInfo = {} as FileInfo;
-      state.commonAttributeConfigurable = true;
+      state.commonAttributeConfigurable = false;
     },
     // 更新全部配置
     updateAllConfig(state, action: PayloadAction<ToolsConfigState>) {

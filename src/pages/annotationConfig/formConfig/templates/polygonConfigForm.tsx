@@ -42,7 +42,7 @@ const RectConfigForm: FC<BasicConfig & { name: string }> = props => {
 
   const [initVal, setInitVal] = useState<FormPolygonConfig>({
     lineType: 0,
-    lowerLimitPointNum: 10,
+    lowerLimitPointNum: 3,
     upperLimitPointNum: 100,
     attributeList: [
       {
@@ -61,7 +61,7 @@ const RectConfigForm: FC<BasicConfig & { name: string }> = props => {
         // @ts-ignore
         lineType: props.config.lineType ? props.config.lineType : 0,
         // @ts-ignore
-        lowerLimitPointNum: props.config.lowerLimitPointNum ? props.config.lowerLimitPointNum : 10,
+        lowerLimitPointNum: props.config.lowerLimitPointNum ? props.config.lowerLimitPointNum : 3,
         // @ts-ignore
         upperLimitPointNum: props.config.upperLimitPointNum ? props.config.upperLimitPointNum : 100,
         // @ts-ignore

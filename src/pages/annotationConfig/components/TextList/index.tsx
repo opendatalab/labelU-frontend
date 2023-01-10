@@ -12,8 +12,8 @@ import { useTranslation } from 'react-i18next';
 const { confirm } = Modal;
 
 export const defaultValue = {
-  label: '文本',
-  key: 'text',
+  label: '文本1',
+  key: 'text1',
   required: false,
   default: '',
   maxLength: 1000
@@ -113,7 +113,7 @@ const TextList: React.FC<IProps> = ({ value, onChange,onDelete,onAdd }) => {
         <div
           key={index}
           className={classnames({
-            multiple: (value || configs).length > 1,
+            multiple: (value || configs).length >= 1,
             textConfigItem: true
           })}
         >
@@ -130,7 +130,7 @@ const TextList: React.FC<IProps> = ({ value, onChange,onDelete,onAdd }) => {
             value={i.key}
             className="textConfigInput"
             placeholder={t('SaveValue')}
-            disabled={(value || configs).length === 1}
+            // disabled={(value || configs).length === 1}
             onChange={e => {
               updateConfigItem({ key: e.target.value }, index);
             }}
