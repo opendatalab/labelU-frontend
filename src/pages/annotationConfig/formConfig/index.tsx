@@ -1,7 +1,7 @@
 import { EToolName, OneTag } from '@label-u/annotation';
 import { BasicConfig } from '@label-u/components';
 import { Button, Dropdown, Form, Menu, Select, Tabs } from 'antd';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState, Dispatch, SetStateAction } from 'react';
 import { toolnames, types, toolnameT, toolnameC } from './constants';
 import FormEngine from './formEngine';
 import CommonFormItem from '../components/commonFormItems';
@@ -10,30 +10,50 @@ import { LoadInitConfig } from '../configTemplate/config';
 import {
   updateAllAttributeConfigList,
   updatecCommonAttributeConfigurable,
-  updateFileInfo,
   updateTagConfigList,
   updateTextConfig,
   updateToolsConfig
 } from '../../../stores/toolConfig.store';
 import '../index.less';
 import { validateTools } from '../../../utils/tool/common';
+import { ToolsConfigState } from 'interface/toolConfig';
 const { Option } = Select;
 
 const noCommonConfigTools = ['tagTool', 'textTool'];
 const nodrawOutsideTargetTools = ['lineTool'];
 
-const FormConfig: FC = props => {
-  const { tools, tagList, attribute, textConfig,commonAttributeConfigurable } = useSelector(state => state.toolsConfig);
+
+// const [activeTabKey, setActiveTabKey] = useState<string>("1");
+let activeTabKey = "1";
+
+function setActiveTabKey(value: string) {
+  activeTabKey = value;
+}
+
+interface IProps {
+  config: ToolsConfigState
+  setConfig: Dispatch<SetStateAction<ToolsConfigState>>
+}
+
+const FormConfig: FC<IProps> = (props: IProps) => {
+  // const { config, setConfig } = props;
+  const { tools, tagList, attribute, textConfig, commonAttributeConfigurable } = useSelector(state => state.toolsConfig);
   const dispatch = useDispatch();
   const children = [];
   const [media, setMedia] = useState<string>('图片');
   const [selectTools, setSelectTools] = useState<string[]>([]);
   // const [curentTool, setCurrentTool] = useState<string>();
+  const [activeTabKey, setActiveTabKey] = useState<string>("1");
   const [isConfigLoad, setIsConfigLoad] = useState<boolean>(true);
   for (let i = 0; i < types.length; i++) {
     children.push(<Option key={types[i]}>{types[i]}</Option>);
   }
   const [force, forceSet] = useState(0);
+  useEffect(() => {
+    return () => {
+      console.log('umounted');
+    };
+  }, []);
   const items = useMemo(() => {
     let items = [];
     for (let i = 0; i < toolnames.length; i++) {
@@ -74,8 +94,6 @@ const FormConfig: FC = props => {
           } else if (key === 'tools') {
             let newTools = [...tools].concat(config[key]);
             dispatch(updateToolsConfig(newTools));
-          } else if (key === 'fileInfo') {
-            dispatch(updateFileInfo(config[key]));
           }
         }
         resolve(config);
@@ -103,10 +121,9 @@ const FormConfig: FC = props => {
           return tool !== EToolName.Text;
         });
       }
+      console.log("== new Tools ==");
       console.log(newTools);
-      console.log(selectTools)
       setSelectTools(newTools);
-      // setCurrentTool(newTools[newTools.length - 1]);
     }
   }, [tools, tagList, textConfig]);
 
@@ -118,6 +135,8 @@ const FormConfig: FC = props => {
       tmp.push(toolname);
       // setCurrentTool(toolname);
     }
+    console.log("== new Tools(tmp) ==");
+    console.log(tmp);
     setSelectTools(tmp);
   };
 
@@ -176,6 +195,9 @@ const FormConfig: FC = props => {
       updateCombineToolsConfig(tools, commonToolConfig, name);
     }
   };
+  console.log(activeTabKey)
+  console.log(selectTools)
+  console.log(tools)
   return (
     <div className="formConfig" style={{ height: height }}>
       <div className="oneRow">
@@ -195,17 +217,12 @@ const FormConfig: FC = props => {
       {selectTools && selectTools.length > 0 && validateTools(tools) && (
         <div className="formTabBox">
           <Tabs
-            // onChange={onChange}
             type="card"
             activeKey={
-              // fix: 未初始化tab切换页面
-              (localStorage.getItem('activeTabKeys') &&
-              Number(localStorage.getItem('activeTabKeys')) <= selectTools.length
-                ? localStorage.getItem('activeTabKeys')
-                : selectTools.length + '') as string
+              String(Math.min(Number(activeTabKey), selectTools.length))
             }
             onChange={e => {
-              localStorage.setItem('activeTabKeys', e);
+              setActiveTabKey(e);
               forceSet(new Date().getTime());
             }}
             items={selectTools.map((_, i) => {

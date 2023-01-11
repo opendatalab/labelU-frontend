@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   updateAllAttributeConfigList,
-  updateFileInfo,
   updateTagConfigList,
   updateTextConfig,
   updateToolsConfig
@@ -26,7 +25,6 @@ const TmplateBox: FC<Iprops> = ({ tempaltes, hideBox }) => {
         tagList: [],
         attribute: [],
         textConfig: [],
-        fileInfo: {},
         // @ts-ignore
         ...item.tmplateName
       };
@@ -41,8 +39,6 @@ const TmplateBox: FC<Iprops> = ({ tempaltes, hideBox }) => {
           dispatch(updateTextConfig(initConfig[key]));
         } else if (key === 'tools') {
           dispatch(updateToolsConfig(initConfig[key]));
-        } else if (key === 'fileInfo') {
-          dispatch(updateFileInfo(initConfig[key]));
         }
       }
     }

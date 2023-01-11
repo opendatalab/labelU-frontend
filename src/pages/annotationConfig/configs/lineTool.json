@@ -1,14 +1,4 @@
 {
-  "fileInfo": {
-    "type": "img",
-    "list": [
-      {
-        "id": 1,
-        "url": "/src/img/example/bear1.webp",
-        "result": "[]"
-      }
-    ]
-  },
   "attribute": [
     {
       "key": "",

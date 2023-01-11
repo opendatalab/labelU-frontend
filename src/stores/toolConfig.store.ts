@@ -1,4 +1,3 @@
-import { FileInfo } from '@label-u/components';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Attribute, OneTag, BasicConfig, ToolsConfigState, TextConfig } from 'interface/toolConfig';
 
@@ -7,7 +6,6 @@ const initialState: ToolsConfigState = {
   tagList: [],
   attribute: [],
   textConfig: [],
-  fileInfo: {} as FileInfo,
   commonAttributeConfigurable:false,
 };
 
@@ -44,15 +42,6 @@ const toolsConfigSlice = createSlice({
     updateAllAttributeConfigList(state, action: PayloadAction<Attribute[]>) {
       state.attribute = action.payload;
     },
-    // 更新文件信息
-    updateFileInfo(state, action: PayloadAction<FileInfo>) {
-      state.fileInfo = action.payload;
-    },
-
-    // // 更新isShowOrder
-    // updateIsShowOrder(state, action: PayloadAction<boolean>) {
-    //   state.isShowOrder = action.payload;
-    // },
 
     // 配置文本组建
     updateTextConfig(state, action: PayloadAction<TextConfig>) {
@@ -64,26 +53,20 @@ const toolsConfigSlice = createSlice({
       state.tools = [];
       state.attribute = [];
       state.textConfig = [];
-      state.fileInfo = {} as FileInfo;
       state.commonAttributeConfigurable = false;
     },
     // 更新全部配置
     updateAllConfig(state, action: PayloadAction<ToolsConfigState>) {
       state.attribute = action.payload.attribute;
-
       state.tools = action.payload.tools;
-
       state.tagList = action.payload.tagList;
-
       state.textConfig = action.payload.textConfig;
-      state.fileInfo = action.payload.fileInfo;
       state.commonAttributeConfigurable = action.payload.commonAttributeConfigurable;
     }
   }
 });
 
 export const {
-  updateFileInfo,
   removeToolsConfig,
   updateToolsConfig,
   removeTagConfigList,

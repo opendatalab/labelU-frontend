@@ -15,7 +15,6 @@ import ConfigNotMatchImg from '../../img/annotationCommon/configNotMatch.png';
 
 import {
   updateAllAttributeConfigList,
-  updateFileInfo,
   updateTagConfigList,
   updateTextConfig,
   updateToolsConfig
@@ -104,8 +103,6 @@ const YamlConfig: FC<YamlConfigProps> = props => {
             props.doSetImg(ConfigNotMatchImg, false);
           }
           dispatch(updateToolsConfig(configs[key]));
-        } else if (key === 'fileInfo') {
-          dispatch(updateFileInfo(configs[key]));
         }
       }
     } catch (error) {

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import Annotation from '../../components/business/annotation';
-import AnnotationOperation, { TextConfig } from '@label-u/components';
+import AnnotationOperation from '@label-u/components';
 import './index.less';
 // import { fileList as mockFileList, videoList } from '../../mock/annotationMock';
 import YamlConfig from './yamlConfig';
@@ -10,27 +10,79 @@ import { Button, Steps, Tabs } from 'antd';
 import EmptyConfigImg from '../../img/annotationCommon/emptyConfig.png';
 import ConfigTemplate from './configTemplate/index';
 import FormConfig from './formConfig';
+import { getSamples } from '../../services/samples'
+
 const { Step } = Steps;
+
 interface OneFile {
   id: number;
   url: string;
   result: string;
 }
 
+const defaultFile: OneFile = {
+  id: 1,
+  url: "/src/img/example/bear4.webp",
+  result: "{}"
+};
+
 const AnnotationConfig: FC = () => {
-  const { tools, tagList, attribute, textConfig, fileInfo,commonAttributeConfigurable  } = useSelector(state => state.toolsConfig, shallowEqual);
+  let taskId = parseInt(window.location.pathname.split('/')[2]);
+
+  const [fileList, setFileList] = useState<OneFile[]>([defaultFile]);
+
+  useEffect(() => {
+    const loadFirstSample = async () => {
+      const resp = await getSamples(taskId, { pageNo: 0, pageSize: 1 });
+      const data = resp.data;
+      const samples = data.data;
+      if (samples != null && samples.length > 0) {
+        const firstSample = samples[0];
+        console.log(firstSample.data);
+
+        // bad code
+        const urls = firstSample.data.urls;
+        if (urls != null) {
+          const firstKey = Object.keys(urls)[0]
+          const firstUrl = urls[firstKey];
+          console.log(firstUrl);
+
+          const oneFile: OneFile = {
+            id: 1,
+            url: firstUrl,
+            result: "{}"
+          }
+          setFileList([oneFile]);
+        }
+      }
+    }
+    loadFirstSample();
+  }, []);
+
+  useEffect(() => {
+    // run during mount
+
+    return () => {
+      // run during umount
+      console.log('AnnotationConfig umounted');
+    };
+  }, []);
+
+  // for future test only
+  const [config, setConfig] = useState<ToolsConfigState>({
+    tools: [],
+    tagList: [],
+    attribute: [],
+    textConfig: [],
+    commonAttributeConfigurable: false
+  });
+
+
+  const { tools, tagList, attribute, textConfig, commonAttributeConfigurable  } = useSelector(state => state.toolsConfig, shallowEqual);
   const [rightImg, setRightImg] = useState<any>();
   const [isConfigError, setIsConfigError] = useState<boolean>(false);
-  const [confitState, setConfigState] = useState<ToolsConfigState>({
-    fileInfo: fileInfo,
-    tools: tools,
-    tagList: tagList,
-    attribute: attribute,
-    textConfig: textConfig,
-    commonAttributeConfigurable:commonAttributeConfigurable
-  });
+
   const [force, forceSet] = useState(0);
-  const [fileList, setFileList] = useState<OneFile[]>([]);
 
   useEffect(() => {
     // 初始化配置防抖方法
@@ -51,32 +103,10 @@ const AnnotationConfig: FC = () => {
     setRightImg(EmptyConfigImg);
   }, []);
 
-  // const currentIsVideo = false;
   useEffect(() => {
-    setConfigState({
-      fileInfo: fileInfo,
-      tools: tools,
-      tagList: tagList,
-      attribute: attribute,
-      textConfig: textConfig,
-      commonAttributeConfigurable:commonAttributeConfigurable
-    });
     // 配置更新表单刷新
     forceSet(new Date().getTime());
-  }, [attribute, tagList, textConfig, tools, fileInfo,commonAttributeConfigurable]);
-
-  // 加载工具配置信息 和 文件信息
-  useEffect(() => {
-    if (fileInfo.list && fileInfo.list.length > 0) {
-      // 配置标注文件 todo=》补充文件拉取接口
-      let fList: OneFile[] = fileInfo.list.map((item: { url: any }, i: number) => ({
-        id: i + 1,
-        url: item.url,
-        result: JSON.stringify([])
-      }));
-      setFileList(fList);
-    }
-  }, [fileInfo]);
+  }, [attribute, tagList, textConfig, tools, commonAttributeConfigurable]);
 
   const goBack = (data: any) => {
     console.log('goBack', data);
@@ -120,8 +150,7 @@ const AnnotationConfig: FC = () => {
             <ConfigTemplate />
           </div>
           <div className="leftPane">
-            {/* TODO: key=force seems useless */}
-            <FormConfig key={force} />
+            <FormConfig key={force} config={config} setConfig={setConfig} />
           </div>
 
           {/*<Tabs*/}

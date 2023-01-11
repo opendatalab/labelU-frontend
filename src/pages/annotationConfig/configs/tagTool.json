@@ -1,14 +1,4 @@
 {
-  "fileInfo": {
-    "type": "img",
-    "list": [
-      {
-        "id": 1,
-        "url": "/src/img/example/bear5.webp",
-        "result": "[]"
-      }
-    ]
-  },
   "tagList": [
     {
       "key": "类别1",

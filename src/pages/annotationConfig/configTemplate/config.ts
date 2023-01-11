@@ -7,7 +7,13 @@ interface configItem {
   tmplateName: any;
 }
 
-export const imgLebalConfig: Item[] = [
+const defaultLabelConfig: Array<configItem> = [{
+  label: "",
+  img: "",
+  tmplateName: ""
+}];
+
+const imgLebalConfig: Item[] = [
   {
     label: '目标检测（矩形框）',
     img: 'rectImg',
@@ -40,7 +46,7 @@ export const imgLebalConfig: Item[] = [
   }
 ];
 
-export const getLabelConfig: (imgLebalConfig: Item[]) => Promise<configItem[]> = async (imgLebalConfig: Item[]) => {
+export const getLabelConfig: () => Promise<configItem[]> = async () => {
   return new Promise(async (resolve, reject) => {
     const reuslt: configItem[] = [];
     if (imgLebalConfig.length > 0) {

@@ -2,7 +2,7 @@ import { Button, Tabs } from 'antd';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import DrageModel from '../../../components/basic/modal';
 import './index.less';
-import { imgLebalConfig, getLabelConfig } from './config';
+import { getLabelConfig } from './config';
 import TmplateBox from './tmplateBox';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -34,7 +34,7 @@ const ConfigTemplate: FC = () => {
   useEffect(() => {
 
     new Promise(async (resolve, reject) => {
-      const result = await getLabelConfig(imgLebalConfig);
+      const result = await getLabelConfig();
       const neLabelTypes = labelTypes.map((item, index) => {
         if (item.label === '图片') {
           return {

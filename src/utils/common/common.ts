@@ -183,7 +183,6 @@ const commonController = {
     }
     // console.log(data.result);
     // delete
-    // let url = 'http://localhost:8000/src/img/example/bear1.webp'
     let newResult : any = '';
     if(data.result && !commonController.isNullObject(data.result)) {
       newResult = data.result;

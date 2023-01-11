@@ -70,16 +70,6 @@ const AnnotationPage = ()=>{
                 //         }
                 //     ],
                 //     "textConfig": [],
-                //     "fileInfo": {
-                //         "type": "img",
-                //         "list": [
-                //             {
-                //                 "id": 1,
-                //                 "url": "/src/img/example/bear4.webp",
-                //                 "result": "[]"
-                //             }
-                //         ]
-                //     }
                 // }
                 // @ts-ignore
                 // console.log(taskRes?.data.data.config);

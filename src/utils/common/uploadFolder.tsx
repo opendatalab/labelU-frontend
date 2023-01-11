@@ -1,7 +1,5 @@
-import React from 'react'
 import currentStyles from "../../pages/inputData/index.module.scss";
-import {PictureOutlined } from '@ant-design/icons'
-import {imgLebalConfig} from "../../pages/annotationConfig/configTemplate/config";
+
 const UploadFolderController = {
     isInArray : (children : any, index : number, paths : any)=>{
         return children.some((childItem : any)=> childItem.title === paths[index]);

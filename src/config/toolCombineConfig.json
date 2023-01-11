@@ -1,16 +1,4 @@
 {
-  "fileInfo": {
-    "type": "img",
-    "list": [
-      {
-        "url": "/src/img/annotationCommon/configNotMatch.png"
-      },
-      {
-        "url": "/src/img/annotationCommon/emptyConfig.png"
-      }
-    ]
-  },
-
   "tools": [
     {
       "tool": "rectTool",

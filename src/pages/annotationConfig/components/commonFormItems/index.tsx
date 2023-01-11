@@ -65,21 +65,20 @@ const CommonFormItem: FC<CommonFormConf & { name: string; toolName: string; isSh
     <div style={{ marginTop: 24 }}>
       {initVal && (
         <Form {...formItemLayout} onChange={formSubmitThrottle} form={form} name={props.name}>
-          {props.toolName !== 'lineTool' && (
-            <Form.Item
-              valuePropName="checked"
-              label={<span className="formTitle">目标外标注</span>}
-              name="drawOutsideTarget"
-              initialValue={initVal.drawOutsideTarget}
-            >
-              <Switch
-                onChange={e => {
-                  form.submit();
-                }}
-                disabled={isAllReadOnly}
-              />
-            </Form.Item>
-          )}
+          
+          <Form.Item
+            valuePropName="checked"
+            label={<span className="formTitle">目标外标注</span>}
+            name="drawOutsideTarget"
+            initialValue={initVal.drawOutsideTarget}
+          >
+            <Switch
+              onChange={e => {
+                form.submit();
+              }}
+              disabled={isAllReadOnly}
+            />
+          </Form.Item>
 
           <Form.Item
             valuePropName="checked"

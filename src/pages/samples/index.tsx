@@ -53,8 +53,6 @@ const Samples = (props : any)=>{
       dataIndex: 'id',
       key: 'id',
       align : 'left'
-      // className : currentStyles.tableColumn
-      // width: 80,
     },
     {
       title: '数据预览',
@@ -63,16 +61,11 @@ const Samples = (props : any)=>{
       align : 'left',
       render:(data : any)=> {
         let url = '';
-        // if(!data.urls){
-        //   url = window.location.origin + '/src/img/example/bear1.webp';
-        // }else{
-          for(let sampleId in data.urls){
-            url = data.urls[sampleId];
-          }
-        // }
+        for(let sampleId in data.urls){
+          url = data.urls[sampleId];
+        }
         return <img src = {url} style = {{ width : '116px',height : '70px' }}/>
       }
-      // width: 80,
     },
     {
       title: '标注情况',
@@ -80,7 +73,6 @@ const Samples = (props : any)=>{
       key: 'packageID',
       align : 'left',
 
-      // width: 120,
       render:(text : string)=>{
         if(taskStatus === 'DRAFT' || taskStatus === 'IMPORTED') {
           return '';
