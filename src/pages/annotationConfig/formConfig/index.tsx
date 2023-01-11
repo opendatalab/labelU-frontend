@@ -20,7 +20,6 @@ import { ToolsConfigState } from 'interface/toolConfig';
 const { Option } = Select;
 
 const noCommonConfigTools = ['tagTool', 'textTool'];
-const nodrawOutsideTargetTools = ['lineTool'];
 
 // instead of useState
 let activeTabKey = "1";
@@ -257,10 +256,6 @@ const FormConfig: FC<IProps> = (props: IProps) => {
                     //@ts-ignore
                     textConfigurable: initC.config.textConfigurable
                   };
-                  if (nodrawOutsideTargetTools.indexOf(_) >= 0) {
-                    //@ts-ignore
-                    delete commonConfig['drawOutsideTarget'];
-                  }
                 }
               }
 
