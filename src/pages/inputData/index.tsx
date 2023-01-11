@@ -202,12 +202,20 @@ const InputInfoConfig = ()=>{
     // 2. 等待中
     // 3. 上传成功
     // 4. 上传失败
-    const updateOneOfHaveUplodaedFileList = (uid : any, hasUploaded : any)=>{
+    const updateOneOfHaveUplodaedFileList = (uid : any, hasUploaded : any, result : any)=>{
         let temp = haveUploadFiles.concat([]);
         for (let haveUploadedFilesIndex = 0; haveUploadedFilesIndex < temp.length; haveUploadedFilesIndex++) {
             let haveUploadedFile = temp[haveUploadedFilesIndex];
             if (uid === haveUploadedFile.uid){
                 haveUploadedFile.hasUploaded = hasUploaded;
+                if (result) {
+                  haveUploadedFile.uploadId = result?.data.data.id;
+                  haveUploadedFile.url = result.data.data.url;
+                  haveUploadedFile.id = result.data.data.id;
+                }
+              // uploadId : result?.data.data.id,
+              // url : result.data.data.url,
+              // id : result.data.data.id,
                 setHaveUploadFiles(temp);
                 break;
             }
@@ -346,9 +354,9 @@ const InputInfoConfig = ()=>{
                 setTempC(newFileListInfoIndex + 1);
                 if (result?.status === 201) {
                     setUploadedSuccessful(uploadedSuccessful + 1);
-                    updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 3);
+                    updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 3, result);
                 }else{
-                    updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 4);
+                    updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 4, undefined);
                 }
             }
             console.log(result);
