@@ -168,15 +168,34 @@ const AnnotationPage = ()=>{
     //   taskId,
     //   sampleId
     // })
-    getPreSample(taskId, sampleId).then((res:any)=>{
-      if (res.status === 200){
-        let result = res.data.data.data.result;
-        let newTaskSample = [{...taskSample[0],result}]
-        setTaskSample(newTaskSample);
-      }else{
-        commonController.notificationErrorMessage({message : '请求数据错误'},1);
-      }
-    }).catch(error=>commonController.notificationErrorMessage(error,1))
+
+    // getSamples(taskId, {
+    //     before : sampleId,
+    //     pageSize : 1
+    // }).then((res:any)=>{
+    //   if (res.status === 200){
+    //       console.log(res)
+    //       if(res.data.data.length === 0){
+    //           commonController.notificationWarnMessage({message : '没有上一张'},1);
+    //       }else{
+    //           let result = res.data.data[0].data.result;
+    //           let newTaskSample = [{...taskSample[0],result}]
+    //           setTaskSample(newTaskSample);
+    //       }
+    //   }else{
+    //     commonController.notificationErrorMessage({message : '请求数据错误'},1);
+    //   }
+    // }).catch(error=>commonController.notificationErrorMessage(error,1))
+
+      getPreSample(taskId, sampleId).then((res:any)=>{
+          if (res.status === 200){
+              let result = res.data.data.data.result;
+              let newTaskSample = [{...taskSample[0],result}]
+              setTaskSample(newTaskSample);
+          }else{
+              commonController.notificationErrorMessage({message : '请求数据错误'},1);
+          }
+      }).catch(error=>commonController.notificationErrorMessage(error,1))
 
   }
   useEffect(()=>{
