@@ -13,7 +13,6 @@ const commonController = {
   },
   checkEmail (event : any, emailValue ?: any) {
     let email : any = event ? event.target.value : emailValue;
-    // console.log(email)
     let result = false;
     if (email !== undefined
         && (email.indexOf('@') > -1 && email.indexOf('@') === email.lastIndexOf('@') ) ) {
@@ -48,12 +47,10 @@ const commonController = {
     return value.length >= 6;
   },
   isInputValueNull (targetValue : any) {
-    console.log(targetValue)
     let result = true;
     if (targetValue) {
       result = false;
     }
-    console.log(result)
     return result;
   }
   ,
@@ -181,7 +178,6 @@ const commonController = {
     for (let sampleId in data.urls) {
       url = data.urls[sampleId];
     }
-    // console.log(data.result);
     // delete
     let newResult : any = '';
     if(data.result && !commonController.isNullObject(data.result)) {
@@ -189,11 +185,9 @@ const commonController = {
     }else{
       newResult = '{}';
     };
-    // console.log(newResult);
     let finalResult = [{
       id,url,result : newResult
     }];
-    // console.log(finalResult);
 
     return finalResult;
   },
@@ -207,28 +201,7 @@ const commonController = {
     img.src = src;
   },
   downloadToFile(data:any, fileType : string){
-    // let mimeType = 'application/json';
-    // switch(mimeType){
-    //   case 'JSON' :
-    //     mimeType = 'application/json',
-    //         break;
-    //   case 'COCO' ;
-    //     mimeType =
-    // }
-
-
-    // res.blob().then(blob => {
-    //   const a = document.createElement('a');
-    //   const url = window.URL.createObjectURL(blob);
-    //   a.href = url;
-    //   a.download = filename;
-    //   a.click();
-    //   window.URL.revokeObjectURL(url);
-    // })
-    //
-    console.log(data);
     let info = new Blob(data.data);
-    // console.log(info)
     // @ts-ignore
     let dataTimestamp = new Date().getTime();
     try {

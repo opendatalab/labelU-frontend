@@ -119,8 +119,6 @@ const outputSample = async function (taskId : number, sampleIds : any, activeTxt
     // let afString = res.headers['content-disposition'].split(';')[1].split('=')[1];
     // afString = afString.slice(1,-1);
     // let blobUrl = 'blob:'+window.location.origin + '/'+ afString;
-    // console.log(blobUrl);
-    console.log(data);
     let blobData = new Blob([JSON.stringify(data.data)]);
     let url = window.URL.createObjectURL(blobData);
     const a = document.createElement('a');

@@ -79,7 +79,6 @@ export const addInputList = (
       unit.value = unit.subSelected[0].value.split('-')[0];
     }
   }
-  // console.log(inputList);
   return inputList;
 };
 

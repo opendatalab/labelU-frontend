@@ -62,24 +62,6 @@ const InputInfoConfig = ()=>{
       dispatch(updateTaskTips(targetValue));
 
     }
-  // useEffect(()=>{
-  //   let taskId = parseInt(window.location.pathname.split('/')[2]);
-  //   if(taskId > 0) {
-  //       console.log(11122121212121212)
-  //
-  //       getTask(taskId).then((res:any)=>{
-  //       if (res.status === 200) {
-  //         console.log(res.data.data);
-  //         dispatch(updateTask({data:res.data.data}));
-  //         if (res.data.data.config){
-  //           dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
-  //         }
-  //       }else{
-  //         commonController.notificationErrorMessage({message : '请求任务状态不是200'},1)
-  //       }
-  //     }).catch(error=>commonController.notificationErrorMessage(error,1))
-  //   }
-  // },[]);
 
     const tijiao = async function(){
         try{
@@ -91,7 +73,6 @@ const InputInfoConfig = ()=>{
         }catch(error){
         }
     }
-    console.log({taskName})
 
     return (<div className = {currentStyles.outerFrame}>
         <div className = {currentStyles.title}>

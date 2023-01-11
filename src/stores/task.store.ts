@@ -40,7 +40,6 @@ const existTaskSlice = createSlice({
 
         },
         updateTask(state : any, action : any){
-            console.log(action)
           let taskInfo = action.payload.data;
           let currentStatus = action.payload.configStatus;
           const {name , tips, description, config, status, id } = taskInfo;
@@ -63,8 +62,6 @@ const existTaskSlice = createSlice({
             state.configStep = 0;
             // state.configStep = 1;
           }
-          // console.log(status)
-          //   console.log(currentStatus)
             if (status === 'IMPORTED' && currentStatus === 3) {
                 state.haveConfigedStep = 2;
                 // state.configStep = 0;

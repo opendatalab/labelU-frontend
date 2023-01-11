@@ -110,9 +110,7 @@ const Samples = (props : any)=>{
 
       render:(temp : any, record : any)=>{
         let result = 0;
-        // console.log(record)
         let resultJson = JSON.parse(record.data.result);
-        // console.log(resultJson)
         for (let key in resultJson) {
           if(key.indexOf('Tool') > -1 && key !== 'textTool' && key !== 'tagTool'){
             let tool = resultJson[key];
@@ -207,7 +205,6 @@ const Samples = (props : any)=>{
       setDeleteSampleIds(Object.assign([],deleteSampleIds,selectedKeys));
     },
     getCheckboxProps: (record: any) => {
-      // console.log(record);
       return{
         disabled: false, // Column configuration not to be checked
         name: record.packageID,
@@ -269,7 +266,6 @@ const Samples = (props : any)=>{
   },[]);
 
   const changePage = (page : number, pageSize : number)=>{
-    // console.log(page, pageSize)
     if (page === 0) {
       page = 1;
     }

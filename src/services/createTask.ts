@@ -34,7 +34,6 @@ const uploadFile = async function (taskId : number, params : any ){
 }
 
 const updateTaskConfig = async function (taskId : number, taskConfig : any) {
-    console.log(taskConfig)
     try {
         let res = await axiosInstance({
             url : `/api/v1/tasks/${taskId}`,

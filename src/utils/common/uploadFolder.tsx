@@ -49,7 +49,6 @@ const UploadFolderController = {
                 })
                 UploadFolderController.confirmFolder(parent.children[parent.children.length - 1], index + 1, paths, data);
             }
-            // console.log(newFolder)
         }else{
             if (index !== paths.length - 1) {
                 let childIndex = UploadFolderController.getIndexInArray(parent.children, index, paths);
