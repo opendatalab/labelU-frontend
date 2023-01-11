@@ -36,6 +36,7 @@ const PointConfigForm: FC<BasicConfig & { name: string }> = props => {
   };
   const { children } = props;
   const [initVal, setInitVal] = useState<FormPointConfig>({
+    upperLimit: 100,
     attributeList: [
       {
         key: 'pointTool',
@@ -49,7 +50,7 @@ const PointConfigForm: FC<BasicConfig & { name: string }> = props => {
       let initV : any = {
         // @ts-ignore
         // upperLimit: props.config.upperLimit ? props.config.upperLimit : 10,
-        upperLimit: props.config.upperLimit ? props.config.upperLimit : null,
+        upperLimit: props.config.upperLimit ?? 100,
         // upperLimit: null,
         // @ts-ignore
         attributeList: props.config.attributeList
@@ -62,7 +63,6 @@ const PointConfigForm: FC<BasicConfig & { name: string }> = props => {
               }
             ]
       };
-
       setInitVal(initV);
     }
   }, []);
