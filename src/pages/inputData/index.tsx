@@ -181,15 +181,19 @@ const InputInfoConfig = ()=>{
             return;
         }
         for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
-            let file = files[fileIndex];
-            let isOverSize = commonController.isOverSize(file.OriginSize);
+            let fileUnit = files[fileIndex];
+            let isOverSize = commonController.isOverSize(fileUnit.OriginSize);
             if(isOverSize) {
                 commonController.notificationErrorMessage({message : '单个文件大小超过限制'}, 1);
                 result = false;
                 break;
             }
-            let isCorrectFileType = commonController.isCorrectFileType(file.name);
-            if(!isCorrectFileType) {result = false;break;}
+            // console.log(file);
+            // console.log(file.name);
+            let isCorrectFileType = commonController.isCorrectFileType(fileUnit.file.name);
+            if(!isCorrectFileType) {
+              commonController.notificationErrorMessage({message : '请上传支持的文件类型，类型包括：jpg、png、bmp、gif'}, 1);
+              result = false;break;}
         }
         return result;
     }
