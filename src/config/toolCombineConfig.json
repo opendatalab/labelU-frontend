@@ -212,13 +212,6 @@
       "required": true,
       "default": "",
       "maxLength": 200
-    },
-    {
-      "label": "文本2",
-      "key": "text2",
-      "required": true,
-      "default": "",
-      "maxLength": 200
     }
   ]
 }

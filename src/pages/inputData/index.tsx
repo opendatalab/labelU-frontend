@@ -102,11 +102,16 @@ const InputInfoConfig = ()=>{
                     icon : <img src="/src/icons/picture.png" alt=""/>,
                     title : (<div className = {currentStyles.itemInFolder}>
                         <div className = {currentStyles.columnFileName}>{paths[paths.length - 1]}</div>
-                        <div className = {currentStyles.columnStatus}>{data.hasUploaded ?
-                            (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
-                            (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
+                        <div className = {currentStyles.columnStatus}>{data.hasUploaded === 1 ?
+                            (<div className={currentStyles.uploadStatus}><img src="/src/icons/pending" alt=""/>上传中</div>) :
+                            (data.hasUploaded === 2 ? (<div className={currentStyles.uploadStatus}><img src="/src/icons/pending.png" alt=""/>等待中</div>) :
+                                    (data.hasUploaded === 3 ? (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>上传成功</div>) :
+                                            (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)
+                                    )
+                            )
+                        }</div>
                         <div className = {currentStyles.columnOptionButtons}>
-                            {!data.hasUploaded && <div className = {currentStyles.columnOption1}
+                            {data.hasUploaded === 4 && <div className = {currentStyles.columnOption1}
                             onClick = {()=>renewUploadFileInFolder(data)}> 重新上传 </div>}
                             <div className = {currentStyles.columnOption}
                                  onClick = {commonController.debounce((event : any)=>deleteFile(data.path),1000)}
@@ -164,17 +169,73 @@ const InputInfoConfig = ()=>{
             confirmFolder(newFolder,  1, paths, data);
         }
     }
+    const addSizeToFiles = (files : any)=>{
+        for (let fileIndex = 0; fileIndex < files?.length; fileIndex++) {
+            files[fileIndex].OriginSize = files[fileIndex].file.size;
+        }
+    }
     const isCorrectFiles = (files : any)=>{
         let result = true;
+        if (files.length > 100) {
+            commonController.notificationErrorMessage({message : '单次上传文件数量超过上限，请分批上传'}, 1);
+            return;
+        }
         for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
-            let file = files[fileIndex].file;
-            let isOverSize = commonController.isOverSize(file.size);
-            if(isOverSize) {result = false;break;}
+            let file = files[fileIndex];
+            let isOverSize = commonController.isOverSize(file.OriginSize);
+            if(isOverSize) {
+                commonController.notificationErrorMessage({message : '单个文件大小超过限制'}, 1);
+                result = false;
+                break;
+            }
             let isCorrectFileType = commonController.isCorrectFileType(file.name);
             if(!isCorrectFileType) {result = false;break;}
         }
         return result;
     }
+    // hasUploaded;
+    // 1. 上传中
+    // 2. 等待中
+    // 3. 上传成功
+    // 4. 上传失败
+    const updateOneOfHaveUplodaedFileList = (uid : any, hasUploaded : any)=>{
+        let temp = haveUploadFiles.concat([]);
+        for (let haveUploadedFilesIndex = 0; haveUploadedFilesIndex < temp.length; haveUploadedFilesIndex++) {
+            let haveUploadedFile = temp[haveUploadedFilesIndex];
+            if (uid === haveUploadedFile.uid){
+                haveUploadedFile.hasUploaded = hasUploaded;
+                setHaveUploadFiles(temp);
+                break;
+            }
+        }
+    }
+    const addToHaveUploadFilesList = (currentNewFileList : any)=>{
+      let currentListContainer = [];
+      for (let currentNewFileListIndex = 0; currentNewFileListIndex < currentNewFileList.length; currentNewFileListIndex++) {
+          let currentInfo =  currentNewFileList[currentNewFileListIndex];
+          currentListContainer.push({
+              name : currentInfo.file.name,
+              size : currentInfo.file.size,
+              hasUploaded : 2,
+              // uploadId : result?.data.data.id,
+              // url : result.data.data.url,
+              // id : result.data.data.id,
+              params : {
+                  path : currentInfo.file.webkitRelativePath ? currentInfo.file.webkitRelativePath : './',
+                  file : currentInfo.file
+              },
+              uid : currentInfo.file.uid
+          });
+      }
+        if (commonController.isNullObject(newFolder)) {
+            setHaveUploadFiles(haveUploadFiles.concat(currentListContainer))
+            saveFolderFiles = saveFolderFiles.concat(currentListContainer);
+        }else{
+            setHaveUploadFiles(haveUploadFiles.concat(currentListContainer, [newFolder]))
+            saveFolderFiles.push(newFolder);
+        }
+    }
+    const [startToUpload, setStartToUpload] = useState(1);
     const newCustomRequest = async function (info : any){
         console.log(newFileList);
         console.log(info)
@@ -182,104 +243,122 @@ const InputInfoConfig = ()=>{
         console.log(newFileListInfo)
         if (newFileListInfo.length === newFileList.length) {
             commonController.notificationSuccessMessage({message : '已添加'+newFileList.length + '个项目至上传列表'},1);
-            let isCorrectCondition = isCorrectFiles(newFileListInfo);
+            let middleTemp = newFileListInfo.concat([]);
+            addSizeToFiles(middleTemp);
+            console.log(middleTemp)
+            let isCorrectCondition = isCorrectFiles(middleTemp);
             if(!isCorrectCondition){
-                commonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
+                // commonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
                 newFileList = [];
                 newFileListInfo = [];
                 return;
             }
             let currentHaveUploadFiles = [];
             console.log(newFileListInfo);
+
             setUploadedTotal(uploadedTotal + newFileList.length);
-            for (let newFileListInfoIndex = 0; newFileListInfoIndex < newFileListInfo.length; newFileListInfoIndex++) {
-
-                let currentInfo =  newFileListInfo[newFileListInfoIndex];
-                console.log(currentInfo);
-                console.log(newFileListInfo)
-                let path = currentInfo.file.webkitRelativePath ? currentInfo.file.webkitRelativePath : './';
-                let result = undefined;
-                // if (path.indexOf('/') > -1)
-                {
-                    // if (newFileListInfoIndex === 0) {
-                    //     setHaveUploadFiles(haveUploadFiles.concat([newFolder]));
-                    // }
-                    // result = await uploadFileService(1, {path, file : currentInfo.file  });
-                    // if (result?.status === 201) {
-                    //     setupFolder(path, newFileListInfoIndex, {
-                    //             size : currentInfo.file.size,
-                    //             hasUploaded : true,
-                    //             uploadId : result?.data.data.id,
-                    //     })
-                    //     // });
-                    //
-                    //     // newFolder.push({name : currentInfo.file.name,
-                    //     //     size : currentInfo.file.size,
-                    //     //     hasUploaded : true,
-                    //     //     uploadId : result?.data.data.id});
-                    // }else{
-                    //     setupFolder(path, newFileListInfoIndex,{
-                    //         size : currentInfo.file.size,
-                    //         hasUploaded : false,
-                    //         path,
-                    //         params : {
-                    //             path,
-                    //             file : currentInfo.file
-                    //         }
-                    //         });
-                    //
-                    //     // newFolder.push({name : currentInfo.file.name,
-                    //     //     size : currentInfo.file.size});
-                    // }
-
-
-                // }
-                // else{
-                //     result = await uploadFileService(1, {path : './', file : currentInfo.file  });
-                //     result = await uploadFileService(taskId, {path , file : currentInfo.file  });
-                    result = await uploadFileService(taskId, {  file : currentInfo.file  });
-                    if (result?.status === 201) {
-                        setUploadedSuccessful(uploadedSuccessful + 1)
-                        currentHaveUploadFiles.push({name : currentInfo.file.name,
-                            size : currentInfo.file.size,
-                            hasUploaded : true,
-                            uploadId : result?.data.data.id,
-                            url : result.data.data.url,
-                            id : result.data.data.id,
-                            params : {
-                              path,
-                              file : currentInfo.file
-                            }
-                        });
-                    }else{
-
-                        currentHaveUploadFiles.push({name : currentInfo.file.name,
-                            size : currentInfo.file.size,
-                            params : {
-                                path ,
-                                file : currentInfo.file
-                            }
-                        });
-                    }
-                }
-                // console.log(2);
-                console.log(result);
-
-                // setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
-            }
+            setTemp(newFileListInfo.concat([]));
+            addToHaveUploadFilesList(newFileListInfo.concat([]));
+            setStartToUpload(startToUpload + 1);
+            // for (let newFileListInfoIndex = 0; newFileListInfoIndex < middleTemp.length; newFileListInfoIndex++) {
+            //
+            //     let currentInfo =  middleTemp[newFileListInfoIndex];
+            //     console.log(currentInfo);
+            //     console.log(newFileListInfo)
+            //     let path = currentInfo.file.webkitRelativePath ? currentInfo.file.webkitRelativePath : './';
+            //     let result = undefined;
+            //     // if (path.indexOf('/') > -1)
+            //     {
+            //         result = await uploadFileService(taskId, {  file : currentInfo.file  });
+            //         if (result?.status === 201) {
+            //             setUploadedSuccessful(uploadedSuccessful + 1);
+            //             updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 3);
+            //             // currentHaveUploadFiles.push({name : currentInfo.file.name,
+            //             //     size : currentInfo.file.size,
+            //             //     hasUploaded : 3,
+            //             //     uploadId : result?.data.data.id,
+            //             //     url : result.data.data.url,
+            //             //     id : result.data.data.id,
+            //             //     params : {
+            //             //       path,
+            //             //       file : currentInfo.file
+            //             //     }
+            //             // });
+            //         }else{
+            //             updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 4);
+            //             // currentHaveUploadFiles.push({name : currentInfo.file.name,
+            //             //     size : currentInfo.file.size,
+            //             //     hasUploaded : 4,
+            //             //     params : {
+            //             //         path ,
+            //             //         file : currentInfo.file
+            //             //     }
+            //             // });
+            //         }
+            //         // if (commonController.isNullObject(newFolder)) {
+            //         //     setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
+            //         //     saveFolderFiles = saveFolderFiles.concat(currentHaveUploadFiles);
+            //         // }else{
+            //         //     saveFolderFiles.push(newFolder);
+            //         //     setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles, [newFolder]))
+            //         // }
+            //     }
+            //     // console.log(2);
+            //     console.log(result);
+            //
+            //     // setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
+            // }
             console.log(newFolder)
-            if (commonController.isNullObject(newFolder)) {
-                setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
-                saveFolderFiles = saveFolderFiles.concat(currentHaveUploadFiles);
-            }else{
-                saveFolderFiles.push(newFolder);
-                setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles, [newFolder]))
-            }
+            // if (commonController.isNullObject(newFolder)) {
+            //     setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
+            //     saveFolderFiles = saveFolderFiles.concat(currentHaveUploadFiles);
+            // }else{
+            //     setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles, [newFolder]))
+            //     saveFolderFiles.push(newFolder);
+            // }
             newFileList = [];
             newFileListInfo = [];
             newFolder = {};
         }
     }
+    const [temp,setTemp] = useState<any>([]);
+    const [tempC,setTempC] = useState<any>(0);
+    const [startUploadFlag, setStartUploadFlag] = useState(false);
+    const upLoadFiles = async function () {
+        // console.log(newFileListInfo);
+        // console.log(newFileListInfo.length);
+        // let temp = newFileListInfo.concat([]);
+        // setTemp(temp);
+        setStartUploadFlag(true);
+        for (let newFileListInfoIndex = 0; newFileListInfoIndex < temp.length; newFileListInfoIndex++) {
+            console.log(newFileListInfoIndex)
+            let currentInfo =  temp[newFileListInfoIndex];
+            console.log(currentInfo);
+            console.log(newFileListInfo)
+            let result = undefined;
+            // if (path.indexOf('/') > -1)
+            {
+                result = await uploadFileService(taskId, {  file : currentInfo.file  });
+                setTempC(newFileListInfoIndex + 1);
+                if (result?.status === 201) {
+                    setUploadedSuccessful(uploadedSuccessful + 1);
+                    updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 3);
+                }else{
+                    updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 4);
+                }
+            }
+            console.log(result);
+
+        }
+        setStartUploadFlag(false);
+    }
+    useEffect(()=>{
+        if (startToUpload === 1) {
+            return;
+        }else{
+            upLoadFiles().then(res=>'').catch(error=>commonController.notificationErrorMessage(error,1));
+        }
+    },[startToUpload])
     const [folderFilePath, setFolderFilePath] = useState(1);
     const handleUploadFolderChange : UploadProps['onChange']  = (info)=>{
 
@@ -305,9 +384,9 @@ const InputInfoConfig = ()=>{
         let result = await uploadFileService(taskId, item.params);
         let temp : any= Object.assign([],haveUploadFiles);
         if (result?.status === 201) {
-            temp[itemIndex].hasUploaded = true;
+            temp[itemIndex].hasUploaded = 3;
         }else{
-            temp[itemIndex].hasUploaded = false;
+            temp[itemIndex].hasUploaded = 4;
         }
         setHaveUploadFiles(temp);
     }
@@ -339,8 +418,9 @@ const InputInfoConfig = ()=>{
         if(deleteTag) {setDeleteTag(false);return};
         let successfulFiles = 0;
         let failedFiles = 0;
+        console.log(haveUploadFiles);
         for (let haveUploadFile of haveUploadFiles) {
-            if (haveUploadFile.hasUploaded) {
+            if (haveUploadFile.hasUploaded === 3) {
                 successfulFiles = successfulFiles + 1;
             }else{
                 failedFiles = failedFiles + 1;
@@ -350,7 +430,7 @@ const InputInfoConfig = ()=>{
             commonController.notificationSuccessMessage({message : successfulFiles + '个文件上传成功'},1);
         }
         if (failedFiles > 0 && haveUploadFiles.length > 0) {
-            commonController.notificationWarnMessage({message : `${successfulFiles}个文件上传成功, ${failedFiles}个文件上传成功`},1);
+            // commonController.notificationWarnMessage({message : `${successfulFiles}个文件上传成功, ${failedFiles}个文件上传成功`},1);
         }
         setUploadedSuccessful(successfulFiles);
         setUploadedFailed(failedFiles);
@@ -377,9 +457,25 @@ const InputInfoConfig = ()=>{
         dataIndex: 'hasUploaded',
         key: 'hasUploaded',
         render : (hasUploaded : any)=>{
-          return hasUploaded ?
-            (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
-            (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)
+          // return hasUploaded ?
+          //   (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
+          //   (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)
+          let result;
+          switch (hasUploaded) {
+              case 1:
+                  result = (<div className={currentStyles.uploadStatus}><img src="/src/icons/pending.png" alt=""/>上传中</div>);
+                  break;
+              case 2:
+                  result = (<div className={currentStyles.uploadStatus}><img src="/src/icons/pending.png" alt=""/>等待中</div>);
+                  break;
+              case 3:
+                  result = (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>上传成功</div>);
+                  break;
+              case 4:
+                  result = (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>);
+                  break;
+          }
+          return result;
         }
       },
       {
@@ -388,7 +484,7 @@ const InputInfoConfig = ()=>{
         key: 'option',
         render : (hasUploaded : any, record : any, index : any)=>{
           console.log(index);
-          return <React.Fragment>{!hasUploaded && <div className = {currentStyles.columnOption1}
+          return <React.Fragment>{hasUploaded === 4 && <div className = {currentStyles.columnOption1}
                                             onClick = {()=>renewUpload(record, index)}> 重新上传 </div>}
           <div className = {currentStyles.columnOption}
                onClick = { ()=>deleteSingleFile(index) }
@@ -454,12 +550,25 @@ const InputInfoConfig = ()=>{
                     <div className= { currentStyles.illustration }>
                         <div className = { currentStyles.supportType }>&nbsp;支持文件类型包括：jpg、png、bmp、gif。
                         </div>
-                        <div className = { currentStyles.advises }> 建议单个文件大小不超过200MB </div>
+                        <div className = { currentStyles.advises }> 建议单个文件大小不超过100MB </div>
                     </div>
                 </div>
             </div>
             <div className={currentStyles.right}>
-                {haveUploadFiles.length > 0 && <div className={currentStyles.rightTitle}>
+                {startUploadFlag && temp.length > 0 && <div className={currentStyles.rightTitle}>
+                    <div className = {currentStyles.rightTitleLeft}>上传列表</div>
+                    {/*<div className = {currentStyles.rightTitleRight}>正在上传&nbsp;*/}
+                    {/*    <div  className = {currentStyles.rightTitleRightHight}>10</div>*/}
+                    {/*    /30&nbsp;个文件</div>*/}
+                    <div>正在上传</div>
+                    <div>&nbsp;&nbsp;
+                        <div style = {{display : 'inline-block',color : '#1b67ff'}}>{ tempC }</div>
+                        /</div>
+                    <div>
+                        <div style = {{display : 'inline-block',color : 'black'}}>{ temp.length }</div>
+                        个文件</div>
+                </div>}
+                {!startUploadFlag &&haveUploadFiles.length > 0 && <div className={currentStyles.rightTitle}>
                     <div className = {currentStyles.rightTitleLeft}>上传列表</div>
                     {/*<div className = {currentStyles.rightTitleRight}>正在上传&nbsp;*/}
                     {/*    <div  className = {currentStyles.rightTitleRightHight}>10</div>*/}
@@ -496,8 +605,8 @@ const InputInfoConfig = ()=>{
 
 
 
-                        {haveUploadFiles.map((item : any, itemIndex : number)=>{
-                            console.log(item)
+                        {haveUploadFiles && haveUploadFiles.length > 0 && haveUploadFiles.map((item : any, itemIndex : number)=>{
+                            // console.log(item)
 
                             if (item.children) {
                                 return (<div className = {currentStyles.folderItem}>
@@ -511,11 +620,16 @@ const InputInfoConfig = ()=>{
                                 return (<div className = {currentStyles.item}>
                                     <div className = {currentStyles.columnFileName}><img src='/src/icons/file.svg' />&nbsp;&nbsp;{item.name}</div>
                                     <div className = {currentStyles.columnFileName}>&nbsp;&nbsp;&nbsp;&nbsp;{item.params.path}</div>
-                                    <div className = {currentStyles.columnStatus}>&nbsp;&nbsp;{item.hasUploaded ?
-                                        (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>已上传</div>) :
-                                        (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)}</div>
+                                    <div className = {currentStyles.columnStatus}>&nbsp;&nbsp;{item.hasUploaded === 1 ?
+                                        (<div className={currentStyles.uploadStatus}><img src="/src/icons/pending.png" alt=""/>上传中</div>) :
+                                        (item.hasUploaded === 2 ? (<div className={currentStyles.uploadStatus}><img src="/src/icons/pending.png" alt=""/>等待中</div>) :
+                                            (item.hasUploaded === 3 ? (<div className={currentStyles.uploadStatus}><div className={currentStyles.greenCircle}></div>上传成功</div>) :
+                                                    (<div className={currentStyles.uploadStatus}><div className={currentStyles.redCircle}></div>上传失败</div>)
+                                            )
+                                        )
+                                        }</div>
                                     <div className = {currentStyles.columnOptionButtons}>
-                                        {!item.hasUploaded && <div className = {currentStyles.columnOption1}
+                                        {item.hasUploaded === 4 && <div className = {currentStyles.columnOption1}
                                         onClick = {()=>renewUpload(item, itemIndex)}> 重新上传 </div>}
                                         <div className = {currentStyles.columnOption}
                                              onClick = { ()=>deleteSingleFile(itemIndex) }

@@ -80,7 +80,6 @@ const commonController = {
   },
   notificationErrorMessage (error : any, time : number) {
     console.log(error);
-    // console.trace();
     let errCode = error['err_code'];
     if (errCode || errCode === 0) {
       let errorMessage = ErrorMessages[errCode];
@@ -122,7 +121,7 @@ const commonController = {
     // uploadFile().
   },
   isOverSize (size : number) {
-    return size > 200 *  1024 * 1024;
+    return size > 100 *  1024 * 1024;
   },
   isCorrectFileType (fileName : string) {
     let result = false;

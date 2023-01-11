@@ -254,7 +254,7 @@
   width : 39px;
   flex : 1;
   margin-left:46px;
-
+  @extend .displayFlex;
 }
 .columnOptionButtons{
   width: 96px;
@@ -370,6 +370,13 @@
   margin-right : 5px;
 
 }
+
+.pending{
+  @extend .displayFlex;
+  @extend .flexDirectionRow;
+  align-items: center;
+}
+
 .buttonDiv{
   @extend .displayFlex;
   @extend .flexDirectionRow;
