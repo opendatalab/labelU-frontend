@@ -140,7 +140,7 @@ const TagConfigForm: FC<FormTagConfig & { name: string }> = props => {
               addInputInfo={addInputInfo}
               deleteInputInfo={deleteInputInfo}
               inputIndex={i}
-              key={info.value}
+              // key={info.value}
             />
           ))}
 
