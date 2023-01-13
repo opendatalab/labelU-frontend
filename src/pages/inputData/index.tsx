@@ -167,20 +167,20 @@ const InputInfoConfig = ()=>{
     const isCorrectFiles = (files : any)=>{
         let result = true;
         if (files.length > 100) {
-            commonController.notificationErrorMessage({message : '单次上传文件数量超过上限，请分批上传'}, 1);
+            commonController.notificationErrorMessage({message : '单次上传文件数量超过上限100个，请分批上传'}, 3);
             return;
         }
         for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
             let fileUnit = files[fileIndex];
             let isOverSize = commonController.isOverSize(fileUnit.OriginSize);
             if(isOverSize) {
-                commonController.notificationErrorMessage({message : '单个文件大小超过限制'}, 1);
+                commonController.notificationErrorMessage({message : '单个文件大小超过100MB限制'}, 3);
                 result = false;
                 break;
             }
             let isCorrectFileType = commonController.isCorrectFileType(fileUnit.file.name);
             if(!isCorrectFileType) {
-              commonController.notificationErrorMessage({message : '请上传支持的文件类型，类型包括：jpg、png、bmp、gif'}, 1);
+              commonController.notificationErrorMessage({message : '请上传支持的文件类型，类型包括：jpg、png、bmp、gif'}, 3);
               result = false;break;}
         }
         return result;
@@ -239,7 +239,6 @@ const InputInfoConfig = ()=>{
     const newCustomRequest = async function (info : any){
         newFileListInfo.push(info);
         if (newFileListInfo.length === newFileList.length) {
-            commonController.notificationSuccessMessage({message : '已添加'+newFileList.length + '个项目至上传列表'},1);
             let middleTemp = newFileListInfo.concat([]);
             addSizeToFiles(middleTemp);
             let isCorrectCondition = isCorrectFiles(middleTemp);
@@ -339,7 +338,7 @@ const InputInfoConfig = ()=>{
         if (startToUpload === 1) {
             return;
         }else{
-            upLoadFiles().then(res=>'').catch(error=>commonController.notificationErrorMessage(error,1));
+            upLoadFiles().catch((error:any) => commonController.notificationErrorMessage(error,3));
         }
     },[startToUpload])
     const [folderFilePath, setFolderFilePath] = useState(1);
@@ -527,7 +526,7 @@ const InputInfoConfig = ()=>{
                     <div className= { currentStyles.illustration }>
                         <div className = { currentStyles.supportType }>&nbsp;支持文件类型包括：jpg、png、bmp、gif。
                         </div>
-                        <div className = { currentStyles.advises }> 建议单个文件大小不超过100MB </div>
+                        <div className = { currentStyles.advises }> 单次上传文件最大数量为100个，建议单个文件大小不超过100MB </div>
                     </div>
                 </div>
             </div>
