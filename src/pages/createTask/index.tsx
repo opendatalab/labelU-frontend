@@ -112,12 +112,6 @@ const CreateTask = (props : any)=>{
     }
     const nextWhen0= async function(){
         let result = true;
-        console.log(haveConfigedStep)
-        console.log({
-            taskName,
-            taskDescription,
-            taskTips
-        })
         if (!taskName) {
             commonController.notificationErrorMessage({message : '请填入任务名称'}, 1);
             return false;
@@ -128,7 +122,6 @@ const CreateTask = (props : any)=>{
         if (isTaskDescriptionOver) {return false;}
         let isTaskTipsOver = commonController.isOverFontCount(taskTips, 1000);
         if (isTaskTipsOver) {return false;}
-        console.log(haveConfigedStep)
         try{
             let res : any;
             if (haveConfigedStep !== 0) {
@@ -145,7 +138,6 @@ const CreateTask = (props : any)=>{
 
             if (res.status === 201 || res.status === 200) {
                 const { status, id } = res.data.data;
-                console.log(status)
                 updateStep(status);
                 updateTaskIdLocal(id);
                 result = id;
@@ -161,13 +153,10 @@ const CreateTask = (props : any)=>{
     }
     const nextWhen1 = async function(){
         let result = true;
-        console.log(taskStatus);
         if (newSamples.length === 0 && (taskStatus === 'DRAFT' || taskStatus === 'IMPORTED' || !taskStatus)) {
             commonController.notificationWarnMessage({message : '请导入数据,再进行下一步操作'}, 1);
             return false;
         }
-        console.log(newSamples);
-        // console.log(taskStatus);
         if (newSamples.length === 0 && taskStatus === 'CONFIGURED') {
             return true;
         }
@@ -188,15 +177,11 @@ const CreateTask = (props : any)=>{
         return result;
     }
     const nextStep = async function(){
-        console.log(configStep);
-        console.log(taskId);
         let currentStep = -1;
         let childOutlet = `/tasks/${taskId}/edit/basic`;
         switch (configStep) {
             case -1 :
                 let isSuccess0 = await nextWhen0();
-                console.log(taskId)
-                console.log(isSuccess0);
                 if (!isSuccess0) return;
                 currentStep = 0;
                 childOutlet = `/tasks/${isSuccess0}/edit/upload`;
@@ -212,14 +197,12 @@ const CreateTask = (props : any)=>{
             break;
         }
         dispatch(updateConfigStep(currentStep));
-        console.log(childOutlet)
         navigate(childOutlet);
     }
 
   useEffect(()=>{
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let searchString = window.location.search;
-    console.log(window.location.search)
     let currentStatus = 1;
     if(searchString.indexOf('currentStatus=2') > -1){
         currentStatus = 2;
@@ -229,9 +212,7 @@ const CreateTask = (props : any)=>{
     }
     if(taskId > 0) {
       getTask(taskId).then((res:any)=>{
-          console.log(res);
         if (res.status === 200) {
-          console.log(res.data.data);
           dispatch(updateTask({data : res.data.data, configStatus : currentStatus }));
           if (res.data.data.config){
             dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
@@ -263,7 +244,6 @@ const CreateTask = (props : any)=>{
       switch (configStep) {
         case -1 :
           let isSuccess0 = await nextWhen0();
-          console.log(isSuccess0);
           if (!isSuccess0) return;
           break;
         case 0 :
@@ -271,7 +251,6 @@ const CreateTask = (props : any)=>{
           if (!isSuccess1) return;
           break;
         case 1 :
-            console.log(toolsConfig);
             return;
           let isNullToolConfigResult = isNullToolConfig();
           if(isNullToolConfigResult) {return;}
@@ -345,7 +324,6 @@ const CreateTask = (props : any)=>{
 }
 
 const mapStateToProps = (state : any)=>{
-    // console.log(state);
     return state.toolsConfig;
 };
 

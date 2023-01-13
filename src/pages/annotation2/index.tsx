@@ -19,7 +19,6 @@ export let annotationRef = createRef();
 
 // @ts-ignore
 const AnnotationPage = ()=>{
-    // console.log(otherStore);
     const location = useLocation();
     // @ts-ignore
     const MemoSlideLoader = memo(SlideLoader);
@@ -32,12 +31,10 @@ const AnnotationPage = ()=>{
     const [taskConfig, setTaskConfig] = useState<any>({});
     const [taskSample, setTaskSample] = useState<any>([]);
     const getDatas = async function (taskId : number, sampleId : number) {
-        // console.trace();
         try{
             let taskRes = await getTask(taskId);
             // @ts-ignore
             if (taskRes.status === 200) {
-                // console.log(taskRes);
                 // taskRes.data.data.config = {
                 //     "tools": [
                 //         {
@@ -72,8 +69,6 @@ const AnnotationPage = ()=>{
                 //     "textConfig": [],
                 // }
                 // @ts-ignore
-                // console.log(taskRes?.data.data.config);
-                // @ts-ignore
                 setTaskConfig(JSON.parse(taskRes?.data.data.config));
                 // setTaskConfig(JSON.parse(taskRes.data.data.config));
             }else{
@@ -81,11 +76,8 @@ const AnnotationPage = ()=>{
                 return;
             }
             let sampleRes = await getSample(taskId, sampleId);
-            console.log(sampleRes);
             if (sampleRes.status === 200) {
-                // console.log(sampleRes);
                 let newSample = commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
-                // console.log(newSample);
                 setTaskSample(newSample);
             }else{
                 commonController.notificationErrorMessage({message : '请求任务出错'}, 1);
@@ -96,12 +88,8 @@ const AnnotationPage = ()=>{
     }
 
     useEffect(()=>{
-        // console.log(window.location.pathname)
         let taskId = parseInt(window.location.pathname.split('/')[2]);
         let sampleId = parseInt(window.location.pathname.split('/')[4]);
-        // console.log(taskSample)
-        // console.log(taskSample.length>0)
-        // console.log( taskSample.length>0 && sampleId === taskSample[0].id)
         // if(taskSample && taskSample.length > 0 && sampleId === taskSample[0].id) {
         //
         //   return;
@@ -114,8 +102,6 @@ const AnnotationPage = ()=>{
   // const [taskSampleC, setTaskSampleC] = useState(0);
 
   // useEffect(()=>{
-  //   console.log('hhhhhhhhhhhhhhhhhh')
-  //   console.log(taskSample);
   //   setTaskSampleC(taskSampleC + 1)
   //   // console.trace();
   // },[ taskSample ]);
@@ -126,7 +112,6 @@ const AnnotationPage = ()=>{
     //     // dispatch(updateAnnotationDatas(annotationRefNew))
     // },[]);
     const goBack = (data: any) => {
-        console.log('goBack', data);
     };
     // @ts-ignore
     // const leftSiderContent = <MemoSlideLoader />;
@@ -137,34 +122,24 @@ const AnnotationPage = ()=>{
     const topActionContent = (<AnnotationRightCorner />)
     // const topActionContent = (<div>2</div>)
     const exportData = (data : any)=>{
-        console.log(data)
     }
     const onSubmit = (data : any)=>{
-        // console.log(data)
         dispatch(updateAnnotationDatas(data[0].result));
     }
 
     const testGet = ()=>{
-        // @ts-ignore
-        console.log(annotationRef?.current?.getResult());
     }
 
-    console.log(taskSample);
   const updatePrevImageListResult = async function (){
     // let temp : any= Object.assign([],prevImgList);
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let sampleId = parseInt(window.location.pathname.split('/')[4]);
-    // console.log({
-    //   taskId,
-    //   sampleId
-    // })
 
     // getSamples(taskId, {
     //     before : sampleId,
     //     pageSize : 1
     // }).then((res:any)=>{
     //   if (res.status === 200){
-    //       console.log(res)
     //       if(res.data.data.length === 0){
     //           commonController.notificationWarnMessage({message : '没有上一张'},1);
     //       }else{
@@ -189,8 +164,6 @@ const AnnotationPage = ()=>{
 
   }
   useEffect(()=>{
-    // console.log(5555555555)
-    // console.log(window.location.search);
     let search = window.location.search;
     if(search.indexOf('COPYPRE') > -1 ){
       updatePrevImageListResult();

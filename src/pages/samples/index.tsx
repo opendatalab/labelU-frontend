@@ -179,7 +179,6 @@ const Samples = (props : any)=>{
   const [dataLoading, setDataLoading] = useState(false);
   const [isModalShow, setIsModalShow] = useState(false);
   const clickModalOk = ()=>{
-    console.log(deleteSampleIds);
     deleteSamples(taskId,deleteSampleIds).then(res=>{
       if(res.status === 200){
         commonController.notificationSuccessMessage({message : '删除成功'},1);
@@ -201,7 +200,6 @@ const Samples = (props : any)=>{
     // },
     columnWidth : 58,
     onChange : (selectedKeys : any, selectedRows : any)=>{
-      console.log(selectedKeys)
       setDeleteSampleIds(Object.assign([],deleteSampleIds,selectedKeys));
     },
     getCheckboxProps: (record: any) => {

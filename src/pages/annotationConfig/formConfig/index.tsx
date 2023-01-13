@@ -119,8 +119,6 @@ const FormConfig: FC<IProps> = (props: IProps) => {
           return tool !== EToolName.Text;
         });
       }
-      console.log("== new Tools ==");
-      console.log(newTools);
       setSelectTools(newTools);
     }
   }, [tools, tagList, textConfig]);
@@ -133,8 +131,6 @@ const FormConfig: FC<IProps> = (props: IProps) => {
       tmp.push(toolname);
       // setCurrentTool(toolname);
     }
-    console.log("== new Tools(tmp) ==");
-    console.log(tmp);
     setSelectTools(tmp);
   };
 
@@ -193,9 +189,6 @@ const FormConfig: FC<IProps> = (props: IProps) => {
       updateCombineToolsConfig(tools, commonToolConfig, name);
     }
   };
-  console.log(activeTabKey)
-  console.log(selectTools)
-  console.log(tools)
   return (
     <div className="formConfig" style={{ height: height }}>
       <div className="oneRow">

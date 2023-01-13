@@ -54,7 +54,6 @@ const SlideLoader = ()=>{
                         setPrevImgList(temp.concat([],newPrevImgList));
                         // Ob.nextPageS.next(temp.concat([],newPrevImgList))
                         // tempInit = temp.concat([],tempInit);
-                        // console.log(tempInit)
                         // setInitTime(1);
 
                     }else{
@@ -85,11 +84,6 @@ const SlideLoader = ()=>{
         let scrollHeight = e.target.scrollHeight;
         let scrollTop = e.target.scrollTop;
         let clientHeight = e.target.clientHeight;
-        // console.log({
-        //     diff : scrollHeight - scrollTop,
-        //     clientHeight,
-        //     requestDownDoor
-        // });
         let diff = scrollHeight - scrollTop;
         let newDiff = Math.abs(diff - clientHeight);
         if ( newDiff <= 1  && requestDownDoor
@@ -110,7 +104,6 @@ const SlideLoader = ()=>{
     const getSampleLocal = async function(){
         let sampleRes = await getSample(taskId, sampleId);
         if (sampleRes.status === 200) {
-            // console.log(sampleRes);
             let newSample : any= commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
             newSample[0].state = sampleRes.data.data.state;
             await getSampleLocalNew();
@@ -121,7 +114,6 @@ const SlideLoader = ()=>{
     const getSampleLocalNew = async function(){
         let sampleRes = await getSample(taskId, sampleId);
         if (sampleRes.status === 200) {
-            // console.log(sampleRes);
             let newSample : any= commonController.transformFileList(sampleRes.data.data.data, sampleRes.data.data.id);
             newSample[0].state = sampleRes.data.data.state;
             let after10 = await get10Samples('after');
@@ -214,7 +206,6 @@ const SlideLoader = ()=>{
     }
     const updatePrevImageListState = async function (state : string){
         let temp : any= Object.assign([],prevImgList);
-        console.log(temp);
         let nextPageId : any= null;
         for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
             let prevImg : any= temp[prevImgIndex];
@@ -254,7 +245,6 @@ const SlideLoader = ()=>{
 
     const updatePrevImageListStatePrev = async function (state : string){
         let temp : any= Object.assign([],prevImgList);
-        console.log(temp);
         let prevPageId : any= null;
         for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
             let prevImg : any= temp[prevImgIndex];
@@ -272,7 +262,6 @@ const SlideLoader = ()=>{
                 break;
             }
         }
-        console.log(prevPageId);
         if(prevPageId || prevPageId === 0){
             let pathnames = window.location.pathname.split('/');
             if (typeof prevPageId !== 'number') {
@@ -290,7 +279,6 @@ const SlideLoader = ()=>{
 
   const updatePrevImageListStatePointer = async function (state : string){
     // let temp : any= Object.assign([],prevImgList);
-    // console.log(temp);
     // let prevPageId : any= null;
     // for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
     //   let prevImg : any= temp[prevImgIndex];
@@ -308,7 +296,6 @@ const SlideLoader = ()=>{
     //     break;
     //   }
     // }
-    // console.log(prevPageId);
     // if(prevPageId || prevPageId === 0){
     //   let pathnames = window.location.pathname.split('/');
     //   if (typeof prevPageId !== 'number') {
@@ -337,10 +324,8 @@ const SlideLoader = ()=>{
         }
       }
     }
-    console.log(temp);
     setPrevImgList(temp);
     let ids = window.location.search.split('&').pop();
-    console.log(ids);
     // @ts-ignore
     let id = parseInt(ids?.split('=').pop());
     let location = window.location.pathname.split('/');
@@ -355,7 +340,6 @@ const SlideLoader = ()=>{
         // navigate(window.location.pathname+'?sampleId='+sampleId);
 
         let temp : any= Object.assign([],prevImgList);
-        console.log(temp)
         let nextPageId : any= null;
         for (let prevImgIndex =  0; prevImgIndex < temp.length; prevImgIndex++) {
             let prevImg : any= temp[prevImgIndex];

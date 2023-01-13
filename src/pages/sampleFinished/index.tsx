@@ -29,10 +29,6 @@ const SamplesFinished = (props : any)=>{
     navigate( currentPathnames.join('/'));
   }
 
-  // const outputSamplesLocal = ()=>{
-  //   outputSamples(taskId).then(res=>console.log(res)).catch(error=>{commonController.notificationErrorMessage(error, 1)});
-  // }
-
   const [activeTxt, setActiveTxt] = useState('JSON');
   const [isShowModal, setIsShowModal] = useState(false);
   const clickOk = (e : any)=>{

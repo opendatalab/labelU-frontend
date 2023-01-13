@@ -83,9 +83,7 @@ const SignUp = (props : any)=>{
                 username ,
                 password
             });
-            // console.log(res)
             // @ts-ignore
-            // alert(JSON.parse(res));
             if (res.status !== 201) {
                 CommonController.notificationErrorMessage(res, 2);
                 return;

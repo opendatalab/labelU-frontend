@@ -55,7 +55,6 @@ const ConfigTemplate: FC = () => {
     });
   }, []);
   useEffect(()=>{
-    // console.log(taskStatus);
     // // @ts-ignore
     // if (!taskStatus && !(window.location.search.indexOf('noConfig=1')>-1)) {
     //   dispatch(updateStatus('IMPORTED'));

@@ -8,10 +8,7 @@ import { useNavigate } from 'react-router-dom';
 //     return redirect(constants.urlTurnToSignUp);
 // }
 const RootGuard = ()=>{
-    console.log(window.history);
-    console.log(window.location.pathname)
     let token = window.localStorage.getItem('token');
-    console.log(token);
     // if (token) {
     //     return (<Outlet />)
     // }else{

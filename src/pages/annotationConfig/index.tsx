@@ -37,14 +37,12 @@ const AnnotationConfig: FC = () => {
       const samples = data.data;
       if (samples != null && samples.length > 0) {
         const firstSample = samples[0];
-        console.log(firstSample.data);
 
         // bad code
         const urls = firstSample.data.urls;
         if (urls != null) {
           const firstKey = Object.keys(urls)[0]
           const firstUrl = urls[firstKey];
-          console.log(firstUrl);
 
           const oneFile: OneFile = {
             id: 1,
@@ -108,7 +106,6 @@ const AnnotationConfig: FC = () => {
   }, [attribute, tagList, textConfig, tools, commonAttributeConfigurable]);
 
   const goBack = (data: any) => {
-    console.log('goBack', data);
   };
 
   const doSetImage = (img: any, isError: boolean) => {

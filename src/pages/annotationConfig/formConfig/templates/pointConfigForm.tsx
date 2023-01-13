@@ -73,7 +73,6 @@ const PointConfigForm: FC<BasicConfig & { name: string }> = props => {
   }, delayTime);
 
   const changeUpperLimit = (e : any)=>{
-    console.log(e.target.value);
     let value = parseInt(e.target.value);
     if (isNaN(value)) {
       commonController.notificationErrorMessage({message : '请输入数字'},1);

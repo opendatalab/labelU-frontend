@@ -66,7 +66,6 @@ const JSONTab = (props: IJsonTabProps) => {
   // }, [value]);
 
   const addInputInfo = () => {
-    console.log(123)
     onChange?.(addInputList(value, EDIT_SUBSELECTED));
     onSubmitAction?.();
   };

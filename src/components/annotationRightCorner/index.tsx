@@ -13,7 +13,6 @@ import TempStore from "./tempStore";
 const AnnotationRightCorner = ()=>{
     const navigate = useNavigate();
     let annotationDatas = useSelector(state=> state.annotation.annotationDatas );
-    // console.log(annotationDatas)
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let sampleId = parseInt(window.location.pathname.split('/')[4]);
     const [isSkippedShow, setIsSkippedShow] = useState('');
@@ -23,7 +22,6 @@ const AnnotationRightCorner = ()=>{
         setIsSkippedShow('SKIPPED');
         getSample(taskId, sampleId).then((sampleRes : any)=>{
             if(sampleRes.status === 200){
-                console.log(sampleRes)
                 updateSampleState(taskId, sampleId, sampleRes?.data.data.data, 'SKIPPED').then(res=>{
                     if(res.status === 200) {
                         navigate(window.location.pathname + '?SKIPPED' + new Date().getTime());
@@ -43,7 +41,6 @@ const AnnotationRightCorner = ()=>{
         setIsSkippedShow('NEW');
         getSample(taskId, sampleId).then((sampleRes : any)=>{
             if(sampleRes.status === 200){
-                console.log(sampleRes)
                 updateSampleState(taskId, sampleId, sampleRes?.data.data.data, 'NEW').then(res=>{
                     if(res.status === 200) {
                         navigate(window.location.pathname + '?NEW' + new Date().getTime());
@@ -61,27 +58,17 @@ const AnnotationRightCorner = ()=>{
   // let timestamp = new Date().getTime();
     const [timestamp, setTimestamp] = useState(new Date().getTime());
     const [oldCurrentSampleId, setOldCurrentSampleId] = useState(0);
-  // console.log(123456678);
   // @ts-ignore
     const nextPage = async function (){
-      // console.trace();
-      // console.log(timestamp);
-      // console.log(new Date().getTime());
-      // console.log(new Date().getTime() - timestamp)
       // if (new Date().getTime() - timestamp <= 2000) {
       //   setTimestamp(new Date().getTime());
       //   return;
       // }
       // setTimestamp(new Date().getTime());
-      // console.log('llllllllll')
       timestampNew = new Date().getTime();
       // @ts-ignore
-        // console.log(annotationDatas)
-        // console.log(1)
-        // console.log({sampleId});
       let sampleId = parseInt(window.location.pathname.split('/')[4]);
 
-      // console.log({sampleId, currentSampleId});
       // if (sampleId === currentSampleId || currentSampleId === oldCurrentSampleId){
       //   // currentSampleId
       //   setOldCurrentSampleId(currentSampleId);
@@ -94,13 +81,8 @@ const AnnotationRightCorner = ()=>{
       let rResult = cResult[0].result;
       console.log(rResult);
       getSample(taskId, sampleId).then((res)=>{
-        // console.log({
-        //   oldCurrentSampleId,
-        //   sampleId
-        // })
         //   setOldCurrentSampleId(sampleId);
         //   if (oldCurrentSampleId === sampleId) return;
-          // console.log(res);
             if(res.status === 200){
                 let sampleResData = res.data.data.data;
                 let annotated_count = 0;
@@ -113,9 +95,7 @@ const AnnotationRightCorner = ()=>{
               let  dataParam = Object.assign({},sampleResData,{ result :  rResult});
                 if (res.data.data.state !== 'SKIPPED') {
                     console.log(dataParam)
-                    // console.log(record)
                     let resultJson = JSON.parse(dataParam.result);
-                    // console.log(resultJson)
                     for (let key in resultJson) {
                         if(key.indexOf('Tool') > -1 && key !== 'textTool' && key !== 'tagTool'){
                             let tool = resultJson[key];
@@ -165,12 +145,8 @@ const AnnotationRightCorner = ()=>{
         return;
       }
       setTimestamp(new Date().getTime());
-      // console.log('tttttttttttttt')
         // @ts-ignore
-        // console.log(annotationDatas)
       let sampleId = parseInt(window.location.pathname.split('/')[4]);
-      // console.log(newSampleId);
-      // console.log({sampleId})
       // @ts-ignore
       let cResult = await annotationRef?.current?.getResult();
       let rResult = cResult[0].result;
@@ -178,7 +154,6 @@ const AnnotationRightCorner = ()=>{
 
         getSample(taskId, sampleId)
             .then((res)=>{
-              // console.log(res)
             if(res.status === 200){
                 let sampleResData = res.data.data.data;
                 let annotated_count = 0;
@@ -186,10 +161,7 @@ const AnnotationRightCorner = ()=>{
                 // let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
                 let  dataParam = Object.assign({},sampleResData,{ result :  rResult });
                 if (res.data.data.state !== 'SKIPPED') {
-                    // console.log(dataParam)
-                    // console.log(record)
                     let resultJson = JSON.parse(dataParam.result);
-                    // console.log(resultJson)
                     for (let key in resultJson) {
                         if(key.indexOf('Tool') > -1 && key !== 'textTool' && key !== 'tagTool'){
                             let tool = resultJson[key];
@@ -226,7 +198,6 @@ const AnnotationRightCorner = ()=>{
 
     }
   const copyPre = ()=>{
-    // console.log(22222)
     navigate(window.location.pathname + '?COPYPRE' + new Date().getTime());
   }
     useEffect(()=>{
@@ -247,17 +218,12 @@ const AnnotationRightCorner = ()=>{
     let timestampNew = new Date().getTime();
     let oldTimestampNew = 0;
     let count = 1;
-    console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrr')
     const onKeyDown = (e:any)=>{
-      // console.log(e)
-      // console.log(count);
       // count = count + 1;
 
-      // console.trace();
       // e.nativeEvent.stopPropagation();
       // e.stopPropagation();
       // e.preventDefault();
-      // console.log('zzzzzzzzzzzzzzzzzzzzzz1');
       timestampNew = new Date().getTime();
       console.log({
         timestampNew,
@@ -275,12 +241,10 @@ const AnnotationRightCorner = ()=>{
       console.log(e);
         let keyCode = e.keyCode;
         if (keyCode === 65) {
-          // console.log(111111111111);
           // prevPage();
           commonController.debounce(prevPage, 1000)('');
         }
         if (keyCode === 68) {
-          // console.log(2222222222222);
           nextPage();
           // commonController.debounce(nextPage, 1000)('');
         }

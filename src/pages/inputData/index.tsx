@@ -37,23 +37,19 @@ const InputInfoConfig = ()=>{
 
 
     const finishUpload = (values : any)=>{
-        console.log(values);
     }
 
     const [flag, setFlag] = useState(true);
 
 
     const customRequest = (v:any)=>{
-        console.log(v)
     }
     const uploadFileChange = (k:any)=>{
-        console.log(k)
     }
     const items = [{
         fileName : 'test1.txt',
         status : 0,
         option : ()=>{
-            console.log('delete');
         }
     }];
     const renewUploadFileInFolder = async function(data : any){
@@ -68,13 +64,8 @@ const InputInfoConfig = ()=>{
     }
     // uploadFolder
     const deleteFile = (path : string)=>{
-        console.log(path);
-        console.log(saveFolderFiles);
         commonController.findElement(saveFolderFiles, 0, path);
-        console.log(saveFolderFiles);
         setHaveUploadFiles(saveFolderFiles);
-        // console.log(parent);
-
     }
     const isInArray = (children : any, index : number, paths : any)=>{
         return children.some((childItem : any)=> childItem.title === paths[index]);
@@ -134,7 +125,6 @@ const InputInfoConfig = ()=>{
                 })
                 confirmFolder(parent.children[parent.children.length - 1], index + 1, paths, data);
             }
-            // console.log(newFolder)
         }else{
             if (index !== paths.length - 1) {
                 let childIndex = getIndexInArray(parent.children, index, paths);
@@ -188,8 +178,6 @@ const InputInfoConfig = ()=>{
                 result = false;
                 break;
             }
-            // console.log(file);
-            // console.log(file.name);
             let isCorrectFileType = commonController.isCorrectFileType(fileUnit.file.name);
             if(!isCorrectFileType) {
               commonController.notificationErrorMessage({message : '请上传支持的文件类型，类型包括：jpg、png、bmp、gif'}, 1);
@@ -249,15 +237,11 @@ const InputInfoConfig = ()=>{
     }
     const [startToUpload, setStartToUpload] = useState(1);
     const newCustomRequest = async function (info : any){
-        console.log(newFileList);
-        console.log(info)
         newFileListInfo.push(info);
-        console.log(newFileListInfo)
         if (newFileListInfo.length === newFileList.length) {
             commonController.notificationSuccessMessage({message : '已添加'+newFileList.length + '个项目至上传列表'},1);
             let middleTemp = newFileListInfo.concat([]);
             addSizeToFiles(middleTemp);
-            console.log(middleTemp)
             let isCorrectCondition = isCorrectFiles(middleTemp);
             if(!isCorrectCondition){
                 // commonController.notificationErrorMessage({message : '请重新选择合适的文件'}, 2);
@@ -266,7 +250,6 @@ const InputInfoConfig = ()=>{
                 return;
             }
             let currentHaveUploadFiles = [];
-            console.log(newFileListInfo);
 
             setUploadedTotal(uploadedTotal + newFileList.length);
             setTemp(newFileListInfo.concat([]));
@@ -275,8 +258,6 @@ const InputInfoConfig = ()=>{
             // for (let newFileListInfoIndex = 0; newFileListInfoIndex < middleTemp.length; newFileListInfoIndex++) {
             //
             //     let currentInfo =  middleTemp[newFileListInfoIndex];
-            //     console.log(currentInfo);
-            //     console.log(newFileListInfo)
             //     let path = currentInfo.file.webkitRelativePath ? currentInfo.file.webkitRelativePath : './';
             //     let result = undefined;
             //     // if (path.indexOf('/') > -1)
@@ -315,12 +296,9 @@ const InputInfoConfig = ()=>{
             //         //     setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles, [newFolder]))
             //         // }
             //     }
-            //     // console.log(2);
-            //     console.log(result);
             //
             //     // setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
             // }
-            console.log(newFolder)
             // if (commonController.isNullObject(newFolder)) {
             //     setHaveUploadFiles(haveUploadFiles.concat(currentHaveUploadFiles))
             //     saveFolderFiles = saveFolderFiles.concat(currentHaveUploadFiles);
@@ -337,16 +315,11 @@ const InputInfoConfig = ()=>{
     const [tempC,setTempC] = useState<any>(0);
     const [startUploadFlag, setStartUploadFlag] = useState(false);
     const upLoadFiles = async function () {
-        // console.log(newFileListInfo);
-        // console.log(newFileListInfo.length);
         // let temp = newFileListInfo.concat([]);
         // setTemp(temp);
         setStartUploadFlag(true);
         for (let newFileListInfoIndex = 0; newFileListInfoIndex < temp.length; newFileListInfoIndex++) {
-            console.log(newFileListInfoIndex)
             let currentInfo =  temp[newFileListInfoIndex];
-            console.log(currentInfo);
-            console.log(newFileListInfo)
             let result = undefined;
             // if (path.indexOf('/') > -1)
             {
@@ -359,8 +332,6 @@ const InputInfoConfig = ()=>{
                     updateOneOfHaveUplodaedFileList(currentInfo.file.uid, 4, undefined);
                 }
             }
-            console.log(result);
-
         }
         setStartUploadFlag(false);
     }
@@ -380,7 +351,6 @@ const InputInfoConfig = ()=>{
     }
 
     const deleteUploadFiles = ()=>{
-        console.log(1)
     }
 
     const deleteSingleFile = (itemIndex : number)=>{
@@ -392,7 +362,6 @@ const InputInfoConfig = ()=>{
        setHaveUploadFiles(tempArr);
     }
     const renewUpload = async function(item : any, itemIndex : number){
-        console.log(item);
         let result = await uploadFileService(taskId, item.params);
         let temp : any= Object.assign([],haveUploadFiles);
         if (result?.status === 201) {
@@ -418,11 +387,9 @@ const InputInfoConfig = ()=>{
                 result.push(newItem);
             }
         }
-        console.log(result)
         dispatch(updateNewSamples(result))
     }
     useEffect(()=>{
-        console.log(haveUploadFiles);
         updateUploadedFiles();
     },[haveUploadFiles]);
     const [deleteTag, setDeleteTag] = useState(false);
@@ -430,7 +397,6 @@ const InputInfoConfig = ()=>{
         if(deleteTag) {setDeleteTag(false);return};
         let successfulFiles = 0;
         let failedFiles = 0;
-        console.log(haveUploadFiles);
         for (let haveUploadFile of haveUploadFiles) {
             if (haveUploadFile.hasUploaded === 3) {
                 successfulFiles = successfulFiles + 1;
@@ -495,7 +461,6 @@ const InputInfoConfig = ()=>{
         dataIndex: 'hasUploaded',
         key: 'option',
         render : (hasUploaded : any, record : any, index : any)=>{
-          console.log(index);
           return <React.Fragment>{hasUploaded === 4 && <div className = {currentStyles.columnOption1}
                                             onClick = {()=>renewUpload(record, index)}> 重新上传 </div>}
           <div className = {currentStyles.columnOption}
@@ -618,7 +583,6 @@ const InputInfoConfig = ()=>{
 
 
                         {haveUploadFiles && haveUploadFiles.length > 0 && haveUploadFiles.map((item : any, itemIndex : number)=>{
-                            // console.log(item)
 
                             if (item.children) {
                                 return (<div className = {currentStyles.folderItem}>

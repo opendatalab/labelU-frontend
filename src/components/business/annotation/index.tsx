@@ -29,11 +29,9 @@ const Annotation = (props: {
   exportData, onSubmit,
   annotationRef, commonAttributeConfigurable} = props;
   // const exportData = (data: any) => {
-  //   // console.log('exportData', data);
   // };
   // const onSubmit = (data: any) => {
   //   // 翻页时触发当前页面数据的输出
-  //   // console.log('submitData', data);
   // };
   // const leftSiderContent = ()=>{
   //   return (<div>test 22</div>)
@@ -41,7 +39,6 @@ const Annotation = (props: {
   // const topActionContent = ()=>{
   //   return <div>test action</div>
   // };
-  // console.log(props);
   // @ts-ignore
   return (
     <div style = {{width : '100vw'}}>

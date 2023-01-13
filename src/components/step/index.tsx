@@ -8,17 +8,11 @@ import { CheckOutlined } from '@ant-design/icons'
 const Step = (props : any)=>{
     let configStep = useSelector(commonController.getConfigStep);
     let haveConfigedStep = useSelector(commonController.getHaveConfigedStep);
-    // console.log(configStep);
-    // console.log(haveConfigedStep);
     const { title, ordinalNumber, contentUrl } = props;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const taskStatus = useSelector(state=>state.existTask.status);
     const turnToOutlet = ()=>{
-      console.log(taskStatus)
-        // console.log(haveConfigedStep)
-        // console.log(configStep)
-        // console.log(ordinalNumber)
       if (configStep !== ordinalNumber - 2
           && haveConfigedStep < ordinalNumber && haveConfigedStep !== 2) {
           commonController.notificationWarnMessage({message : '请先完成上一步配置，再进行下一步操作'}, 1);

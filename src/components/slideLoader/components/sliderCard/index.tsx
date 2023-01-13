@@ -17,18 +17,11 @@ const SliderCard = (props : any)=>{
     const clickSample = async function(){
       let taskId = parseInt(window.location.pathname.split('/')[2]);
       let sampleId = parseInt(window.location.pathname.split('/')[4]);
-      // console.log(111111111111111111111111)
-      // console.log({
-      //   taskId,
-      //   sampleId
-      // })
       // @ts-ignore
       let cResult = await annotationRef?.current?.getResult();
       let rResult = cResult[0].result;
-      console.log(rResult);
 
       getSample(taskId, sampleId).then((res)=>{
-        // console.log(res);
         if(res.status === 200){
           let sampleResData = res.data.data.data;
           let annotated_count = 0;
@@ -36,10 +29,7 @@ const SliderCard = (props : any)=>{
           // let  dataParam = Object.assign({},sampleResData,{ result :  annotationRef?.current?.getResult()[0].result});
           let  dataParam = Object.assign({},sampleResData,{ result :  rResult});
           if (res.data.data.state !== 'SKIPPED') {
-            console.log(dataParam)
-            // console.log(record)
             let resultJson = JSON.parse(dataParam.result);
-            // console.log(resultJson)
             for (let key in resultJson) {
               if(key.indexOf('Tool') > -1 && key !== 'textTool' && key !== 'tagTool'){
                 let tool = resultJson[key];
@@ -76,9 +66,6 @@ const SliderCard = (props : any)=>{
 
           }
         }else{
-          // console.log('3333333333333333333')
-          // navigate(window.location.pathname + '?' + 'POINTER' + new Date().getTime() + '&id='+id);
-
           commonController.notificationErrorMessage({message : '获取数据信息有误'}, 1)
         }
       }).catch(error=>{

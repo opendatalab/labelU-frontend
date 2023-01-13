@@ -15,11 +15,9 @@ const GoToEditTask = (props : any)=>{
   const turnToEditTask = ()=>{
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     if(taskId > 0) {
-      // console.log(11122121212121212)
 
       getTask(taskId).then((res:any)=>{
         if (res.status === 200) {
-          console.log(res.data.data);
           dispatch(updateTask({data:res.data.data}));
           if (res.data.data.config){
             dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
