@@ -15,7 +15,7 @@ import commonController from '../../utils/common/common';
 import { updateConfigStep, updateTaskId, updateStatus } from '../../stores/task.store';
 import { createSamples, getTask } from '../../services/samples';
 import { updateAllConfig } from '../../stores/toolConfig.store'
-import {findNewAnchor} from "yaml/dist/doc/anchors";
+import { v4 as uuidv4 } from 'uuid';
 const CreateTask = (props : any)=>{
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -284,11 +284,11 @@ const CreateTask = (props : any)=>{
                 {steps.map((step : any, stepIndex : number)=>{
                     if (stepIndex === steps.length - 1) {
                         return (<Step ordinalNumber = {step.index} title = {step.title}
-                        contentUrl = {step.contentUrl}/>)
+                        contentUrl = {step.contentUrl} key = {uuidv4()}/>)
                     }else{
                         return (
                             <React.Fragment>
-                                <Step key={step.index} ordinalNumber = {step.index} title = {step.title}
+                                <Step  key = {uuidv4()} ordinalNumber = {step.index} title = {step.title}
                                       contentUrl = {step.contentUrl}/>
                                 <Separator />
                             </React.Fragment>)

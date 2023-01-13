@@ -71,9 +71,6 @@ const TextList: React.FC<IProps> = ({ value, onChange,onDelete,onAdd }) => {
     let list = [...tmpValue].filter((item, Tindex) => {
       return Tindex !== index;
     });
-    if (list.length === 1 && list[0].key !== 'text') {
-      list = [{ ...defaultValue }];
-    }
     if (!value) {
       setConfigs([...list]);
     }
