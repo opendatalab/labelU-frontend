@@ -309,7 +309,7 @@ const CreateTask = (props : any)=>{
                     }else{
                         return (
                             <React.Fragment>
-                                <Step ordinalNumber = {step.index} title = {step.title}
+                                <Step key={step.index} ordinalNumber = {step.index} title = {step.title}
                                       contentUrl = {step.contentUrl}/>
                                 <Separator />
                             </React.Fragment>)

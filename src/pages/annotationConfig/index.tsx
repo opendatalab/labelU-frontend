@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import Annotation from '../../components/business/annotation';
 import AnnotationOperation from '@label-u/components';
 import './index.less';
-// import { fileList as mockFileList, videoList } from '../../mock/annotationMock';
 import YamlConfig from './yamlConfig';
 import { shallowEqual, useSelector } from 'react-redux';
 import { ToolsConfigState } from 'interface/toolConfig';
@@ -181,15 +180,6 @@ const AnnotationConfig: FC = () => {
                 <span className="leftSpan">标注预览</span>
               </div>
               <div className='rightContent'>
-                {/*<Annotation*/}
-                {/*  isPreview={true}*/}
-                {/*  attribute={attribute}*/}
-                {/*  tagList={tagList}*/}
-                {/*  fileList={fileList}*/}
-                {/*  textConfig={textConfig}*/}
-                {/*  goBack={goBack}*/}
-                {/*  tools={tools}*/}
-                {/*/>*/}
                 <AnnotationOperation
                     isPreview={ true }
                     attributeList={commonAttributeConfigurable?attribute:[]}

@@ -161,13 +161,7 @@ const TaskList = ()=>{
         </div>
         <div className = {currentStyles.cards}>
             {taskCards.map((cardInfo : any, cardInfoIndex : number)=>{
-                // if (cardInfoIndex%4 === 0) {
-                //     return (<React.Fragment><TaskCard cardInfo = {cardInfo}/>
-                //     <br/></React.Fragment>)
-                // }else{
-                //     return <TaskCard cardInfo = {cardInfo}/>
-                // }
-              return <TaskCard cardInfo = {cardInfo}/>
+              return <TaskCard key={cardInfoIndex} cardInfo = {cardInfo}/>
             })}
         </div>
         <div className = {currentStyles.pagination}>

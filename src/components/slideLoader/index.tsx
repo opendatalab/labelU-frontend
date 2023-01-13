@@ -82,7 +82,6 @@ const SlideLoader = ()=>{
         })
     }
     const lazyLoading = (e : any)=>{
-        let self = this;
         let scrollHeight = e.target.scrollHeight;
         let scrollTop = e.target.scrollTop;
         let clientHeight = e.target.clientHeight;

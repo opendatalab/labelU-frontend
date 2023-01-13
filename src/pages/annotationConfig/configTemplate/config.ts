@@ -81,7 +81,7 @@ export const LoadInitConfig: (toolName: string) => Promise<ToolsConfigState> = a
 export const loadImg: (path: string) => Promise<any> = async (path: string) => {
   return new Promise(async (resolve, reject) => {
     const basePath = '../../../img/';
-    let { default: imgSrc } = await import(basePath + path);
+    let { default: imgSrc } = await import(/* @vite-ignore */basePath + path);
     if (imgSrc) {
       resolve(imgSrc);
     } else {
