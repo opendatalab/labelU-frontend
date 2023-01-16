@@ -68,13 +68,13 @@ const CreateTask = (props : any)=>{
             let currentTools = toolsConfig.tools;
             for (let toolIndex = 0; toolIndex < currentTools.length; toolIndex++) {
               let currentConfig = currentTools[toolIndex];
-              if (currentConfig.tool === 'pointTool') {
-                  // @ts-ignore
-                  if (!currentConfig?.config?.upperLimit) {
-                      commonController.notificationErrorMessage({message : '请输入上限点数'},1)
-                      return;
-                  }
-              }
+              // if (currentConfig.tool === 'pointTool') {
+              //     // @ts-ignore
+              //     if (!currentConfig?.config?.upperLimit) {
+              //         commonController.notificationErrorMessage({message : '请输入上限点数'},1)
+              //         return;
+              //     }
+              // }
             }
         }
         let res = await updateTaskConfig(taskId, {
@@ -203,6 +203,7 @@ const CreateTask = (props : any)=>{
   useEffect(()=>{
     let taskId = parseInt(window.location.pathname.split('/')[2]);
     let searchString = window.location.search;
+    // bad name
     let currentStatus = 1;
     if(searchString.indexOf('currentStatus=2') > -1){
         currentStatus = 2;
@@ -216,11 +217,15 @@ const CreateTask = (props : any)=>{
           dispatch(updateTask({data : res.data.data, configStatus : currentStatus }));
           if (res.data.data.config){
             dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
+          } else {
+            // new task, not configured yet
           }
         }else{
           commonController.notificationErrorMessage({message : '请求任务状态不是200'},1)
         }
       }).catch(error=>commonController.notificationErrorMessage(error,1))
+    } else {
+        // new created task
     }
   },[]);
     const [isShowCancelModal, setIsShowCancelModal] = useState(false);
