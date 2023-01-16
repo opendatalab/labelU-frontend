@@ -258,7 +258,6 @@ const AnnotationRightCorner = ()=>{
     },[])
 
     return (<div className={ currentStyles.outerFrame } id = 'rightCorner'>
-        //todo
       {/*<div className={currentStyles.left}*/}
       {/*     id = {'copyPre'}*/}
       {/*     onClick = { commonController.debounce(copyPre, 100) }*/}
