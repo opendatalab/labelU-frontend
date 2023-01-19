@@ -6,9 +6,7 @@ import { BasicConfig, Attribute, OneTag } from 'interface/toolConfig';
 import React, { memo, useEffect, useState } from 'react';
 // import tagConfigList from '../../../config/tagConfigList.json';
 // import attributeList from '../../../config/attributeList.json';
-import { createRef } from 'react'
-
-
+import { createRef } from 'react';
 
 const Annotation = (props: {
   fileList: any;
@@ -19,15 +17,27 @@ const Annotation = (props: {
   textConfig: TextConfig;
   isPreview?: boolean;
   leftSiderContent?: any;
-  topActionContent?:any;
-  onSubmit?:any;
-  exportData?:any;
-  annotationRef ?: any;
-  commonAttributeConfigurable?:boolean;
+  topActionContent?: any;
+  onSubmit?: any;
+  exportData?: any;
+  annotationRef?: any;
+  commonAttributeConfigurable?: boolean;
 }) => {
-  const { fileList, goBack, tools, tagList, attribute, textConfig, isPreview, leftSiderContent, topActionContent,
-  exportData, onSubmit,
-  annotationRef, commonAttributeConfigurable} = props;
+  const {
+    fileList,
+    goBack,
+    tools,
+    tagList,
+    attribute,
+    textConfig,
+    isPreview,
+    leftSiderContent,
+    topActionContent,
+    exportData,
+    onSubmit,
+    annotationRef,
+    commonAttributeConfigurable,
+  } = props;
   // const exportData = (data: any) => {
   // };
   // const onSubmit = (data: any) => {
@@ -41,22 +51,21 @@ const Annotation = (props: {
   // };
   // @ts-ignore
   return (
-    <div style = {{width : '100vw'}}>
+    <div style={{ width: '100vw' }}>
       <AnnotationOperation
-          leftSiderContent = { leftSiderContent }
-          topActionContent = { topActionContent }
-
-        ref = { annotationRef }
-        isPreview = {isPreview}
+        leftSiderContent={leftSiderContent}
+        topActionContent={topActionContent}
+        ref={annotationRef}
+        isPreview={isPreview}
         // exportData={exportData}
         // onSubmit={onSubmit}
         imgList={fileList}
-        attributeList={commonAttributeConfigurable?attribute:[]}
+        attributeList={commonAttributeConfigurable ? attribute : []}
         tagConfigList={tagList}
         toolsBasicConfig={tools}
         textConfig={textConfig}
         isShowOrder={false}
-          // commonAttributeConfigurable ={co}
+        // commonAttributeConfigurable ={co}
       />
     </div>
   );
