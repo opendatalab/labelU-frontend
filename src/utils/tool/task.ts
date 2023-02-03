@@ -3,7 +3,6 @@
 // import { TOOL_NAME } from '@/constant/store';
 // import i18n from '@/i18n';
 // import { TOOL_NAME } from '@label-u/annotation';
-import { IStepInfo } from '@label-u/components/dist/types/types/step.d';
 import { jsonParser } from './common';
 
 export function findAllDependStep(step: number, stepList: any[]) {
@@ -48,7 +47,7 @@ export function reSortStepList(deleteList: number[], stepList: any[]) {
  * @param {number} step
  * @param {IStepConfig[]} stepList
  */
-export function reloadStepListReferenceStep(step: number, stepList: IStepInfo[]) {
+export function reloadStepListReferenceStep(step: number, stepList: any[]) {
   return stepList.map((v) => {
     const config = jsonParser(v?.config);
 

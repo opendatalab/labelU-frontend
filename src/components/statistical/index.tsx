@@ -22,6 +22,7 @@ const Statistical = ()=>{
               // @ts-ignore
               setStatisticalDatas(res.data.data.stats);
               setTaskStatus(res.data.data.status)
+              // @ts-ignore
               dispatch(updateTask({data:res.data.data}));
               dispatch(updateStatus(res.data.data.status));
               if (res.data.data.config){

@@ -89,6 +89,7 @@ const FormEngine: FC<FormEngineProps> = props => {
   const [isShowDelete, setIsShowDelete] = useState(true);
   useEffect(()=>{
     if (!taskStatus) {
+      // @ts-ignore
       dispatch(updateStatus('IMPORTED'));
       setIsShowDelete(true);
     }else{

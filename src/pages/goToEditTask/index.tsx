@@ -18,6 +18,7 @@ const GoToEditTask = (props : any)=>{
 
       getTask(taskId).then((res:any)=>{
         if (res.status === 200) {
+          // @ts-ignore
           dispatch(updateTask({data:res.data.data}));
           if (res.data.data.config){
             dispatch(updateAllConfig(JSON.parse(res.data.data.config)));
