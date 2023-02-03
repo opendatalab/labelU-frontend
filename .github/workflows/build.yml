@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: |
         npm install --legacy-peer-deps
-        CI=false npm run build --prefix=./frontend --if-present
+        CI=false && npm run build
