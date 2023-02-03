@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import './polyfills'
@@ -9,6 +10,8 @@ import './styles/index.less';
 // import './mock';
 import 'antd/dist/antd.css';
 // import 'virtual:svg-icons-register';
+
+window.React = React;
 
 ReactDOM.render(
   <Provider store={store}>
