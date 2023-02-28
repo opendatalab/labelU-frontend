@@ -1,3 +1,13 @@
+<div align="center">
+<article style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <p align="center"><img width="300" src="https://user-images.githubusercontent.com/25022954/209616423-9ab056be-5d62-4eeb-b91d-3b20f64cfcf8.svg" /></p>
+    <h1 style="width: 100%; text-align: center;"></h1>
+    <p align="center">
+        <a href="./README_zh-CN.md" >简体中文</a>  | English
+    </p>
+</article>
+</div>
+
 # Development Guide
 
 ## Setup development environment
